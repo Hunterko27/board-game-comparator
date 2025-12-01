@@ -1,0 +1,987 @@
+<!DOCTYPE html><html lang="cs" class="wf-active no-js" style="--lbxvh: 6px;"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+	<script async="" src="https://embed.tawk.to/5a65e5c14b401e45400c48f9/default" charset="UTF-8" crossorigin="*"></script><script type="text/x-template" id="template-recommend-basket"><div v-if="items && items.length > 0" class="lb-recommend lb-recommend--grid hp-products__wrap">
+    <div class="hp-h2">
+		<h2 class="lb-recommend__title--custom">Oblíbené</h2>
+	</div>
+	<lbx-carousel>
+      <div>
+        <recommend-item :is="component" v-for="item in items" :key="name.concat('-').concat(item.url)" :item="item"></recommend-item>
+      </div>
+    </lbx-carousel>
+</div></script><style type="text/css">.lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-text-color-primary-clickable { color: #00abb6 !important } .lb-recommend-item__description { color: #000000 !important; } .lb-recommend-item__price { color: #000000 !important; } .lb-recommend-header-primary { color: #000000 !important } .lb-search-bg-color-primary-clickable { color: #ffffff !important } .lb-search-bg-color-primary-clickable:hover { background-color: #018c95 !important } .lb-search-bg-color-primary-clickable:hover { color: #ffffff !important } .lb-search-text-color-primary-clickable:hover { color: #255B76 !important } .products__item.lb-result.lb-result--default.lb-recommend { width: 100%; padding: 0 20px; }</style><script type="text/x-template" id="template-recommend-trends"><div v-if="items && items.length > 0" class="lb-recommend lb-recommend--grid hp-products__wrap">
+    <div class="hp-h2">
+		<h2 class="lb-recommend__title--custom">Oblíbené</h2>
+	</div>
+      <div class="lb-recommend-items lb-recommend--grid">
+        <recommend-item :is="component" v-for="item in items" :key="name.concat('-').concat(item.url)" :item="item"></recommend-item>
+    </div>
+</div></script><style type="text/css">.lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-text-color-primary-clickable { color: #00abb6 !important } .lb-recommend-item__description { color: #000000 !important; } .lb-recommend-item__price { color: #000000 !important; } .lb-recommend-header-primary { color: #000000 !important } .lb-search-bg-color-primary-clickable { color: #ffffff !important } .lb-search-bg-color-primary-clickable:hover { background-color: #018c95 !important } .lb-search-bg-color-primary-clickable:hover { color: #ffffff !important } .lb-search-text-color-primary-clickable:hover { color: #255B76 !important }</style><script type="text/x-template" id="template-recommend-item_detail_alternatives"><div v-if="items && items.length > 0" class="lb-recommend lb-recommend--grid hp-products__wrap">
+    <div class="hp-h2">
+		<h2 class="lb-recommend__title--custom">Podobné</h2>
+	</div>
+      <div class="lb-recommend-items lb-recommend--grid">
+        <recommend-item :is="component" v-for="item in items" :key="name.concat('-').concat(item.url)" :item="item"></recommend-item>
+    </div>
+</div></script><style type="text/css">.lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-text-color-primary-clickable { color: #00abb6 !important } .lb-recommend-item__description { color: #000000 !important; } .lb-recommend-item__price { color: #000000 !important; } .lb-recommend-header-primary { color: #000000 !important } .lb-search-bg-color-primary-clickable { color: #ffffff !important } .lb-search-bg-color-primary-clickable:hover { background-color: #018c95 !important } .lb-search-bg-color-primary-clickable:hover { color: #ffffff !important } .lb-search-text-color-primary-clickable:hover { color: #255B76 !important }</style><script type="text/x-template" id="template-recommend-basket_popup"><div v-if="items && items.length > 0" class="lb-recommend lb-recommend--grid hp-products__wrap">
+    <div class="hp-h2">
+		<h2 class="lb-recommend__title--custom">Doporučené</h2>
+	</div>
+      <div class="lb-recommend-items lb-recommend--grid">
+        <recommend-item :is="component" v-for="item in items" :key="name.concat('-').concat(item.url)" :item="item"></recommend-item>
+    </div>
+</div></script><style type="text/css">.lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-bg-color-primary-clickable { background-color: #018c95 !important; } .lb-search-text-color-primary-clickable { color: #00abb6 !important } .lb-recommend-item__description { color: #000000 !important; } .lb-recommend-item__price { color: #000000 !important; } .lb-recommend-header-primary { color: #000000 !important } .lb-search-bg-color-primary-clickable { color: #ffffff !important } .lb-search-bg-color-primary-clickable:hover { background-color: #018c95 !important } .lb-search-bg-color-primary-clickable:hover { color: #ffffff !important } .lb-search-text-color-primary-clickable:hover { color: #255B76 !important } .mci__product__wrapper .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { width: 100%; } @media screen and (min-width: 550px) { .mci__product__wrapper .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { width: 50% !important; } }</style><style type="text/css">.luigi-ac-highlight { color: #0a004a !important } .luigi-ac-highlight { background-color: #c2dccf !important } .luigi-ac-active,.luigi-ac-item:focus,.luigi-ac-item:hover { background-color: #e1eae7 !important } .luigi-ac-hero-color,.luigi-ac-button { background: #1bc089 !important } .luigi-ac-hero-color-clickable:hover,.luigi-ac-query .luigi-ac-hero-color-clickable:hover,.luigi-ac-button:hover { background: #008f5c !important } .luigi-ac-header,.luigi-ac-no-result { color: #000000 !important } .luigi-ac-others { background: #f2f9f6 !important } .luigi-ac-main .luigi-ac-name,.luigi-ac-main .luigi-ac-title { color: #000000 !important } .luigi-ac-other-content,.luigi-ac-others .luigi-ac-title { color: #000000 !important } .luigi-ac-query .luigi-ac-other-content,.luigi-ac-hero-color-clickable,.luigi-ac-button { color: #f9fcfa !important } .main-product-search-autocomplete { display: none !important; } .luigi-ac-inner { overflow: hidden; } .luigi-ac-inner .luigi-ac-others .luigi-ac-header { text-transform: uppercase; font-weight: 600; } .luigi-ac-inner .luigi-ac-products.luigi-ac-main .luigi-ac-header.luigi-ac-header--product { text-transform: uppercase; font-weight: 600; } .luigi-ac-inner .luigi-ac-products.luigi-ac-main .luigi-ac-button.luigi-ac-hero-color-clickable.luigi-ac-button-heromobile.luigi-ac-hero-color { padding: 10px 20px; font-size: 18px; font-weight: 600; line-height: 25.7px; transition: background-position .25s linear; text-decoration: none; color: #fff; border: 0 none; border-radius: 4px; background-image: linear-gradient(180deg,#1bc089,#01a66f) !important; } .luigi-ac-inner .luigi-ac-products.luigi-ac-main .luigi-ac-button.luigi-ac-hero-color-clickable.luigi-ac-button-heromobile.luigi-ac-hero-color:hover { background-image: linear-gradient(180deg,#1b936b,#007850) !important; }</style><style id="lbx-global-init-styles" type="text/css">.lb-recommend { font-family: inherit !important; } .lb-recommend .lb-recommend__title--custom { color: #1b936b; font-size: 25px; } @media (min-width: 700px) { .lb-recommend .lb-recommend__title--custom { padding-left: 70px; position: relative; } } @media (min-width: 1050px) { .lb-recommend .lb-recommend__title--custom { color: black; font-size: 35px; line-height: 47px; } } .lb-recommend .lb-recommend__title--custom:before { background-position: -536px -353px; width: 54px; height: 53px; } @media (min-width: 700px) { .lb-recommend .lb-recommend__title--custom:before { background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='53' height='52' viewBox='0 0 53 52' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3EGroup@1x%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M49.395 30.443c2.99 5.11 1.6 8.29-4.19 9.53.47 5.91-2.17 8.16-7.92 6.78-2.13 5.52-5.49 6.41-10.08 2.66-4.31 4.05-7.72 3.4-10.23-1.97-5.65 1.78-8.43-.29-8.36-6.21-5.86-.85-7.48-3.92-4.84-9.23-4.91-3.3-5.03-6.78-.36-10.41-2.99-5.11-1.59-8.29 4.2-9.54-.48-5.9 2.16-8.16 7.92-6.77 2.13-5.52 5.48-6.41 10.07-2.67 4.32-4.05 7.73-3.39 10.23 1.97 5.65-1.77 8.44.3 8.37 6.22 5.86.85 7.47 3.92 4.84 9.22 4.91 3.31 5.03 6.78.35 10.42z' fill='%23FEDC24'/%3E%3Cpath d='M21.812 20.31h-7.323a2.34 2.34 0 0 0-2.338 2.338V36.64a2.34 2.34 0 0 0 2.338 2.337h7.323a2.34 2.34 0 0 0 2.339-2.337V22.648a2.341 2.341 0 0 0-2.339-2.337zm22.038 3.405c0-2.118-2.842-3.404-4.089-3.404h-5.618c.953-4.154-.199-6.524-1.01-7.596-.802-1.06-1.909-1.694-2.961-1.694-.817 0-1.521.386-1.924 1.062a.673.673 0 0 0-.095.342v3.582c-.806 2.328-1.594 4.148-2.666 5.526v15.972c.252.084.494.142.693.142h12.303c.578 0 1.141-.302 1.638-.866.688-.789 1.148-2.005 1.166-3.002.997-.75 1.472-2.118 1.384-4 1.073-1.115 1.006-2.698.657-3.675.439-.627.521-1.69.521-2.39z' fill='%23FFF'/%3E%3C/g%3E%3C/svg%3E") no-repeat center,linear-gradient(transparent,transparent); } } .lb-recommend .lb-recommend-items { padding-top: 30px; } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { position: relative; padding: 20px; margin-bottom: 40px; width: 100%; } @media screen and (min-width: 550px) { .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { width: 50%; } } @media screen and (min-width: 750px) { .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { width: 33.33333%; } } @media screen and (min-width: 1050px) { .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container { width: 25%; } } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container a { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 5; } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container a:hover { text-decoration: none; color: #000; } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container:hover { background-color: #f7f7f1; box-shadow: inset 0 0 6px rgba(0,0,0,0.17); } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container:after { display: none; } .lb-recommend .lb-recommend-items .products__item.lb-result.lb-result--default.js__product-list-item-container:hover .product-box__title { color: black !important; }</style><meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <title>Vyhledávání "" | Planeta Her</title>
+
+	  <meta http-equiv="Content-Language" content="cs">
+		<meta name="seznam-wmt" content="6ruZw4XyULIKgaRiXdFn1gD6lOTCgelh">
+
+	<style>
+		
+		html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}html.wf-active{font-family:"Open Sans",Arial,sans-serif}body{margin:0}aside,header,section{display:block}a{background-color:transparent}strong{font-weight:700}img{border:0}button,input{color:inherit;font:inherit;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}li,ul{padding:0}li,ul{margin:0;list-style-type:none}body{overflow:auto;font-family:Arial,serif;font-size:16px;line-height:22px}html.wf-active body{font-family:"Open Sans",Arial,sans-serif}h2,h3{font-family:Arial,serif}html.wf-active h2,html.wf-active h3{font-family:"Open Sans",Arial,sans-serif}.clear:after{display:table;clear:both;content:""}a{text-decoration:underline;color:#1b936b}img{max-width:100%;height:auto}img.unveil{opacity:0}.account__wrap,.breadcrumb,.footer__copy,.footer__nav,.footer__newsletter__w,.header__banner,.header__nav,.header__nav>li .hover-panel__wrap,.header__top-section,.hp-activity__wrap,.hp-benefits__wrap,.hp-products__wrap,.hp-recent__wrap,.hp-wp__wrap,.or__wrap,.order,.os-products .order__delivery-payment,.os-products .ou-logged,.os-products__wrap,.os__wrap,.p-description__wrap,.p-detail__wrap,.p-discussion__wrap,.p-rating__wrap,.p-related__wrap,.products__desc,.report-game,.reset-pwd__wrap,.textPages,.tp__wrap,.voucher__wrap{padding-right:10px;padding-left:10px}@media all and (min-width:1380px){.account__wrap,.breadcrumb,.footer__copy,.footer__nav,.footer__newsletter__w,.header__banner,.header__nav,.header__nav>li .hover-panel__wrap,.header__top-section,.hp-activity__wrap,.hp-benefits__wrap,.hp-products__wrap,.hp-recent__wrap,.hp-wp__wrap,.or__wrap,.order,.os-products .order__delivery-payment,.os-products .ou-logged,.os-products__wrap,.os__wrap,.p-description__wrap,.p-detail__wrap,.p-discussion__wrap,.p-rating__wrap,.p-related__wrap,.products__desc,.report-game,.reset-pwd__wrap,.textPages,.tp__wrap,.voucher__wrap{max-width:1380px;margin-right:auto;margin-left:auto;padding-right:0;padding-left:0}}.off-canvas-wrap{position:relative;width:100%;padding-top:51px;-webkit-backface-visibility:auto}@media all and (min-width:1250px){.off-canvas-wrap{position:static;overflow:visible;width:auto;padding-top:0}}input[type=text]{border:0 none;border-radius:0;box-shadow:none;-webkit-appearance:none}.small-clear{display:none}@media all and (min-width:700px) and (max-width:1049px){.small-clear{display:block}}@media all and (min-width:1250px){body .inner-wrap,body .inner-wrap .cwrap{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}body .inner-wrap .cwrap{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;width:100%;min-height:100vh}body .inner-wrap .cwrap2{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1}}.header__banner,.header__nav,.header__nav>li .hover-panel__wrap,.header__top-section,.hp-benefits__wrap,.hp-products__wrap{padding-right:10px;padding-left:10px}@media all and (min-width:1380px){.header__banner,.header__nav,.header__nav>li .hover-panel__wrap,.header__top-section,.hp-benefits__wrap,.hp-products__wrap{max-width:1380px;margin-right:auto;margin-left:auto;padding-right:0;padding-left:0}}.header__banner-nav:after{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAlCAYAAACd4bMaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxRkZGRkZCNzI4QUExMUU1QkY4OEZCRjc4RkU2MDVFMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxRkZGRkZCODI4QUExMUU1QkY4OEZCRjc4RkU2MDVFMyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFGRkZGRkI1MjhBQTExRTVCRjg4RkJGNzhGRTYwNUUzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFGRkZGRkI2MjhBQTExRTVCRjg4RkJGNzhGRTYwNUUzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+XRdrqgAAAK5JREFUeNqkldEKwzAIRfXu//94LE2hjjKSJvdMENqHg/ZQNSNCPV89W893GKErz/iEGSeY13Mz2bxXdWHRlrPgRlqub7ZFlWTBqknhrycRUf/A9U800ZbvL5ao8iRY1YJzNEAiolx4OAMiohx4OrYiohw4ZmMrImoHztV+ExG1gnNnJYuIWsFbW1VE1BO8fQhERD3BS1Ez2Do/IqJGsH0xRUSN4G1RvzC604cAAwBH9TRKfVU8mgAAAABJRU5ErkJggg==) 0 0 repeat}.header__cart__to-basket,.hp-products__link{display:block;padding:10px 20px;font-size:18px;font-weight:600;line-height:25.7px;text-decoration:none;color:#fff;border:0 none;border-radius:4px;background-image:-webkit-linear-gradient(top,#1bc089,#01a66f);background-image:linear-gradient(180deg,#1bc089,#01a66f);background-size:200%}.header__nav__w ul li{display:block;background-color:#f3f3f3;border:1px solid #e9e9e9;border-bottom:0 none;line-height:40px;position:relative;padding:0}.header__nav__w ul li ul{margin:0;padding:0}.header__nav__w ul li a,.header__nav__w ul li h3{padding-left:13px;text-decoration:none}.header__nav__w ul li:last-child{border-bottom:1px solid #e9e9e9}.header__nav__w ul li:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);position:absolute;top:10px;right:10px;width:16px!important;height:16px!important;background-position:0 0;background-repeat:no-repeat;background-size:20px 20px!important;content:""}.header__nav__w ul li.no-sub a{display:block}.header__nav__w ul li.no-sub:after{-webkit-transform:rotate(-135deg);transform:rotate(-135deg)}.header__nav__w ul>li .hover-panel{display:none}.header__nav__w ul>li .hover-panel__wrap>ul li{border-left:0;border-right:0}.header__nav__w ul>li .hover-panel__wrap>ul>li>h3{padding-left:26px}.header__nav__w ul>li .hover-panel__wrap>ul>li>ul{display:none}.header__nav__w ul>li .hover-panel__wrap>ul>li>ul>li a{padding-left:36px}.header__nav__w ul>li .hover-panel__wrap>ul>li:last-child{border-bottom:0 none}.header__currency,.header__top-section__w .header__branches,.header__top-section__w .header__top-menu,.header__top-section__w .header__user{line-height:39px}.header__currency a,.header__currency a:visited,.header__top-section__w .header__branches a,.header__top-section__w .header__branches a:visited,.header__top-section__w .header__top-menu a,.header__top-section__w .header__top-menu a:visited,.header__top-section__w .header__user a,.header__top-section__w .header__user a:visited{color:#1b936b}.hp-h2{position:relative;margin:10px 0 20px}.hp-h2 h2{color:#000;font-size:25px;font-weight:600;line-height:34px;position:relative;background-color:#fff;padding-right:20px;z-index:4;display:inline-block;margin:0}.hp-h2:after{position:absolute;top:50%;margin-top:-1px;left:0;right:0;border:2px solid #d4d4d4;content:""}*,:after,:before{box-sizing:border-box}.header__top-section ul li{display:inline-block;font-size:12px;line-height:18px;position:relative;padding-right:20px}@media all and (min-width:1250px){.header__top-section ul li{font-size:12px;padding-right:15px}}@media all and (min-width:1380px){.header__top-section ul li{font-size:13px;padding-right:20px}}.header__top-section ul li:last-child{padding-right:0}.header__top-section ul li:after{position:absolute;top:0;right:4px;content:"|"}.header__top-section ul li:last-child:after{display:none}.header__top-section ul li.no-sep{padding-right:5px}.header__top-section ul li.no-sep:after{display:none}.header__top-section__w{background-color:#e8e7df;height:39px;display:none;color:#737164}@media all and (min-width:1250px){.header__top-section__w{display:block}}.header__top-section__w .header__top-menu{float:left}@media all and (min-width:1250px){.header__currency{float:right;margin-right:15px}}.header__top-section__w .header__user{float:right}.header__top-section__w .header__user li:last-child{padding-right:0}@media all and (min-width:1250px){.header__banner-nav{position:relative}.header__banner-nav:after{position:absolute;top:0;left:0;right:0;bottom:0;content:"";z-index:11}}.header__banner{height:50px;background-color:#e8e7df;border-bottom:1px solid #e9e9e9;position:fixed;top:0;left:0;right:0;z-index:13}.header__banner__menu-toggler{display:block;float:left;height:30px;width:30px;margin:10px 0;position:relative;text-indent:-9999px}.header__banner__menu-toggler:before{position:absolute;top:0;left:0;content:""}.header__banner__logo{height:40px;margin:0 50px;text-align:center;position:absolute;left:50%;margin-left:-100px;width:200px}.header__banner__logo__link{margin-top:5px;display:inline-block;height:40px}.header__banner__logo__link img{max-height:100%;width:auto}@media all and (min-width:1250px){.header__banner{background-color:transparent;border-bottom:0 none;height:150px;position:relative;top:auto;left:auto;right:auto}.header__banner__menu-toggler{display:none}.header__banner__logo{float:left;margin:36px 0 0;position:relative;width:286px;height:60px;margin-left:0;left:auto}.header__banner__logo__link{margin-top:19px}}@media all and (min-width:1380px){.header__banner__logo__link{margin-top:5px;height:auto}}.header__nav__w{background:#737164}.header__nav__w ul{padding-left:0;padding-right:0}.header__nav__w ul li{background-color:#737164;border:1px solid #5b594d;border-bottom:0 none}.header__nav__w ul li a,.header__nav__w ul li h3{color:#e4e3da;font-size:16px;font-weight:400;margin:0;line-height:40px}.header__nav__w ul li:last-child{border-bottom:1px solid #5b594d}.header__nav__w ul li.no-link{padding-left:13px}@media all and (max-width:1249px){.header__nav__w .header__branches,.header__nav__w .header__currency,.header__nav__w .header__top-menu,.header__nav__w .header__user{margin-top:40px}.header__nav__w ul.header__currency li a{color:#e4e3da}.header__nav__w ul.header__currency li.no-link{color:#000}.header__nav__w .header__search{display:block}.header__nav__w .header__search__form{margin:10px 5px;float:none;width:auto}.header__nav__w .header__search__form input[type=text]{float:none;width:90%}.header__nav__w .header__search__form button{float:none;position:absolute;top:4px;right:4px}}.header__nav{margin:0 auto}.header__nav>li .hover-panel__wrap{padding-left:0;padding-right:0;max-width:1100px}@media all and (min-width:1250px){.header__nav__w{display:block;height:82px;border-bottom:1px solid #a5a4a4;position:static;overflow-x:visible;overflow-y:visible;top:auto;bottom:auto;width:auto;z-index:auto;left:auto;-webkit-transform:none;transform:none;position:relative}.header__nav__w .mob-nav{display:none!important}.header__nav__w:before{background-color:#fedc24;background-image:-webkit-linear-gradient(top,rgba(109,94,22,.19),hsla(0,0%,100%,.19) 25%);background-image:linear-gradient(180deg,rgba(109,94,22,.19),hsla(0,0%,100%,.19) 25%);position:absolute;top:0;left:0;height:82px;right:0;content:""}.header__nav__w2{z-index:12;position:relative}ul.header__nav{display:block;text-align:center;padding-left:0;padding-right:0;white-space:nowrap}ul.header__nav>li{position:static;display:inline-block;line-height:82px;padding-left:18px;padding-right:18px;background-color:transparent;border:0 none!important}ul.header__nav>li>a{color:#000;font-size:20px;font-weight:600;line-height:82px;height:82px;display:inline-block;text-decoration:none;text-transform:uppercase;padding-left:0;position:relative}ul.header__nav>li>a:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);position:absolute;right:10px;background-position:0 0;background-repeat:no-repeat;content:"";left:50%;margin-left:-10px;bottom:7px;width:20px;height:20px;background-size:24px 24px}ul.header__nav>li>.hover-panel{display:block;box-shadow:0 3px 10px rgba(0,0,0,.27);background-color:rgba(255,250,224,.97);background-image:-webkit-linear-gradient(top,hsla(0,0%,100%,.79),hsla(0,0%,100%,0));background-image:linear-gradient(180deg,hsla(0,0%,100%,.79),hsla(0,0%,100%,0));position:absolute;padding:0 15px 30px;left:-99999px;right:99999px;top:-99999px;opacity:.5}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul{display:block}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul li{background:none transparent;display:block;padding:0;margin:0;border:0 none;text-align:left}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul li a{color:#181818;font-size:16px;line-height:26px;display:block;text-align:left}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul li a:after,ul.header__nav>li>.hover-panel .hover-panel__wrap>ul li:after{display:none}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li{width:25%;float:left;margin:0;padding:0}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li>ul{display:block}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li h3{color:#000;font-size:20px;font-weight:600;line-height:27px;margin:0;padding:25px 0 11px}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li ul li a{padding-left:28px;position:relative;display:block}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li ul li a:before{position:absolute;left:-6px;top:0;content:""}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul>li ul.h3-no-sub{padding-top:40px}ul.header__nav>li>.hover-panel .hover-panel__wrap>ul:after{display:table;clear:both;content:""}ul.header__nav>li:first-child{margin-left:0}ul.header__nav>li:after{display:none}}@media all and (min-width:1380px){ul.header__nav>li>.hover-panel{padding-left:0;padding-right:0}}@media all and (max-width:1249px){.left-off-canvas-menu{-webkit-backface-visibility:hidden;width:100%;top:0;bottom:0;position:fixed;z-index:30;box-sizing:content-box;left:-100%;margin-top:51px}}.header__cart__icon{display:block;float:right;margin:8px 0;position:relative;width:35px;height:38px}@media all and (min-width:1250px){.header__cart__icon{width:48px;height:50px}}.header__cart__icon .text{text-indent:-9999px;display:none;position:absolute;top:-9999px}.header__cart__goods-count{padding:0 7px;background-color:#9e1728;border-radius:5px;color:#fff;font-size:12px;font-weight:700;line-height:17px;position:absolute;bottom:0;left:-5px}.header__cart__goods{display:none}.header__cart__text{display:none;width:130px;text-align:right;font-size:16px;line-height:22px;float:right;position:relative}.header__cart__text .price{font-size:22px;line-height:30px;font-weight:600;margin:10px 0 0;white-space:nowrap}.header__cart__text .delivery{font-size:14px;white-space:nowrap;position:absolute;top:40px;right:0}.header__cart__to-basket{display:inline-block;position:relative;z-index:15}.header__cart__to-basket__wrap{text-align:center;margin-top:15px}.header__cart__link{position:absolute;text-indent:-9999px;left:-5px;right:-5px;top:-8px;bottom:-4px;z-index:9}@media all and (min-width:1250px){.header__cart{float:right;margin-top:35px}.header__cart,.header__cart__wrap{width:220px;height:81px;position:relative}.header__cart__wrap{border-radius:2px;background-color:#fff;border:1px solid #e7e7e7;padding:5px 12px 12px}.header__cart__wrap:after{display:table;clear:both;content:""}.header__cart__icon{float:left;margin-left:10px}.header__cart__goods-count{padding:2px 10px;left:0;font-size:14px}.header__cart__text{display:block}.header__cart__goods{position:absolute;top:100%;margin-top:-4px;right:-3px;width:400px;padding:20px 40px;z-index:13;background-color:#fff;border:4px solid #c3c3c3;border-radius:4px}.header__cart__goods__link{position:absolute;top:0;left:0;right:0;bottom:0;text-indent:-99999px;z-index:14}.header__cart__good{height:55px;padding-bottom:10px;border-bottom:1px solid #d4d4d4;margin-bottom:10px}.header__cart__good .img,.header__cart__good .name{position:relative;z-index:15}.header__cart__good .amount{position:relative;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);float:left;width:35px;margin-right:2px;color:#181818;font-size:16px;line-height:20px}.header__cart__good .img{float:left;max-height:45px;max-width:45px;margin-right:10px}.header__cart__good .img img{max-height:45px;width:auto}.header__cart__good .name{position:relative;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);float:left;color:#181818;font-size:16px;font-weight:600;line-height:20px;width:153px;max-height:40px;overflow:hidden}.header__cart__good .name a{color:#181818;text-decoration:none}.header__cart__good .price{position:relative;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);float:right;text-align:right;color:#1bc089;font-size:16px;font-weight:600;line-height:20px;width:65px;white-space:nowrap}.header__cart__good:after{display:table;clear:both;content:""}.header__cart__price{margin:10px 0}.header__cart__price .text{color:#181818;font-size:14px;font-weight:400;line-height:27px;float:left;width:220px}.header__cart__price .price{color:#181818;font-size:16px;font-weight:600;line-height:26px;float:right;width:90px;text-align:right}.header__cart__price:after{display:table;clear:both;content:""}.header__cart__price--total .text{font-weight:600;line-height:29px}.header__cart__price--total .price{font-size:19px;font-weight:600;line-height:26px}.header__cart__free-delivery{border-top:1px solid #d4d4d4;padding-top:15px;color:#181818;font-size:13px;line-height:17px;font-weight:300;text-align:center}.header__cart__free-delivery strong{font-weight:600}.header__cart__free-delivery span{color:#9e1728;font-weight:600}.header__cart__link{left:-23px;top:-14px;bottom:-17px;right:-149px}}.header__search{display:none}.header__search input{border-radius:5px 0 0 5px;width:225px;height:50px;background-color:#fcfcfc;float:left;border:0 none;margin:0;padding:0 10px;font-size:18px;font-weight:600;line-height:24px;color:#000}.header__search input::-webkit-input-placeholder{color:#9b9b9b}.header__search input:-moz-placeholder,.header__search input::-moz-placeholder{color:#9b9b9b}.header__search input:-ms-input-placeholder{color:#9b9b9b}.header__search button{background-color:transparent;width:50px;height:50px;padding:0;margin:0;border-radius:0 5px 5px 0;float:right;border:0 none;text-indent:-9999px;position:relative;z-index:10}.header__search__form{border-radius:5px;background-color:#c3c3c3;padding:4px;float:left;width:283px;margin:47px 0 0 -35px;position:relative}@media screen and (min-width:1150px){.header__search__form{margin-left:25px}}.header__search__form:before{position:absolute;top:4px;right:4px;width:50px;height:50px;background-color:#00ba7c;background-image:-webkit-linear-gradient(top,hsla(0,0%,100%,.11),rgba(0,0,0,.11));background-image:linear-gradient(180deg,hsla(0,0%,100%,.11),rgba(0,0,0,.11));border-radius:0 5px 5px 0;content:"";z-index:4}.header__search__form:after{background-color:#00ba7c;position:absolute;top:15px;right:15px;z-index:9;content:""}.header__search__extend{display:none}@media all and (min-width:1250px){.header__search{display:block}.header__search__extend{display:block;float:left;width:170px;position:relative;margin:114px 0 0 -268px;font-size:12px}}@media all and (min-width:1380px){.header__search input{width:285px}.header__search__form{width:343px;margin:47px 0 0 55px}}.header__contact{display:none;position:absolute;text-align:right;right:250px;top:50px;padding-right:60px}.header__contact strong{font-size:22px;font-weight:700;line-height:30px;display:block}.header__contact span{font-size:14px;font-weight:400;line-height:19px;display:block}.header__contact:after{position:absolute;top:5px;right:0;content:""}@media all and (min-width:1250px){.header__contact{display:block}}@media all and (min-width:1380px){.header__contact{top:50px;left:auto;margin-left:auto;right:260px}}.header__top-section__w .header__branches{float:left;margin-left:20px}@media all and (min-width:1380px){.header__top-section__w .header__branches{margin-left:40px}}.header__top-section__w .header__branches li.branch a{position:relative;display:inline-block;padding-left:15px}.header__top-section__w .header__branches li.branch a:before{position:absolute;top:1px;left:0;content:""}.products__item,.products__list{margin:0;padding:0;list-style-type:none;display:block}.products__item:after{display:table;clear:both;content:""}.products__list{background-color:#fff;padding-top:30px}.products__list:after{display:table;clear:both;content:""}.product-box{float:left;padding:30px 20px;position:relative;width:100%;margin-bottom:20px}.product-box>a{position:absolute;top:0;left:0;right:0;bottom:0;z-index:4}.product-box__title{color:#1b936b;font-size:18px;font-weight:700;line-height:24px;margin-bottom:15px;height:48px;text-align:center}.product-box__title>div{position:relative;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.product-box__image__wrap{position:relative;text-align:center;margin-left:auto;margin-right:auto;max-width:250px;height:210px}.product-box__image__wrap img{position:relative;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);max-width:100%;height:auto;border:2px solid #fff;border-radius:2px}.product-box__image__wrap:after,.product-box__image__wrap:before{opacity:0}.product-box__tag{position:relative;margin-bottom:4px;text-align:left}.product-box__tag span{font-size:13px;font-weight:700;text-transform:uppercase;color:#fff;padding:0 5px 0 8px;display:inline-block;background-color:#b40700;position:relative;height:22px}.product-box__tag span:after,.product-box__tag span:before{position:absolute;top:0;right:-10px;width:0;height:0;border-style:solid;border-width:11px 10px 0 0;border-color:#b40700 transparent transparent;content:""}.product-box__tag span:after{top:auto;bottom:0;border-width:11px 0 0 10px;border-color:transparent transparent transparent #b40700}.product-box__tag__wrap{position:absolute;top:10px;left:-20px}.product-box__attributes{float:left;width:68%}.product-box__attribute{float:left;width:22%;text-align:center;padding-top:35px;position:relative}.product-box__attribute .desc{display:block;font-size:14px;font-weight:400;line-height:19px}.product-box__attribute:before{position:absolute;top:0;left:50%;margin-left:-15px;content:""}.product-box__attribute--language .desc{text-transform:uppercase;white-space:nowrap}.product-box__spw{margin:15px 0;height:41px}.product-box__prices{float:right}.product-box__price{font-size:30px;line-height:41px;position:relative;z-index:2;text-shadow:0 0 12px #fff,0 0 12px #fff,0 0 12px #fff}@media (min-width:550px) and (max-width:630px),(min-width:750px) and (max-width:940px),(min-width:1050px) and (max-width:1149px),screen and (max-width:400px){.product-box{padding:30px 0}.product-box__attribute{width:25%}}@media screen and (min-width:550px) and (max-width:749px){.product-box{margin-right:2%;width:49%}.product-box:nth-child(2n+2){margin-right:0}}@media screen and (min-width:750px){.product-box{height:475px}}@media screen and (min-width:750px) and (max-width:1049px){.product-box{margin-right:2%;width:32%}.product-box:nth-child(3n+3){margin-right:0}.product-box__attributes{float:left;width:64%}}@media screen and (min-width:1050px) and (max-width:1399px){.product-box{margin-right:1.25%;width:24%}.product-box:nth-child(4n+4){margin-right:0}}@media screen and (min-width:1150px) and (max-width:1399px){.product-box__attributes{width:66%}}@media screen and (min-width:1230px) and (max-width:1399px){.product-box__attributes{width:69%}}@media screen and (min-width:1400px) and (max-width:1730px){.product-box{margin-right:20px}.product-box:nth-child(4n+4){margin-right:0}}@media all and (min-width:1730px) and (max-width:2079px){.product-box{margin-right:20px}}@media screen and (min-width:1400px){.product-box{width:330px}.product-box__image__wrap{width:250px;height:220px}}@media screen and (min-width:1050px) and (max-width:1149px){.product-box__price{font-size:27px}}@media screen and (min-width:1150px) and (max-width:1300px){.product-box__price{font-size:25px}}.modal-window{display:none}.modal-window__close{font-size:40px;width:40px;height:30px;position:absolute;right:10px;top:10px;z-index:24;color:#d7bf35;display:none;left:auto;width:auto;height:auto;text-decoration:none}.modal-window__content{background-color:#fff3b4;padding:15px;position:relative;z-index:23}.modal-window__content__wrap{position:fixed;top:0;right:0;bottom:0;left:0;-webkit-overflow-scrolling:touch;outline:0;overflow-x:hidden;overflow-y:auto;z-index:22}.modal-window__closer{position:absolute;top:0;left:0;right:0;bottom:0}@media all and (min-width:700px){.modal-window__content{box-shadow:0 0 7px rgba(0,0,0,.5);border-radius:12px;border:1px solid #f0cb00;margin:30px auto;width:550px}.modal-window__close{font-size:40px;width:40px;height:30px;left:50%;margin-left:235px;top:40px}}@media all and (min-width:1050px){.modal-window__content{width:832px}.modal-window__close{margin-left:375px}}.hp-benefits{padding:20px 0 0}.hp-benefits__wrap:after{display:table;clear:both;content:""}a.hp-benefit{padding-left:120px;color:#1bc089;font-size:20px;font-weight:600;line-height:20px;height:50px;margin-bottom:30px;text-decoration:none}a.hp-benefit,a.hp-benefit span{position:relative;display:block}a.hp-benefit span{top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}a.hp-benefit:before{position:absolute;top:0;left:26px;content:""}a.hp-benefit--help:before{left:0}a.hp-benefit--understand:before{left:9.5px}a.hp-benefit--fast{margin-bottom:0}a.hp-benefit--fast:before{left:3.5px}@media screen and (min-width:500px) and (max-width:549px){a.hp-benefit{padding-left:105px}}@media screen and (min-width:500px){.hp-benefits{padding:30px 0 0}.hp-benefits:after{clear:both}a.hp-benefit--discount,a.hp-benefit--help{float:left;width:48%}a.hp-benefit--help{margin-bottom:0}a.hp-benefit--fast,a.hp-benefit--understand{float:right;width:48%}}@media all and (min-width:1050px){.hp-benefits{padding:40px 0 0}a.hp-benefit{margin-bottom:0}a.hp-benefit--discount{padding-left:60px}a.hp-benefit--discount:before{left:0}a.hp-benefit--help{padding-left:120px}a.hp-benefit--help:before{left:0}a.hp-benefit--understand{padding-left:90px}a.hp-benefit--understand:before{left:0}a.hp-benefit--fast{padding-left:90px}a.hp-benefit--fast:before{left:0}a.hp-benefit--discount,a.hp-benefit--help,a.hp-benefit--understand{float:left;width:23.5%;margin-right:2%}a.hp-benefit--fast{float:right;width:23.5%}}.hp-h2{margin:40px 0 20px}.hp-h2 h2{text-transform:uppercase;line-height:47px}.hp-h2 h2 a{color:#1b936b;text-decoration:underline}@media all and (min-width:700px){.hp-h2 h2.news{padding-left:70px;position:relative}}@media all and (min-width:1050px){.hp-h2{margin:40px 0 20px}.hp-h2 h2{font-size:35px;line-height:47px}.hp-h2 h2 a{color:#000;text-decoration:none}}.hp-products .products__item.product-box{height:auto}.hp-products .products__item.product-box .product-box__spw{margin:10px 0 0}.hp-products__link{display:inline-block}.hp-products__link__wrap{text-align:center;margin-top:20px}@media screen and (min-width:750px) and (max-width:1049px){.hp-products__content.products__list li:last-child{display:none}}@media all and (min-width:1380px){.hp-products__link__wrap{margin-top:30px}}@media all and (min-width:1730px){.hp-products__content.products__list li:nth-child(4n+4){margin-right:0}}.hp-products__content.products__list .product-box__attributes{position:absolute;top:96px;left:0;float:none;width:52px;margin-left:10px}.hp-products__content.products__list .product-box__attribute{float:none;display:block;width:100%;margin-right:0;margin-bottom:9px;padding-top:30px}.hp-products__content.products__list .product-box__attribute--language{margin-bottom:0}.hp-products__content.products__list .product-box__image__wrap{margin-right:0;max-width:200px;max-height:200px;margin:25px 0 25px auto}.hp-products__content.products__list .product-box__spw .product-box__prices{float:none;text-align:center}.hp-products__content.products__list .product-box__tag__wrap{left:5px}@media all and (min-width:600px){.hp-products__content.products__list .product-box__image__wrap{height:200px}.hp-products__content.products__list .product-box__image__wrap img{max-height:200px}}@media all and (min-width:750px){.hp-products__content.products__list .product-box{margin-bottom:0}}@media all and (min-width:400px) and (max-width:549px),all and (min-width:720px) and (max-width:749px){.hp-products__content.products__list .product-box__image__wrap{margin-right:0;max-width:250px;max-height:250px;margin:0 auto}}@media all and (min-width:720px) and (max-width:749px){.hp-products__content.products__list .product-box__image__wrap{height:250px}.hp-products__content.products__list .product-box__image__wrap img{max-height:250px}}@media (min-width:1050px) and (max-width:1200px),all and (min-width:550px) and (max-width:600px),all and (min-width:850px) and (max-width:949px){.hp-products__content.products__list .product-box__image__wrap{max-width:170px;max-height:170px;height:170px;margin:40px 5px 40px auto}.hp-products__content.products__list .product-box__image__wrap img{max-height:170px}}@media all and (min-width:750px) and (max-width:850px){.hp-products__content.products__list .product-box__image__wrap{max-width:150px;max-height:150px;height:150px;margin:50px 0 50px auto}.hp-products__content.products__list .product-box__image__wrap img{max-height:150px}}@media all and (min-width:1400px){.hp-products__content.products__list .product-box__image__wrap{max-width:250px;max-height:250px;height:250px;margin:0 0 0 auto}.hp-products__content.products__list .product-box__image__wrap img{max-height:250px}}.cch{display:none}.alert-panel{position:relative;padding:10px}.alert-panel--danger{background:#ff837e;color:#fff}.alert-panel--warning{background:#fce04c}.alert-panel__inner{margin:0 auto;max-width:1380px;text-align:center}.alert-panel__message{position:relative}
+	</style>
+
+	<link rel="dns-prefetch" href="//admin.planetaher.cz">
+	<link rel="dns-prefetch" href="//www.googletagmanager.com">
+
+
+		<script async="" src="//connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-FKNMPZ2M1T&amp;cx=c&amp;gtm=4e5bi1"></script><script async="" src="https://scripts.clarity.ms/0.8.41/clarity.js"></script><script src="https://connect.facebook.net/cs_CZ/sdk.js?hash=77f53b48f15d0807b3870a0136ba627b" async="" crossorigin="anonymous"></script><script id="facebook-jssdk" src="https://connect.facebook.net/cs_CZ/sdk.js"></script><script async="" src="https://www.clarity.ms/tag/qyuliobudw"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MH2XJ2"></script><script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+
+			function getCookie(name) {
+				const nameEquals = name + '=';
+				const cookieArray = document.cookie.split(';');
+
+				for (cookie of cookieArray) {
+					while (cookie.charAt(0) === ' ') {
+						cookie = cookie.slice(1, cookie.length);
+					}
+
+					if (cookie.indexOf(nameEquals) === 0)
+						return decodeURIComponent(
+							cookie.slice(nameEquals.length, cookie.length),
+						);
+				}
+
+				return null;
+			}
+
+			if (getCookie('cc_cookie') === null) {
+				localStorage.removeItem(localStorage.getItem('consentMode'));
+				sessionStorage.removeItem(sessionStorage.getItem('consentMode'));
+				localStorage.clear();
+				sessionStorage.clear();
+
+			}
+
+			const consentMode = localStorage.getItem('consentMode') ?? sessionStorage.getItem('consentMode');
+
+			if (consentMode === null) {
+				gtag('consent', 'default', {
+					'ad_storage': 'denied',
+					'analytics_storage': 'denied',
+					'personalization_storage': 'denied',
+					'functionality_storage': 'denied',
+					'security_storage': 'denied',
+					'ad_user_data': 'denied',
+					'ad_personalization': 'denied',
+					'third_party_storage': 'denied',
+				});
+			} else {
+				gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
+			}
+		</script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			dataLayer.push({"pageType":"ProductList","cid":""});
+		</script>
+			<!-- Google Tag Manager -->
+			<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer', 'GTM-MH2XJ2');</script>
+			<!-- End Google Tag Manager -->
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;display=swap&amp;subset=latin-ext" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css">
+
+	<link rel="stylesheet" href="/css/styles.css?v=1725556800" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="/css/styles.css?v=1725556800">
+	</noscript>
+
+	<link rel="stylesheet" href="/css/icons.css?v=1733579408" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="/css/icons.css?v=1733579408">
+	</noscript>
+
+	<script>
+		!function (t) {
+			"use strict";
+			t.loadCSS || (t.loadCSS = function () {
+			});
+			var e = loadCSS.relpreload = {};
+			if (e.support = function (){var e;try{e = t . document . createElement("link") . relList . supports("preload")}catch(t){e = !1}return function(){return e}}(), e.bindMediaToggle = function (t){var e=t.media || "all";function a(){t . addEventListener?t . removeEventListener("load",a):t . attachEvent && t . detachEvent("onload",a),t . setAttribute("onload",null),t . media = e}t . addEventListener?t . addEventListener("load",a):t . attachEvent && t . attachEvent("onload",a),setTimeout(function(){t . rel = "stylesheet",t . media = "only x"}),setTimeout(a,3e3)}, e.poly = function (){if(!e . support())for(var a = t . document . getElementsByTagName("link"),n = 0;n < a . length;n++){var o = a[n];"preload" !== o . rel || "style" !== o . getAttribute("as") || o . getAttribute("data-loadcss") || (o . setAttribute("data-loadcss",!0),e . bindMediaToggle(o))}}, !e.support()) {e.poly();var a = t . setInterval(e . poly,500);t . addEventListener?t . addEventListener("load",function(){e . poly(),t . clearInterval(a)}):t . attachEvent && t . attachEvent("onload",function(){e . poly(),t . clearInterval(a)})}"undefined" != typeof exports ? exports.loadCSS = loadCSS : t.loadCSS = loadCSS
+		}("undefined" != typeof global ? global : this);
+	</script>
+
+		<!-- Hotjar Tracking Code for planetaher.cz -->
+  <script>
+	var initHotjar = function(h,o,t,j,a,r){
+		h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+		h._hjSettings={hjid:5012960,hjsv:6};
+		a=o.getElementsByTagName('head')[0];
+		r=o.createElement('script');r.async=1;
+		r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+		a.appendChild(r);
+	};
+	var autoInitHotjar = function() {
+		initHotjar(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+	}
+  </script>
+<script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "qyuliobudw");
+</script>
+
+				<noscript>
+					<link rel="stylesheet" type="text/css" href="/css/styles.css?v=1725556800">
+					<link rel="stylesheet" type="text/css" href="/css/icons.css?v=1733579408">
+				</noscript>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=dLnra4aJ3e">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=dLnra4aJ3e">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=dLnra4aJ3e">
+	<link rel="manifest" href="/site.webmanifest?v=dLnra4aJ3e">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=dLnra4aJ3e" color="#01a66f">
+	<link rel="shortcut icon" href="/favicon.ico?v=dLnra4aJ3e">
+	<meta name="msapplication-TileColor" content="#01a66f">
+	<meta name="theme-color" content="#ffffff">
+
+
+
+						<meta property="og:site_name" content="Planetaher">
+						<meta property="og:type" content="product.group">
+						<meta property="og:url" content="https://www.planetaher.cz/vyhledavani">
+
+
+
+<script type="text/javascript">
+  var _mailkit = _mailkit || [];
+  _mailkit.push(['setAPIID', "124808846"]);
+  _mailkit.push(['setDomain', "www.planetaher.cz"]);
+
+</script>
+<script type="text/javascript" async="true" src="//u.mailkit.eu/js/jsapi_v2.js"></script>
+
+
+	<script>var packetaApiKey = "876fa0d0803d50a8"</script>
+<script async="" src="https://scripts.luigisbox.com/LBX-551457.js"></script>
+
+<script src="https://cdn.luigisbox.com/autocomplete.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.luigisbox.com/autocomplete.css"><script src="https://cdn.luigisbox.com/recco.js"></script><script src="https://cdn.luigisbox.com/planetaher-cz-1.js" data-luigisbox-tracker-id="457598-551457"></script><style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0px;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:lucida grande,tahoma,verdana,arial,sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:400;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{0%{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+
+.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0px;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:lucida grande,tahoma,verdana,arial,sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:400;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{0%{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+
+.fb_dialog{background:#525252b3;position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://connect.facebook.net/rsrc.php/v4/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://connect.facebook.net/rsrc.php/v4/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://connect.facebook.net/rsrc.php/v4/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:700;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://connect.facebook.net/rsrc.php/v4/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://connect.facebook.net/rsrc.php/v4/ya/r/3rhSv5V8j3o.gif) #fff no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:#0006;inset:0;min-height:100%;position:absolute;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba),to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:#fff 0 1px 1px -1px inset;color:#fff;font:700 14px Helvetica,sans-serif;text-overflow:ellipsis;text-shadow:rgba(0,30,84,.296875) 0px -1px 0px;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2),to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:700 12px Helvetica,sans-serif;margin:2px -12px;padding:2px 6px 3px;text-shadow:rgba(0,30,84,.296875) 0px -1px 0px}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:700;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://connect.facebook.net/rsrc.php/v4/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4A4A4A;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4A4A4A;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://connect.facebook.net/rsrc.php/v4/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+</style></head>
+<body class="active-svg" data-redraw-base-url="/vyhledavani?do=redraw"><div id="lightningjs-mailkit" style="display: none;"><div><iframe frameborder="0" id="lightningjs-frame-mailkit" nonce="null"></iframe></div></div>
+
+			<!-- Google Tag Manager (noscript) -->
+			<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MH2XJ2"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+			<!-- End Google Tag Manager (noscript) -->
+
+			<script>
+				window.fbAsyncInit = function () {
+					FB.init({
+						appId: "",
+						xfbml: true,
+						version: "v2.2"
+					});
+				};
+
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/cs_CZ/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+		<script>
+			function openModal(modalHref) {
+				if (!modalHref) return;
+
+				setTimeout(function () {
+					$.get(modalHref, {}, function (o) {
+						openModalWindowBasket(o);
+						loadPlaceholder();
+						$('.js-modal-focus').focus();
+					});
+				}, 300);
+			}
+			function addToCartWithModal(productId) {
+				const url = `/?pid=${productId}&do=addToCart`;
+				const modalHref = `/nahled-produktu/${productId}`;
+
+				$.nette.ajax({
+					url: url,
+					success: function () {
+						openModal(modalHref);
+					}
+				});
+			}
+			function openWatchdogModal(productId) {
+				const modalHref = `/watchdog-modal?productId=${productId}`;
+				openModal(modalHref);
+			}
+		</script>
+
+		<div class="inner-wrap off-canvas-wrap" data-offcanvas="">
+			<div class="cwrap">
+				<div class="cwrap2">
+
+					<div class="alert-panel alert-panel--danger">
+						<div class="alert-panel__inner">
+							<span class="alert-panel__message">Naším aktuálním tipem je vtipná rodinná karetní hra  <a href="https://www.planetaher.cz/asterix-a-spol">Asterix a spol. </a></span>
+						</div>
+					</div>
+
+
+						<header class="header">
+							<div class="header__top-section__w">
+								<div class="header__top-section">
+
+	<ul class="header__top-menu">
+		<li class="no-sub">
+			<style>
+				.svg-icon {
+					width: 20px;
+					height: 20px;
+					position: relative;
+					top: 5px;
+					margin-top: -7px;
+					fill: #1b936b;
+				}
+				.svg-icon:hover {
+					fill: #000
+				}
+			</style>
+			<a href="https://www.instagram.com/planetaher.cz/" title="Instagram - Planeta Her" class="gtm-icon-instagram"><svg class="svg-icon" viewBox="0 0 260 260" xml:space="preserve">
+<path d="M164.58,64H95.42C78.1,64,64,78.1,64,95.42v69.16C64,181.9,78.1,196,95.42,196h69.16c17.32,0,31.42-14.1,31.42-31.42V95.42
+	C196,78.1,181.9,64,164.58,64z M130,171.1c-22.66,0-41.1-18.44-41.1-41.1s18.44-41.1,41.1-41.1s41.1,18.44,41.1,41.1
+	S152.66,171.1,130,171.1z M172.22,97.3c-5.3,0-9.6-4.3-9.6-9.61c0-5.3,4.3-9.6,9.6-9.6c5.31,0,9.61,4.3,9.61,9.6
+	C181.83,93,177.53,97.3,172.22,97.3z M130,102.9c-14.94,0-27.1,12.16-27.1,27.1s12.16,27.1,27.1,27.1s27.1-12.16,27.1-27.1
+	S144.94,102.9,130,102.9z M130,2C59.31,2,2,59.31,2,130s57.31,128,128,128s128-57.31,128-128S200.69,2,130,2z M210,164.58
+	c0,25.04-20.38,45.42-45.42,45.42H95.42C70.38,210,50,189.62,50,164.58V95.42C50,70.38,70.38,50,95.42,50h69.16
+	C189.62,50,210,70.38,210,95.42V164.58z"></path>
+</svg></a>
+&nbsp;
+			<a href="https://www.youtube.com/@planetaher" title="Youtube - Planeta Her" class="gtm-icon-youtube"><svg class="svg-icon" viewBox="0 0 20 20">\
+					<path d="M11.603 9.833L9.357 8.785C9.161 8.694 9 8.796 9 9.013v1.974c0 .217.161.319.357.228l2.245-1.048c.197-.092.197-.242.001-.334zM10 .4C4.698.4.4 4.698.4 10s4.298 9.6 9.6 9.6 9.6-4.298 9.6-9.6S15.302.4 10 .4zm0 13.5c-4.914 0-5-.443-5-3.9s.086-3.9 5-3.9 5 .443 5 3.9-.086 3.9-5 3.9z"></path>
+				</svg></a>
+&nbsp;
+			<a href="https://www.facebook.com/PlanetaHer" title="Facebook - Planeta Her" class="gtm-icon-facebook">	<svg class="svg-icon" viewBox="-143 145 512 512">
+	<path d="M113,145c-141.4,0-256,114.6-256,256s114.6,256,256,256s256-114.6,256-256S254.4,145,113,145z M169.5,357.6l-2.9,38.3h-39.3
+		v133H77.7v-133H51.2v-38.3h26.5v-25.7c0-11.3,0.3-28.8,8.5-39.7c8.7-11.5,20.6-19.3,41.1-19.3c33.4,0,47.4,4.8,47.4,4.8l-6.6,39.2
+		c0,0-11-3.2-21.3-3.2c-10.3,0-19.5,3.7-19.5,14v29.9H169.5z"></path>
+	</svg></a>
+		</li>
+		<li class="no-sub">
+			<a href="/vse-o-nakupu" title="Vše o nákupu" class="gtm-eshop-about-shopping">
+				Vše o nákupu
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/bodovy-system" title="Bodový systém" class="gtm-eshop-discount-system">
+				Bodový systém
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/kontakt" title="Prodejna Brno" class="gtm-eshop-contact">
+				Kontakt
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/how-to-order" title="How to order" class="gtm-eshop-how-to-order">
+				How to order in english walktrough
+			</a>
+		</li>
+	</ul>
+
+	<ul class="header__branches">
+		<li class="no-link no-sep">Pobočka:</li>
+		<li class="branch"><a href="/kontakt" title="Prodejna Brno Brno" class="gtm-eshop-contact-brno">Brno</a></li>
+	</ul>
+
+	<div class="header__user--desktop" id="snippet--snHeaderUser">
+			<ul class="header__user">
+			<li class="no-sub sub--login"><a href="/prihlaseni" data-modal-href="/prihlaseni-modal?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Přihlášení" class="js-modal-link gtm-user-login mod-initialized" data-hide-menu="1" rel="“nofollow“">Přihlášení</a></li>
+			<li class="no-sub sub--registration"><a href="/prihlaseni" data-modal-href="/registrace?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Registrace" class="js-modal-link gtm-user-registration mod-initialized" data-hide-menu="1" rel="“nofollow“">Registrace</a></li>
+	</ul>
+
+	</div>
+
+	<ul class="header__currency">
+				<li class="no-sub no-link">CZK</li>
+				<li class="no-sub"><a href="/vyhledavani?currency=EUR&amp;do=changeCurrency" rel="“nofollow“">EUR</a></li>
+	</ul>
+								</div>
+							</div>
+							<div class="header__banner-nav">
+								<div class="header__banner__w">
+									<div class="header__banner">
+											<a href="#" class="header__banner__menu-toggler left-off-canvas-toggle roct-init">Menu</a>
+
+
+								<div class="header__banner__logo">
+									<a href="//www.planetaher.cz/" title="PlanetaHer.cz - úvodní stránka" class="header__banner__logo__link">
+										<img src="/images/logo.png?v=1682689383" alt="PlanetaHer.cz - úvodní stránka" loading="eager" width="286" height="59" class="ll-init">
+									</a>
+								</div>
+
+											<div class="header__search">
+												<form role="search" name="f_search" action="/vyhledavani" method="get" novalidate="">
+													<div class="header__search__form js-header-search-wrap js-header-search-autocomplete">
+														<input name="s" type="text" placeholder="kacir" class="js-search-autocomplete ui-autocomplete-input jsa-init" data-search-url="/vyhledavani" data-all-product-text="Celkem nalezených produktů:" data-notfound-text="Nic nenalezeno." data-cat-title="Nalezené kategorie" data-man-title="Nalezení výrobci" data-product-title="Nalezené produkty" data-tp-title="Nalezené stránky" value="" autocomplete="off" data-lb-init="true">
+														<button type="submit" class="js-button-hover gtm-eshop-search jbh-init" id="lhss">Hledat</button>
+													</div>
+												</form>
+											</div>
+
+											<div class="header__contact">
+												<strong>773 700 126</strong>
+												<span>Jsme tu pro Vás 9:00-18:30 hod.</span>
+											</div>
+
+<div id="snippet--snHeaderCart">												<div class="header__cart header__cart--empty">
+													<div class="header__cart__wrap">
+														<div class="header__cart__text">
+																<a href="/objednavka" title="Nákupní košík" class="gtm-eshop-cart-link">Váš košík</a><br> je prázdný<br>
+														</div>
+
+														<div class="header__cart__icon header__cart__icon--empty">
+															<a href="/objednavka" class="header__cart__link gtm-eshop-cart-link" title="Nákupní košík" rel="“nofollow“">Nákupní košík</a>
+															<span class="text">Nákupní košík</span>
+														</div>
+													</div>
+												</div>
+</div>
+
+
+									</div>
+								</div>
+
+									<aside class="header__nav__w left-off-canvas-menu">
+										<div class="mob-nav mob-nav--sub" id="snippet--snHeaderUserMobile">
+												<ul class="header__user">
+			<li class="no-sub sub--login"><a href="/prihlaseni" data-modal-href="/prihlaseni-modal?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Přihlášení" class="js-modal-link gtm-user-login mod-initialized" data-hide-menu="1" rel="“nofollow“">Přihlášení</a></li>
+			<li class="no-sub sub--registration"><a href="/prihlaseni" data-modal-href="/registrace?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Registrace" class="js-modal-link gtm-user-registration mod-initialized" data-hide-menu="1" rel="“nofollow“">Registrace</a></li>
+	</ul>
+
+										</div>
+
+										<div class="header__nav__w2">
+<ul class="header__nav js-mobile-nav enable-submenu">
+				<li class="jmnl-init">
+					<a href="/pro-vsechny" title="Pro všechny" class="js-menu-link jml-init">Pro všechny</a>
+
+						<div class="hover-panel">
+							<div class="hover-panel__wrap">
+								<ul>
+									<li class="no-sub no-sub--mobile jmnl-init">
+										<a href="/pro-vsechny" title="Pro všechny">Všechny produkty z kategorie</a>
+									</li>
+											<li class="jmnl-init">
+												<h3>Světy</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/hra-o-truny" title="Hra o trůny" class="js-menu-link jml-init">Hra o trůny</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/bang" title="Bang!" class="js-menu-link jml-init">Bang!</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/osadnici" title="Osadníci" class="js-menu-link jml-init">Osadníci</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/carcassonne" title="Carcassonne" class="js-menu-link jml-init">Carcassonne</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zaklinac" title="Zaklínač" class="js-menu-link jml-init">Zaklínač</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/star-wars" title="Star Wars" class="js-menu-link jml-init">Star Wars</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/svet-lovecrafta-arkham-horror" title="Svět Lovecrafta - Arkham Horror" class="js-menu-link jml-init">Svět Lovecrafta - Arkham Horror</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zemeplocha" title="Zeměplocha" class="js-menu-link jml-init">Zeměplocha</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/pan-prstenu" title="Pán prstenů" class="js-menu-link jml-init">Pán prstenů</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/dominion" title="Dominion" class="js-menu-link jml-init">Dominion</a>
+															</li>
+												</ul>
+											</li>
+											<li class="jmnl-init">
+												<h3>Dle tématu</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/fantasy" title="Fantasy" class="js-menu-link jml-init">Fantasy</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/steampunk" title="Steampunk" class="js-menu-link jml-init">Steampunk</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zombie" title="Zombie" class="js-menu-link jml-init">Zombie</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/komiks" title="Komiks" class="js-menu-link jml-init">Komiks</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/rpg" title="RPG" class="js-menu-link jml-init">RPG</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/historicke" title="Historické" class="js-menu-link jml-init">Historické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/horror" title="Horror" class="js-menu-link jml-init">Horror</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/valecne" title="Válečné" class="js-menu-link jml-init">Válečné</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/slovni" title="Slovní" class="js-menu-link jml-init">Slovní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/logicke" title="Logické" class="js-menu-link jml-init">Logické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/sci-fi" title="Sci-fi" class="js-menu-link jml-init">Sci-fi</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/erotika" title="Erotika" class="js-menu-link jml-init">Erotika</a>
+															</li>
+												</ul>
+											</li>
+											<li class="column--1 jmnl-init">
+												<h3>Dle určení</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/spolecenske-na-party" title="Společenské - na párty" class="js-menu-link jml-init">Společenské - na párty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/pro-jednoho" title="Pro jednoho" class="js-menu-link jml-init">Pro jednoho</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/karetni" title="Karetní" class="js-menu-link jml-init">Karetní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/na-cesty" title="Na cesty" class="js-menu-link jml-init">Na cesty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/pro-narocne-hrace" title="Pro náročné hráče" class="js-menu-link jml-init">Pro náročné hráče</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/male-hry" title="Malé hry" class="js-menu-link jml-init">Malé hry</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/pro-dva" title="Pro dva" class="js-menu-link jml-init">Pro dva</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/vedomostni" title="Vědomostní" class="js-menu-link jml-init">Vědomostní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/postrehove" title="Postřehové" class="js-menu-link jml-init">Postřehové</a>
+															</li>
+												</ul>
+											</li>
+								</ul>
+							</div>
+						</div>
+				</li>
+				<li class="jmnl-init">
+					<a href="/hlavolamy" title="Hlavolamy" class="js-menu-link jml-init">Hlavolamy</a>
+
+						<div class="hover-panel">
+							<div class="hover-panel__wrap">
+								<ul>
+									<li class="no-sub no-sub--mobile jmnl-init">
+										<a href="/hlavolamy" title="Hlavolamy">Všechny produkty z kategorie</a>
+									</li>
+											<li class="jmnl-init">
+													<ul class="h3-no-sub no-sub--desktop">
+														<li class="no-sub jmnl-init">
+															<a href="/kovove" title="Kovové" class="js-menu-link jml-init">Kovové</a>
+														</li>
+													</ul>
+
+													</li><li class="no-sub no-sub--mobile jmnl-init">
+														<a href="/kovove" title="Kovové">Kovové</a>
+													</li>
+											
+											<li class="jmnl-init">
+													<ul class="h3-no-sub no-sub--desktop">
+														<li class="no-sub jmnl-init">
+															<a href="/hlavolamove-hry" title="Hlavolamové hry" class="js-menu-link jml-init">Hlavolamové hry</a>
+														</li>
+													</ul>
+
+													</li><li class="no-sub no-sub--mobile jmnl-init">
+														<a href="/hlavolamove-hry" title="Hlavolamové hry">Hlavolamové hry</a>
+													</li>
+											
+								</ul>
+							</div>
+						</div>
+				</li>
+				<li class="jmnl-init">
+					<a href="/pro-narocne" title="Pro náročné" class="js-menu-link jml-init">Pro náročné</a>
+
+						<div class="hover-panel">
+							<div class="hover-panel__wrap">
+								<ul>
+									<li class="no-sub no-sub--mobile jmnl-init">
+										<a href="/pro-narocne" title="Pro náročné">Všechny produkty z kategorie</a>
+									</li>
+											<li class="jmnl-init">
+												<h3>Dle tématu</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/fantasy" title="Fantasy hry pro náročné" class="js-menu-link jml-init">Fantasy</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/sport" title="Sport" class="js-menu-link jml-init">Sport</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/steampunk" title="Steampunk" class="js-menu-link jml-init">Steampunk</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zombie" title="Zombie" class="js-menu-link jml-init">Zombie</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/komiks" title="Komiks" class="js-menu-link jml-init">Komiks</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/historicke" title="Historické" class="js-menu-link jml-init">Historické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/horror" title="Horror" class="js-menu-link jml-init">Horror</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/logicke" title="Logické" class="js-menu-link jml-init">Logické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/sci-fi" title="Sci-fi" class="js-menu-link jml-init">Sci-fi</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zavodni3" title="Závodní" class="js-menu-link jml-init">Závodní</a>
+															</li>
+												</ul>
+											</li>
+											<li class="jmnl-init">
+												<h3>Dle určení</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/strategicke" title="Strategické" class="js-menu-link jml-init">Strategické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/logicke" title="Logické" class="js-menu-link jml-init">Logické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/soliterni" title="Solitérní" class="js-menu-link jml-init">Solitérní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/figurkove" title="Figurkové" class="js-menu-link jml-init">Figurkové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/kostkove" title="Kostkové" class="js-menu-link jml-init">Kostkové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/rpg" title="RPG stolní hry pro náročné" class="js-menu-link jml-init">RPG</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/v-realnem-case" title="V reálném čase" class="js-menu-link jml-init">V reálném čase</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/lcg" title="LCG (Living Card Game)" class="js-menu-link jml-init">LCG (Living Card Game)</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/deckbuilding" title="Deckbuilding" class="js-menu-link jml-init">Deckbuilding</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/konfliktni" title="Konfliktní - Ameritrash" class="js-menu-link jml-init">Konfliktní - Ameritrash</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/budovatelske" title="Budovatelské - Euro hry" class="js-menu-link jml-init">Budovatelské - Euro hry</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/kooperativni" title="Kooperativní" class="js-menu-link jml-init">Kooperativní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/valecne" title="Válečné" class="js-menu-link jml-init">Válečné</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/prislusenstvi-ke-hram" title="Příslušenství ke hrám" class="js-menu-link jml-init">Příslušenství ke hrám</a>
+															</li>
+												</ul>
+											</li>
+								</ul>
+							</div>
+						</div>
+				</li>
+				<li class="jmnl-init">
+					<a href="/pro-deti" title="Pro děti" class="js-menu-link jml-init">Pro děti</a>
+
+						<div class="hover-panel">
+							<div class="hover-panel__wrap">
+								<ul>
+									<li class="no-sub no-sub--mobile jmnl-init">
+										<a href="/pro-deti" title="Pro děti">Všechny produkty z kategorie</a>
+									</li>
+											<li class="jmnl-init">
+												<h3>Dle tématu</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/pohadkove" title="Pohádkové hry pro děti" class="js-menu-link jml-init">Pohádkové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/fantasy3" title="Fantasy" class="js-menu-link jml-init">Fantasy</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/sci-fi3" title="Sci-fi" class="js-menu-link jml-init">Sci-fi</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/historicke2" title="Historické" class="js-menu-link jml-init">Historické</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/se-zviraty2" title="Se zvířaty" class="js-menu-link jml-init">Se zvířaty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zavodni2" title="Závodní" class="js-menu-link jml-init">Závodní</a>
+															</li>
+												</ul>
+											</li>
+											<li class="jmnl-init">
+												<h3>Dle určení</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/postrehove3" title="Postřehové" class="js-menu-link jml-init">Postřehové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/kolektivni2" title="Kolektivní (všichni proti hře)" class="js-menu-link jml-init">Kolektivní (všichni proti hře)</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/vyukove" title="Výukové" class="js-menu-link jml-init">Výukové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/pro-hloubave-deti" title="Pro hloubavé děti" class="js-menu-link jml-init">Pro hloubavé děti</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/venkovni-hry" title="Venkovní hry pro děti" class="js-menu-link jml-init">Venkovní hry</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/na-cesty3" title="Na cesty" class="js-menu-link jml-init">Na cesty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/logopedicke" title="Logopedické hry" class="js-menu-link jml-init">Logopedické hry</a>
+															</li>
+												</ul>
+											</li>
+								</ul>
+							</div>
+						</div>
+				</li>
+				<li class="jmnl-init">
+					<a href="/pro-rodiny" title="Pro rodiny" class="js-menu-link jml-init">Pro rodiny</a>
+
+						<div class="hover-panel">
+							<div class="hover-panel__wrap">
+								<ul>
+									<li class="no-sub no-sub--mobile jmnl-init">
+										<a href="/pro-rodiny" title="Pro rodiny">Všechny produkty z kategorie</a>
+									</li>
+											<li class="jmnl-init">
+												<h3>Dle tématu</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/pohadkove" title="Pohádkové" class="js-menu-link jml-init">Pohádkové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/se-zviraty" title="Se zvířaty" class="js-menu-link jml-init">Se zvířaty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/fantasy2" title="Fantasy" class="js-menu-link jml-init">Fantasy</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/sci-fi2" title="Sci-fi" class="js-menu-link jml-init">Sci-fi</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/divoky-zapad" title="Divoký západ" class="js-menu-link jml-init">Divoký západ</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/zavodni" title="Závodní" class="js-menu-link jml-init">Závodní</a>
+															</li>
+												</ul>
+											</li>
+											<li class="jmnl-init">
+												<h3>Dle určení</h3>
+												<ul>
+															<li class="no-sub jmnl-init">
+																<a href="/postrehove" title="Postřehové hry pro celou rodinu" class="js-menu-link jml-init">Postřehové</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/kolektivni" title="Kolektivní (všichni proti hře)" class="js-menu-link jml-init">Kolektivní (všichni proti hře)</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/vedomostni2" title="Vědomostní" class="js-menu-link jml-init">Vědomostní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/venkovni-hry" title="Venkovní hry" class="js-menu-link jml-init">Venkovní hry</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/slovni" title="Slovní hry pro celou rodinu" class="js-menu-link jml-init">Slovní</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/na-cesty2" title="Na cesty" class="js-menu-link jml-init">Na cesty</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/komunikacni" title="Komunikační" class="js-menu-link jml-init">Komunikační</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/klasiky" title="Klasiky" class="js-menu-link jml-init">Klasiky</a>
+															</li>
+															<li class="no-sub jmnl-init">
+																<a href="/akcni" title="Akční" class="js-menu-link jml-init">Akční</a>
+															</li>
+												</ul>
+											</li>
+								</ul>
+							</div>
+						</div>
+				</li>
+				<li class="no-sub jmnl-init">
+					<a href="https://www.planetaher.cz/blog" title="" class="js-menu-link jml-init">Blog</a>
+
+				</li>
+				<li class="no-sub jmnl-init">
+					<a href="https://www.planetaher.cz/novinky" title="Novinky" class="js-menu-link jml-init">Novinky</a>
+
+				</li>
+
+</ul>
+										</div>
+
+										<div class="mob-nav mob-nav--sub">
+
+	<ul class="header__top-menu">
+		<li class="no-sub">
+			<style>
+				.svg-icon {
+					width: 20px;
+					height: 20px;
+					position: relative;
+					top: 5px;
+					margin-top: -7px;
+					fill: #1b936b;
+				}
+				.svg-icon:hover {
+					fill: #000
+				}
+			</style>
+			<a href="https://www.instagram.com/planetaher.cz/" title="Instagram - Planeta Her" class="gtm-icon-instagram"><svg class="svg-icon" viewBox="0 0 260 260" xml:space="preserve">
+<path d="M164.58,64H95.42C78.1,64,64,78.1,64,95.42v69.16C64,181.9,78.1,196,95.42,196h69.16c17.32,0,31.42-14.1,31.42-31.42V95.42
+	C196,78.1,181.9,64,164.58,64z M130,171.1c-22.66,0-41.1-18.44-41.1-41.1s18.44-41.1,41.1-41.1s41.1,18.44,41.1,41.1
+	S152.66,171.1,130,171.1z M172.22,97.3c-5.3,0-9.6-4.3-9.6-9.61c0-5.3,4.3-9.6,9.6-9.6c5.31,0,9.61,4.3,9.61,9.6
+	C181.83,93,177.53,97.3,172.22,97.3z M130,102.9c-14.94,0-27.1,12.16-27.1,27.1s12.16,27.1,27.1,27.1s27.1-12.16,27.1-27.1
+	S144.94,102.9,130,102.9z M130,2C59.31,2,2,59.31,2,130s57.31,128,128,128s128-57.31,128-128S200.69,2,130,2z M210,164.58
+	c0,25.04-20.38,45.42-45.42,45.42H95.42C70.38,210,50,189.62,50,164.58V95.42C50,70.38,70.38,50,95.42,50h69.16
+	C189.62,50,210,70.38,210,95.42V164.58z"></path>
+</svg></a>
+&nbsp;
+			<a href="https://www.youtube.com/@planetaher" title="Youtube - Planeta Her" class="gtm-icon-youtube"><svg class="svg-icon" viewBox="0 0 20 20">\
+					<path d="M11.603 9.833L9.357 8.785C9.161 8.694 9 8.796 9 9.013v1.974c0 .217.161.319.357.228l2.245-1.048c.197-.092.197-.242.001-.334zM10 .4C4.698.4.4 4.698.4 10s4.298 9.6 9.6 9.6 9.6-4.298 9.6-9.6S15.302.4 10 .4zm0 13.5c-4.914 0-5-.443-5-3.9s.086-3.9 5-3.9 5 .443 5 3.9-.086 3.9-5 3.9z"></path>
+				</svg></a>
+&nbsp;
+			<a href="https://www.facebook.com/PlanetaHer" title="Facebook - Planeta Her" class="gtm-icon-facebook">	<svg class="svg-icon" viewBox="-143 145 512 512">
+	<path d="M113,145c-141.4,0-256,114.6-256,256s114.6,256,256,256s256-114.6,256-256S254.4,145,113,145z M169.5,357.6l-2.9,38.3h-39.3
+		v133H77.7v-133H51.2v-38.3h26.5v-25.7c0-11.3,0.3-28.8,8.5-39.7c8.7-11.5,20.6-19.3,41.1-19.3c33.4,0,47.4,4.8,47.4,4.8l-6.6,39.2
+		c0,0-11-3.2-21.3-3.2c-10.3,0-19.5,3.7-19.5,14v29.9H169.5z"></path>
+	</svg></a>
+		</li>
+		<li class="no-sub">
+			<a href="/vse-o-nakupu" title="Vše o nákupu" class="gtm-eshop-about-shopping">
+				Vše o nákupu
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/bodovy-system" title="Bodový systém" class="gtm-eshop-discount-system">
+				Bodový systém
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/kontakt" title="Prodejna Brno" class="gtm-eshop-contact">
+				Kontakt
+			</a>
+		</li>
+		<li class="no-sub">
+			<a href="/how-to-order" title="How to order" class="gtm-eshop-how-to-order">
+				How to order in english walktrough
+			</a>
+		</li>
+	</ul>
+
+	<ul class="header__branches">
+		<li class="no-link no-sep">Pobočka:</li>
+		<li class="branch"><a href="/kontakt" title="Prodejna Brno Brno" class="gtm-eshop-contact-brno">Brno</a></li>
+	</ul>
+
+	<div class="header__user--desktop" id="snippet--snHeaderUser">
+			<ul class="header__user">
+			<li class="no-sub sub--login"><a href="/prihlaseni" data-modal-href="/prihlaseni-modal?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Přihlášení" class="js-modal-link gtm-user-login mod-initialized" data-hide-menu="1" rel="“nofollow“">Přihlášení</a></li>
+			<li class="no-sub sub--registration"><a href="/prihlaseni" data-modal-href="/registrace?loginRedrawUrl=%2Fvyhledavani%3Fsnlist%255B0%255D%3DsnSortLinks%26snlist%255B1%255D%3DsnFilterForm%26snlist%255B2%255D%3DsnFilterFormParams%26snlist%255B3%255D%3DsnProductList%26snlist%255B4%255D%3DsnProductListUrlSuffixString%26snlist%255B5%255D%3DsnNextProductsLink%26snlist%255B6%255D%3DsnProductsPaginator%26snlist%255B7%255D%3DsnGlobalNotifications%26snlist%255B8%255D%3DsnModalSearchForm%26snlist%255B9%255D%3DsnHeaderUser%26snlist%255B10%255D%3DsnHeaderCart%26do%3Dredraw" title="Registrace" class="js-modal-link gtm-user-registration mod-initialized" data-hide-menu="1" rel="“nofollow“">Registrace</a></li>
+	</ul>
+
+	</div>
+
+	<ul class="header__currency">
+				<li class="no-sub no-link">CZK</li>
+				<li class="no-sub"><a href="/vyhledavani?currency=EUR&amp;do=changeCurrency" rel="“nofollow“">EUR</a></li>
+	</ul>
+										</div>
+									</aside>
+
+
+							</div>
+						</header><div class="mob-nav mob-nav--search header__search">
+							<form role="search" name="f_search" action="/vyhledavani" method="get" novalidate="">
+								<div class="header__search__form js-header-search-wrap">
+									<input name="s" type="text" placeholder="kacir" class="js-search-autocomplete ui-autocomplete-input jsa-init" data-search-url="/vyhledavani" data-all-product-text="Celkem nalezených produktů:" data-notfound-text="Nic nenalezeno." data-cat-title="Nalezené kategorie" data-man-title="Nalezení výrobci" data-product-title="Nalezené produkty" value="" autocomplete="off" data-lb-init="true">
+									<button type="submit" class="js-button-hover gtm-eshop-mobile-search jbh-init">Hledat</button>
+								</div>
+							</form>
+						</div>
+
+
+					<div class="cch">
+						
+
+	<div class="products products--empty">
+		<div class="products__report">
+			<h1 class="products__desc__h1">Hru kterou hledáte u nás asi nemáme</h1>
+			<div class="products__desc__content">
+				<p>Víte o hře, která nám na e-shopu chybí?
+Dejte nám o ní vědět.</p>
+				<div class="products__report__link">
+					<a href="#" data-modal-href="/nahlaseni-hry-modal?modalRedrawUrl=%2Fvyhledavani%3Fdo%3Dredraw" title="Přidat tip na hru" class="js-modal-link mod-initialized" data-hide-menu="1">Přidat tip na hru</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+					</div>
+				</div>
+
+				<footer class="footer cch">
+					
+
+					<div class="footer__newsletter__w">
+						<div class="footer__newsletter">
+							<h3>Newsletter</h3>
+							<p>Nezmeškej příležitost, jak výhodně nakoupit!</p>
+							<small>Dodržujeme zásady zpracování ochrany osobních údajů více najdete <a href="/gdpr" title="Zpracování osobních údajů">zde</a>.</small>
+<div id="snippet--snNewsletterForm">								<form action="/vyhledavani" method="post" id="frm-newsletterForm" class="ajax" novalidate="">
+									<div class="footer__newsletter__form">
+										<div class="footer__newsletter__input-w">
+											<input type="text" placeholder="Tvoje křestní jméno" name="newsletterName" id="frm-newsletterForm-newsletterName">
+										</div>
+
+										<div class="footer__newsletter__input-w">
+											<input type="email" name="email" placeholder="Tvůj e-mail" id="frm-newsletterForm-email" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Zadejte platnou e-mailovou adresu&quot;},{&quot;op&quot;:&quot;:email&quot;,&quot;msg&quot;:&quot;Please enter a valid email address.&quot;},{&quot;op&quot;:&quot;:email&quot;,&quot;msg&quot;:&quot;Zadejte platnou e-mailovou adresu&quot;}]">
+											<input class="gtm-eshop-newsletter" type="submit" name="ok" value="Přihlásit se">
+											<input class="newsletter-pasticka" type="text" name="sandbox" id="frm-newsletterForm-sandbox" data-nette-rules="[{&quot;op&quot;:&quot;optional&quot;},{&quot;op&quot;:&quot;:blank&quot;,&quot;msg&quot;:&quot;This field should be blank.&quot;}]">
+										</div>
+									</div>
+								<input type="hidden" name="form_created" value="icdgacigde"><input type="hidden" name="_do" value="newsletterForm-submit"></form>
+
+</div>
+						</div>
+						<div class="footer__facebook">
+							<a href="https://www.facebook.com/PlanetaHer" title="Planetaher na Facebooku" class="gtm-eshop-facebook" target="_blank">Planetaher na Facebooku</a>
+						</div>
+					</div>
+					<div class="footer_link_panel" style="max-width: 1380px; float: none; position: relative; margin: 0 auto">
+						<a href="/obchodni-podminky" title="Obchodní podmínky" class="gtm-eshop-terms">
+							Obchodní podmínky
+						</a> |
+						<a href="/gdpr" title="Zpracování osobních údajů" class="gtm-eshop-contact">
+							Zpracování osobních údajů
+						</a>
+					</div>
+					<div class="footer__nav__w">
+					</div>
+
+			<div class="footer__copy__w">
+				<div class="footer__copy">
+					<a href="//www.planetaher.cz/" title="PlanetaHer.cz - úvodní stránka" class="footer__copy__logo">
+						<img src="/images/logo.png?v=1682689383" alt="PlanetaHer.cz - úvodní stránka" width="213" height="44" loading="lazy" class="ll-init">
+					</a>
+
+							<div class="footer__copy__author">
+								Vyrobil <a href="https://igloonet.cz/vyvoj" title="igloonet">igloonet</a>
+							</div>
+						</div>
+					</div>
+				</footer>
+
+		<a class="exit-off-canvas eoc-init"></a>
+	</div>
+</div>
+
+<div id="snippet--snGlobalNotifications"></div>
+
+		<div class="modal-window__content__wrap" style="display: none;">
+			<a href="#" class="modal-window__close js_modal-window__close mw-initialized">×</a>
+			<div class="modal-window__content"></div>
+		</div>
+		<div class="modal-window__closer js_modal-window__close mw-initialized"></div>
+
+<script type="module" src="/js/vendor/cookieconsent.min.js?v=1710261933" data-cfasync="false"></script>
+
+<script type="text/javascript" src="//www.planetaher.cz/js/loader/jsloader-cb8d115ca607.js?1757488463"></script>
+
+<script type="text/javascript" src="https://ss.planetaher.cz"></script>
+
+
+
+
+
+<script id="" text="" charset="" type="text/javascript" src="https://c.seznam.cz/js/rc.js"></script><script id="" text="" charset="" type="text/javascript" src="https://app.advisio.cz/static/js/capi.js"></script><iframe height="0" width="0" style="display: none; visibility: hidden;"></iframe><script type="text/javascript" id="" charset="">var products=document.querySelectorAll(".products__list \x3e li"),view_item=document.querySelector(".p-detail"),add_to_cart=document.querySelector("#frm-cartAddForm .p-detail__desc__to-basket \x3e input"),begin_checkout=document.querySelectorAll("#frm-orderForm table.order__cart \x3e tbody \x3e tr"),shipping_info=$("#order-delivery-section"),paymant_info=$("#order-payment-section"),view_cart=document.querySelectorAll(".header__cart__goods \x3e .header__cart__good"),homepage=document.querySelectorAll(".hp-products:not(.hp-products--expected-release):not(.hp-products--blog):not(.hp-products--price-points) .products__list"),
+breadcrumbs=dataLayer[0].category,breadcrumbs_other=document.querySelectorAll(".breadcrumb \x3e ul \x3e li"),id,name,price,tax,category,quantity,variant,value=0,currency,doit,service_name="",service_price="",items=[];function get_category(a){return a=a.replaceAll(" | ","|").split("|")}function get_category_other(a){for(var c=[],b=0;b<a.length-1;b++)c.push(a[b].innerText);return c}set_currency();function set_currency(){currency="CZK"};</script><script type="text/javascript" id="" charset="">products&&category_init();function category_init(){$("#snippet--snProductList").unbind("DOMSubtreeModified");products=document.querySelectorAll(".products__list \x3e li");items=[];category_render();category_listener()}
+function category_render(){breadcrumbs&&(category=get_category(breadcrumbs));for(var a=0;a<products.length;a++){var b=products[a];b.classList.contains("msc-done")||(name=b.querySelector(".product-box__title").innerText,price=parseFloat(b.querySelector(".product-box__price").innerText.replace("\u00a0","")),tax=price/100*21,price=Math.round(price-tax),items.push({item_name:name,index:a,google_business_vertical:"retail",item_category:0<category.length?category[0]:null,item_category2:1<category.length?
+category[1]:null,item_category3:1<category.length?category[2]:null,item_category4:1<category.length?category[3]:null,item_category5:1<category.length?category[4]:null,quantity:1,price:price}),category_atc_init(b),b.classList.add("msc-done"))}items.length&&(dataLayer.push({ecommerce:null}),dataLayer.push({event:"view_item_list",ecommerce:{currency:currency,item_list_id:"category",item_list_name:"category",items:items}}))}
+function category_listener(){$("#snippet--snProductList").bind("DOMSubtreeModified",function(){clearTimeout(doit);doit=setTimeout(function(){console.log("Render - Category");category_init()},300)})}
+function category_atc_init(a){breadcrumbs&&(category=get_category(breadcrumbs));a.querySelector(".product-box__buy \x3e a").addEventListener("click",function(b){name=a.querySelector(".product-box__title").innerText;price=parseFloat(a.querySelector(".product-box__price").innerText.replace("\u00a0",""));tax=price/100*21;price=Math.round(price-tax);dataLayer.push({ecommerce:null});dataLayer.push({event:"add_to_cart",ecommerce:{currency:currency,value:price,items:[{item_name:name,index:0,google_business_vertical:"retail",
+item_category:0<category.length?category[0]:null,item_category2:1<category.length?category[1]:null,item_category3:1<category.length?category[2]:null,item_category4:1<category.length?category[3]:null,item_category5:1<category.length?category[4]:null,quantity:quantity,price:price}]}});a.classList.add("msc-done--click")})};</script><script type="text/javascript" id="" charset="">view_cart&&$("#snippet--snHeaderCart").mouseenter(function(){items=[];value=parseFloat(document.querySelector("#snippet--snHeaderCart .header__cart__price \x3e .price").innerText.replace("\u00a0",""));tax_value=value/100*21;value=Math.round(value-tax_value);for(var a=0;a<view_cart.length;a++){var b=view_cart[a];name=b.querySelector(".name").innerText;price=parseFloat(b.querySelector(".price").innerText.replace("\u00a0",""));quantity=parseInt(b.querySelector(".amount").innerText);tax=price/100*21;
+price=Math.round(price-tax);items.push({item_id:id,item_name:name,index:a,google_business_vertical:"retail",quantity:quantity,price:price})}items.length&&(dataLayer.push({ecommerce:null}),dataLayer.push({event:"view_cart",ecommerce:{currency:currency,value:value,items:items}}))});</script><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0" style="display: none;"></ul><span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-2" tabindex="0" style="display: none;"></ul><span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span>
+<script type="text/javascript" id="" charset="">var marketing_consent=google_tag_manager["rm"]["485251"](23),consent_=0;"granted"==marketing_consent&&(consent_=1);console.log("ret: "+consent_);var retargetingConf={rtgId:google_tag_manager["rm"]["485251"](24),consent:consent_};window.rc&&window.rc.retargetingHit&&window.rc.retargetingHit(retargetingConf);</script>
+
+<script type="text/javascript" id="" charset="">var UUID_pw="637ec309-8fba-428e-b10a-39c040550160";!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","//connect.facebook.net/en_US/fbevents.js");var marketing_consent=google_tag_manager["rm"]["485251"](32);
+"granted"==marketing_consent?fbq("consent","grant"):fbq("consent","revoke");fbq("init","746763248677481");fbq("track","PageView",{},{eventID:UUID_pw});</script>
+<div class="luigi-ac luigi-ac-heromobile luigi-ac-heromobile--right luigi-ac-autocomplete" id="lbx-ac-element"></div><div class="luigi-ac-heromobile-input-wrap"><input class="luigi-ac-heromobile-input" type="search" placeholder="Vyhledat..."><span class="luigi-ac-heromobile-input-voice-search"></span><span class="luigi-ac-heromobile-input-clear"></span></div><div class="luigi-ac-heromobile-css-active"></div><div class="luigi-ac luigi-ac-heromobile luigi-ac-heromobile--right luigi-ac-autocomplete" id="lbx-ac-element" style="top: 157px; max-height: 443px; max-width: 1020px; left: 0px; right: 0px; margin: 0px auto;"></div><div class="luigi-ac-heromobile-input-wrap"><input class="luigi-ac-heromobile-input" type="search" placeholder="Vyhledat..."><span class="luigi-ac-heromobile-input-voice-search"></span><span class="luigi-ac-heromobile-input-clear"></span></div><div class="luigi-ac-heromobile-css-active"></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div><script type="text/javascript" id="" charset="">var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date;(function(){var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="https://embed.tawk.to/5a65e5c14b401e45400c48f9/default";a.charset="UTF-8";a.setAttribute("crossorigin","*");b.parentNode.insertBefore(a,b)})();var dataLayerPush=function(a){dataLayer.push({event:"tawk.to",eventAction:a});console.log({event:"tawk.to",eventAction:a})};Tawk_API.onChatStarted=function(){dataLayerPush("Chat Started")};
+Tawk_API.onChatMaximized=function(){dataLayerPush("Chat Window opened")};Tawk_API.onChatStarted=function(){dataLayerPush("Chat started")};Tawk_API.onChatEnded=function(){dataLayerPush("Chat ended")};Tawk_API.onPrechatSubmit=function(a){dataLayerPush("Prechat form submitted")};Tawk_API.onOfflineSubmit=function(a){dataLayerPush("Offline Chat submit")};</script>
+</body></html>

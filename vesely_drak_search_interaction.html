@@ -1,0 +1,1461 @@
+<!DOCTYPE html><html lang="sk" class="force--consent" style="--lbxvh: 10.8px;"><head>
+<script type="text/x-template" id="template-result-default"><div class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p" :data-lb-id="attributes.original_url">
+  <div class="item-inner">
+    <div v-if="attributes.discount_price_percentage_amount && attributes.discount_price_percentage_amount !== 0" class="ribbon">
+      <span>-{{ attributes.discount_price_percentage_amount.toFixed(0) }}%</span>
+    </div>
+    <div class="info-icons-holder product-features"></div>
+        <div class="ribbons-h-block">
+          <div v-for="label in $window.extractLabelNames(attributes)" :key="label">
+            <div v-if="label === 'Akcia'" class="ribbon-h ribbon-red">
+              <span>Akcia</span>
+            </div>
+            <div v-if="label === 'Predobjednávka'" class="ribbon-h ribbon-green">
+              <span>Predobjednávka</span>
+            </div>
+            <div v-if="label === 'Nedostupné'" class="ribbon-h ribbon-gray">
+              <span>Nedostupné</span>
+            </div>
+            <div v-if="label === '2. jakost'" class="ribbon-h ribbon-gray">
+              <span>2. jakost</span>
+            </div>
+            <div v-if="label === 'Odporúčáme'" class="ribbon-h ribbon-violet">
+              <span>Odporúčáme</span>
+            </div>
+            <div v-if="label === 'Novinka'" class="ribbon-h ribbon-orange">
+              <span>Novinka</span>
+            </div>
+            <!-- Add other labels as needed -->
+          </div>
+        </div>
+    <div class="image-holder">
+      <a :href="attributes.web_url">
+        <picture>
+          <!-- <source media="(max-width: 900px)" srcset="/obrazek/webp/6559d5b25bcaf-pladeanfatesbooster-bundle-6559d7d09ff97_186x250.webp" type="image/webp" />
+          <source media="(min-width: 901px)" srcset="/obrazek/webp/6559d5b25bcaf-pladeanfatesbooster-bundle-6559d7d09ff97.webp" type="image/webp" /> -->
+          <img class="lazyloading" :src="attributes.image_link" :data-src="attributes.image_link" :alt="attributes.title" />
+        </picture>
+      </a>
+    </div>
+    <div class="text-holder">
+      <h3 class="product-name"><a :href="attributes.web_url">{{ attributes.title }}</a></h3>
+    </div>
+    <div class="info-holder flex-row no-margin between-cols">
+      <div class="col price-col col-nopadding">
+        <span class="price">{{ attributes.price_amount | price }}</span>
+        <span v-if="attributes.availability_rank_text && attributes.availability_rank_text[0] && attributes.availability_rank_text[0].includes('Skladom') " class="usual-price text-green text-bold">{{ attributes.availability_rank_text[0] }}</span>
+        <span v-else class="usual-price text-gray text-bold">{{ attributes.availability_rank_text[0] }}</span>
+      
+      </div>
+      <div class="col button-col col-nopadding">
+        <a :href="'/form/form-katalog-kosik.php?pocet[' + attributes.to_cart_id + ']=1&vlozit_do_kosiku'" class="button buy-button"><span class="fas fa-cart-arrow-down"></span></a>
+      </div>
+    </div>
+  </div>
+</div></script><style type="text/css">.lb-checkbox:hover .lb-checkbox__element { border-color: #000000 !important; } .lb-search-bg-color-primary,.lb-search-bg-color-primary-clickable { background-color: #000000 !important; } .lb-search .vue-slider-dot { border: 1px solid #000000 !important } .lb-search-bg-color-secondary,.lb-search-bg-color-secondary-clickable { background-color: #000000 !important; } .lb-search-primary-fill { fill: #000000 !important; } .lb-search-bg-color-input { background-color: #0000000d !important; } .lb-search-text-color-primary-clickable { color: #000000 !important } .lb-sort:focus { color: #000000 !important; } .lb-search-text-color-primary { color: #000000 !important } .lb-search-bg-color-primary-clickable:hover { background-color: #000000 !important } .lb-search-text-color-primary-clickable:hover { color: #000000 !important } #lb-search-element .lb-search { max-width: 1319px; margin: 0 auto; } @media (min-width: 1120px) { #lb-search-element .col-lg-25p { width: 33% !important; } } #lb-search-element .lb-histogram__cell.lb-search-bg-color-primary { background-color: #b8211e !important; } #lb-search-element .lb-search__mobile-filter.lb-search-bg-color-primary-clickable { background-color: #b8211e !important; } #lb-search-element .lb-facets__mobile-actions .lb-search-bg-color-primary-clickable { background-color: #b8211e !important; } #lb-search-element .lb-search .lb-results { text-align: left !important; } #lb-search-element .lb-search .lb-pagination__btn { font-weight: 700 !important; background-color: #a3a3a3 !important; text-transform: none !important; } #lb-search-element .lb-search .lb-pagination__btn:hover { background-color: #d1d2d4 !important; }</style><style type="text/css">.luigi-ac-highlight { color: #0a004a !important } .luigi-ac-highlight { background-color: #e9e9e9 !important } .luigi-ac-active,.luigi-ac-item:focus,.luigi-ac-item:hover { background-color: #eaeaea !important } .luigi-ac-hero-color,.luigi-ac-button { background: #eeeeee !important } .luigi-ac-hero-color-clickable:hover,.luigi-ac-query .luigi-ac-hero-color-clickable:hover,.luigi-ac-button:hover { background: #d1d2d4 !important } .luigi-ac-header,.luigi-ac-no-result { color: #000000 !important } .luigi-ac-others { background: #fdfdfd !important } .luigi-ac-main .luigi-ac-name,.luigi-ac-main .luigi-ac-title { color: #0d0d0d !important } .luigi-ac-other-content,.luigi-ac-others .luigi-ac-title { color: #0d0c0c !important } .luigi-ac-query .luigi-ac-other-content,.luigi-ac-hero-color-clickable,.luigi-ac-button { color: #fafafa !important } #ui-id-1,#ui-id-2 { display: none !important; } #lb-search-element .lb-search { padding-left: 10px; padding-right: 10px; } .luigi-ac-inner { overflow: hidden; } .luigi-ac-others { background-color: #fff !important; } .luigi-ac-heromobile .luigi-ac-price { color: #b8211e !important; } .luigi-ac-heromobile .luigi-ac-header { color: #a3a3a3 !important; font-weight: 700 !important; } .luigi-ac-query .luigi-ac-other { background-color: #a3a3a3 !important; } .luigi-ac-heromobile .button { min-width: auto !important; } .luigi-ac-heromobile .luigi-ac-rest-main .col-nopadding { text-align: right !important; } .luigi-ac-heromobile .luigi-ac-button { font-weight: 700 !important; background-color: #a3a3a3 !important; text-transform: none !important; } .luigi-ac-heromobile .luigi-ac-button:hover { background-color: #d1d2d4 !important; } .luigi-ac-heromobile .luigi-ac-main .luigi-ac-first-main .luigi-ac-item .luigi-ac-price,.luigi-ac-heromobile .luigi-ac-main .luigi-ac-first-main .luigi-ac-item .luigi-ac-price-old { margin-bottom: 10px !important; } .luigi-ac-heromobile-input::-webkit-search-cancel-button { display: none !important; } .lbx-ribbonDiv { position: absolute; top: 0; display: flex; flex-direction: column; text-align: left; width: auto; } .luigi-ac-heromobile .ribbon-h { top: 0 !important; } .luigi-ac-heromobile .ribbon-h:before { content: none !important; } .luigi-ac-rest-main .ribbon-h { height: 20px !important; font-size: 9px !important; padding: 3px 5px !important; } @media (min-width: 1024px) { .luigi-ac-heromobile.luigi-ac-autocomplete.luigi-ac-open { top: 111.4453px !important; } } @media (max-width: 1024px) { .luigi-ac-heromobile .luigi-ac-first-main .col-nopadding { text-align: right !important; } .luigi-ac-first-main .ribbon-h,.luigi-ac-rest-main .ribbon-h { height: 16px !important; font-size: 9px !important; padding: 3px 5px !important; } .luigi-ac-heromobile .luigi-ac-result .luigi-ac-inner .luigi-ac-item .luigi-ac-image { width: 90px !important; } }</style><style id="lbx-global-init-styles" type="text/css">@media (min-width: 1023px) { .lb-ac__overlay { display: none; transition: all 100ms ease-in; background: #a3a3a3; position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 8; opacity: .6; } .search-open .lb-ac__overlay { display: block; } .search-open .main-nav-holder.nav-block-item,.search-open .additional-nav-block .logo-holder,.search-open .quick-cart-block,.search-open .lang-nav.secondary-menu-list { opacity: 0.4; } } .lb-recommend { font-family: Helvetica,sans-serif !important; } .lb-recommend-header-primary.lb-recommend__title--left { color: #a3a3a3 !important; display: flex; align-items: center; white-space: nowrap; font-size: 20px !important; } .lb-recommend__title--left:after { content: ''; border-top: 1px solid #a3a3a3; flex-grow: 1; display: inherit; margin-left: 1rem; } .lb-recommend { width: auto !important; } .lbx-carousel .lbxsplide__arrow { width: 25px !important; height: 25px !important; } .lbx-carousel .lbxsplide__arrow { background: transparent !important; } .lbx-carousel .lbxsplide__arrow:after { mask: none !important; -webkit-mask: none !important; border-right: 2px solid #c5242d !important; border-bottom: 2px solid #c5242d !important; transform: rotate(-45deg); cursor: pointer; } @media (max-width: 767px) { .lb-recommend__title--left { font-size: 20px !important; } }</style><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="facebook-domain-verification" content="6muf3vfhn7ujdga6de70i44pyxij5a">
+<title>Výsledky pre Catan (20)</title>
+<meta name="description" content="Veselý drak - špecialista na zberateľské karty Pokémon, Magic, One Piece, ale aj kartičky futbalu, hokeja a ďalších športov">
+<link rel="preload" href="/webfonts/icomoon.ttf?XYz9hxx0yy" as="font" type="font/ttf" crossorigin="">
+<link rel="preload" href="/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="stylesheet" type="text/css" href="/export/export-obsah.php?web=1&amp;typ=export-css&amp;files=WyJcL2Nzc1wvaWNvbnMtYWxsLmNzcyIsIlwvY3NzXC9zdHlsZS5taW4uY3NzIiwiXC9jc3NcL2FkZC5jc3MiLCJcL2Nzc1wvanF1ZXJ5LXVpLTEuMTIuMS5taW4uY3NzIl0=&amp;ver=1759730879" media="all">
+<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/destination?id=AW-962631746&amp;cx=c&amp;gtm=4e5bi1h1"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-3RD51CT3F8&amp;cx=c&amp;gtm=4e5bi1h1"></script><script type="text/javascript" async="" src="https://ssl.heureka.sk/direct/i/gjs.php?n=wdgt&amp;sak=CA85738DAAEE994D7C3A934CA290B79C"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NFLJZVF"></script><script type="text/javascript" src="/export/export-obsah.php?web=1&amp;typ=export-js&amp;files=WyJcL2pzXC9qcXVlcnlcL2pxdWVyeS0xLjEyLjQubWluLmpzIiwiXC9qc1wvanF1ZXJ5XC9qcXVlcnktdWktMS4xMi4xLm1pbi5qcyIsIlwvanNcL2pxdWVyeVwvanF1ZXJ5LnVpLnRvdWNoLXB1bmNoLm1pbi5qcyIsIlwvanNcL2pxdWVyeVwvanF1ZXJ5LnVudmVpbC5qcyIsIlwvanNcL2pxdWVyeVwvZGVmYXVsdC5qcyIsIlwvanNcL2pxdWVyeVwvYWRkLmpzIl0=&amp;ver=sk17553274991756805975" defer=""></script>
+<script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'personalization_storage': 'denied',
+            'wait_for_update': 1000
+          });
+      </script><!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFLJZVF');</script>
+<!-- End Google Tag Manager -->
+<script async="" src="https://scripts.luigisbox.com/LBX-548534.js"></script>
+<script src="https://cdn.luigisbox.com/autocomplete.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.luigisbox.com/autocomplete.css"><script src="https://cdn.luigisbox.com/vesely-drak.js" data-luigisbox-tracker-id="405725-548534"></script><script type="text/javascript" async="" src="https://pagead2.googlesyndication.com/pagead/conversion/962631746/?random=1763793894008&amp;cv=11&amp;fst=1763793894008&amp;bg=ffffff&amp;guid=ON&amp;async=1&amp;en=conversion&amp;gtm=45be5bi1h1v9179844181z879371720za200zb79371720zd79371720xea&amp;gcs=G100&amp;gcd=13p3pPp2p5l1&amp;dma_cps=-&amp;dma=1&amp;tag_exp=103116026~103200004~104527906~104528501~104684208~104684211~105322304~115583767~115616985~115938466~115938469~116184927~116184929~116217636~116217638&amp;u_w=800&amp;u_h=600&amp;url=https%3A%2F%2Fwww.vesely-drak.sk%2F&amp;label=WbJgCOeQ5d8DEMKwgssD&amp;frm=0&amp;tiba=Vesel%C3%BD%20drak%20%7C%20Najv%C3%A4%C4%8D%C5%A1%C3%AD%20obchod%20so%20zberate%C4%BEsk%C3%BDmi%20kartami&amp;bttype=purchase&amp;value=0&amp;hn=www.googleadservices.com&amp;npa=1&amp;pscdl=denied&amp;uaa=x86&amp;uab=64&amp;uafvl=Not_A%2520Brand%3B99.0.0.0%7CChromium%3B142.0.7444.175&amp;uamb=0&amp;uam=&amp;uap=Windows&amp;uapv=19.0.0&amp;uaw=0&amp;_tu=CA&amp;rfmt=3&amp;fmt=4"></script><script src="https://cdn.luigisbox.com/search.js"></script><link rel="stylesheet" data-lbx="search-theme-css" href="https://cdn.luigisbox.com/theme/boo/app.css"><script src="https://cdn.luigisbox.com/theme/boo/app.js"></script><style id="lbx-ac-types-style" type="text/css">@media screen and (max-width: 1020px){
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="item"] .luigi-ac-header:not([data-type="item"]),
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="item"] .luigi-ac-no-result-heromobile:not([data-type="item"]),
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="item"] .luigi-ac-item:not([data-type="item"]):not([data-type="item-banner"]):not([data-type="brand-banner"])
+                                {
+                                    display: none;
+                                }
+                                
+                              .luigi-ac-heromobile .luigi-ac-result[data-type="brand"] .luigi-ac-header:not([data-type="brand"]),
+                              .luigi-ac-heromobile .luigi-ac-result[data-type="brand"] .luigi-ac-no-result-heromobile:not([data-type="brand"]),
+                              .luigi-ac-heromobile .luigi-ac-result[data-type="brand"] .luigi-ac-item:not([data-type="brand"]):not([data-type="brand-banner"])
+                              {
+                                  display: none;
+                              }
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="category"] .luigi-ac-header:not([data-type="category"]),
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="category"] .luigi-ac-no-result-heromobile:not([data-type="category"]),
+                                .luigi-ac-heromobile .luigi-ac-result[data-type="category"] .luigi-ac-item:not([data-type="category"]):not([data-type="brand-banner"])
+                                {
+                                    display: none;
+                                }
+                                .luigi-ac-result[data-type="item"] .luigi-ac-button-block--show-all {
+                            display: block;
+                        }}</style><style id="lbx-ac-a11y-style">
+        @media (prefers-contrast: no-preference) {
+            .lbx-a11y-switcher {
+                clip: rect(1px, 1px, 1px, 1px);
+                clip-path: inset(50%);
+                height: 1px;
+                width: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+            }
+        }
+
+        #lbx-ac-element.lbx-a11y-mode {
+            filter: grayscale(100%) !important;
+        }
+
+        #lbx-ac-element.lbx-a11y-mode * {
+            color: #000 !important;
+            background: #fff !important;
+            border-color: #000 !important;
+        }
+    </style><style>.error-diagnostics[data-v-972168ec]{margin-bottom:20px;text-align:left}.error-diagnostics-show-button[data-v-972168ec]{color:#b92424;text-decoration:underline}.error-diagnostics-show-button[data-v-972168ec]:hover{color:#b92424;text-decoration:none}.error-diagnostics-info[data-v-972168ec]{text-align:left}.error-diagnostics-data[data-v-972168ec]{background:#fff;border:1px solid #b92424;overflow:hidden;text-align:left}.error-diagnostics-button[data-v-972168ec]{background:#b92424;border:none;color:#fff;cursor:pointer;font-size:12px;font-weight:700;margin-left:auto;padding:5px 10px}.error-diagnostics-button[data-v-972168ec]:disabled{pointer-events:none}.error-diagnostics-data textarea[data-v-972168ec]{background:#fff;border:none;display:block;font-size:12px;height:400px;margin:0;outline:none;overflow:scroll;padding:5px;resize:none;width:100%}</style><script charset="utf-8" data-webpack="lbxSearchJsJsonpFunction:chunk-206" src="https://cdn.luigisbox.com/chunks/206.js"></script><style>
+        @media (prefers-contrast: no-preference) {
+            .lbx-a11y-switcher {
+                clip: rect(1px, 1px, 1px, 1px);
+                clip-path: inset(50%);
+                height: 1px;
+                width: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+            }
+        }
+
+        #lb-search-element.lbx-a11y-mode {
+            filter: grayscale(100%) !important;
+        }
+
+        #lb-search-element.lbx-a11y-mode * {
+            color: #000 !important;
+            background: #fff !important;
+            border-color: #000 !important;
+        }
+    </style></head>
+<body id="hp" class="web_sk page-hp"><div id="hw-87kwowifjjowiklsadh666right" style="position: fixed !important; height: 317px; width: 36px; top: 60px; right: -36px; z-index: 2147483647;"><div id="heurekaTabright" style="float: left; background: url(&quot;https://im9.cz/sk/css-v2/images/widget/right-zalozka-only_SK-gold.png?1&quot;) 0px 0px no-repeat; position: relative; display: block; width: 36px; height: 188px; z-index: 2147483647; margin-top: 65px; left: -36px;"></div></div>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFLJZVF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><!--                                                                             NAV -->
+<nav class="navbar">
+<div class="mobile-menu-header closed">
+<div class="flex-row">
+<a href="/" class="col logo-holder col">
+<img src="/images/vesely-drak-logo.png" alt="Veselý Drak" class="logo">
+</a>
+<div class="col">
+<div class="flagmenu-wrapper">
+                      <button class="flagmenu-trigger" id="flagmenuBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="flagmenuNav">
+                        <img src="/images/web/flag_sk.png" alt="">
+
+                      </button>
+
+                      <nav class="flagmenu" id="flagmenuNav" role="menu" aria-label="Language" hidden="">
+                        <header></header>
+                        <ul>
+                          <li><a role="menuitem" href="https://www.vesely-drak.cz/"><img src="/images/web/flag_cz.png" width="40" alt="CZECH"></a></li>
+                          <li><a role="menuitem" href="https://www.vesely-drak.sk/"><img src="/images/web/flag_sk.png" width="40" alt="Slovak"></a></li>
+                          <li><a role="menuitem" href="https://www.merrydragon.com/"><img src="/images/web/flag_en.png" width="40" alt="EU"></a></li>
+                        </ul>
+                      </nav>
+                    </div>
+<a href="/prihlaseni.php" class="mobile-menu-button" id="mobile-user"><span class="fas fa-user"></span></a>
+<a href="/katalog-kosik.php" class="mobile-menu-button" id="mobile-cart">
+<div class="quick-cart-composition">
+<div class="quick-cart-icon">
+<span class="fas fa-shopping-cart"></span>
+</div>
+<span class="quick-cart-items">0</span>
+</div>
+</a><a href="#" class="mobile-menu-button closed" id="mobile-menu-toggle">
+<span class="fas fa-times open"><span class="fa-bars-text">Menu</span></span><span class="fas fa-bars closed"><span class="fa-bars-text">Menu</span></span>
+</a>
+</div>
+</div>
+</div>
+<div class="nav-block nav-flex closed">
+<div class="additional-nav-holder nav-block-item">
+<div class="container">
+<div class="additional-nav-block nav-flex">
+<a href="/" class="logo-holder">
+<img src="/images/vesely-drak-logo.png" alt="Veselý Drak" class="logo">
+</a>
+<div class="additional-nav nav-flex">
+<div class="additional-nav-top nav-flex">
+<div class="info-nav-holder additional-nav-item">
+<ul class="info-nav secondary-menu-list">
+<li><a href="/doprava-a-platba/">Doprava a platba</a></li>
+<li><a href="/vernostny-program/">Vernostný program</a></li>
+<li><a href="/produkty/akce-a-slevy/">Akcie a zľavy</a></li>
+<li><a href="/kontakt/">Kontakt</a></li>
+</ul>
+</div>
+<div class="secondary-nav-holder additional-nav-item nav-flex">
+<ul class="secondary-nav secondary-menu-list">
+<li>
+<a href="/prihlaseni.php">Prihlásenie</a>
+</li>
+<li>
+<a href="/registrace.php">Registrácia</a>
+</li>
+<li class="hidden-l"><a href="https://www.vesely-drak.cz/" class="">Česká verzia webu</a></li>
+</ul>
+<ul class="flag-nav secondary-menu-list">
+<li class="flag-nav__item ">
+<a href="https://www.vesely-drak.cz/" class=""><img src="/images/web/flag_cz.png" width="25" alt="CZECH"></a>
+</li>
+<li class="flag-nav__item active">
+<a href="https://www.vesely-drak.sk/" class=""><img src="/images/web/flag_sk.png" width="25" alt="SLOVAK"></a>
+</li>
+<li class="flag-nav__item ">
+<a href="https://www.merrydragon.com/" class=""><img src="/images/web/flag_en.png" width="25" alt="EU"></a>
+</li>
+</ul>
+</div>
+</div>
+<div class="service-nav-holder additional-nav-item nav-flex">
+<div class="search-block">
+<form action="/hledat.php" method="get" id="quick-search" data-gtm-form-interact-id="0">
+<div class="quick-search-composition">
+<input type="text" name="hledat" id="fulltext-sk" placeholder="Hľadať" data-lb-init="true" autocomplete="off" data-autocomplete-old-value="Catan" data-gtm-form-interact-field-id="0">
+<button class="quick-search-submit" id="quick-search-submit"><span class="fas fa-search"></span></button>
+</div>
+</form>
+</div>
+<a href="/katalog-kosik.php" class="quick-cart-block nav-flex">                  
+<div class="quick-cart-composition">
+<div class="quick-cart-icon">
+<span class="fas fa-shopping-cart"></span>
+</div>
+<span class="quick-cart-items">0</span>
+</div>
+<div class="quick-cart-total">
+0.00&nbsp;€
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="main-nav-holder nav-block-item">
+<div class="containerx">
+<ul class="main-nav nav-flex">
+<li><a href="/produkty/magic-the-gathering/">Magic the Gathering</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/magic-the-gathering/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D5499%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/magic-the-gathering/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D5499%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/magic-the-gathering/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D5499%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/magic-the-gathering/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D5499%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/mtg-edice/">MTG Edície</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/booster/">Booster</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/booster-box/">Booster Box</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/intro-pack/">Predpripravené balíčky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/fat-pack/">Bundle (Fat pack)</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li><a href="/produkty/specialni-edice/">Špeciálne edície</a> 
+<ul class="submenu">
+<li><a href="/produkty/commander/">Commander</a></li>
+<li><a href="/produkty/deckbuilders-toolkit/">Deckbuilders Toolkit</a></li>
+<li><a href="/produkty/duel-decks/">Duel Decks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/alba/">Albumy na Magic</a> 
+<ul class="submenu">
+<li><a href="/produkty/jednobarevna-alba-mtg/">Jednofarebné albumy</a></li>
+<li><a href="/produkty/mtg-album/">Obrázkové albumy</a></li>
+<li><a href="/produkty/stranky-do-alba/">Stránky do albumu</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/krabicky/">Krabičky na Magic</a> 
+<ul class="submenu">
+<li><a href="/produkty/jednobarevne-krabicky-na-magic/">Jednofarebné krabičky</a></li>
+<li><a href="/produkty/obrazkove-krabicky-na-magic/">Obrázkové krabičky</a></li>
+<li><a href="/produkty/krabicky-magic/">Magicové krabičky</a></li>
+<li><a href="/produkty/krabice-na-karty-magic/">Veľké krabice</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/obaly/">Obaly na Magic</a> 
+<ul class="submenu">
+<li><a href="/produkty/jednobarevne-obaly-na-magic/">Jednofarebné obaly</a></li>
+<li><a href="/produkty/obrazkove-obaly-na-magic/">Obrázkové obaly</a></li>
+<li><a href="/produkty/obaly-magic/">Magicové obaly</a></li>
+<li><a href="/produkty/mtg-pevne-obaly/">Pevné obaly</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/podlozky/">Podložky na Magic</a> 
+<ul class="submenu">
+<li><a href="/produkty/jednobarevne-podlozky-na-magic/">Jednofarebné podložky</a></li>
+<li><a href="/produkty/podlozky-magic/">Magicové podložky</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/tricka/">Tričká s Magicom</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/kostky-zetony-a-dalsi-doplnky/">Kocky, žetóny a ďalšie doplňky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/magic-plysaci/">Plyšové hračky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/unpainted-miniatures-magic-the-gathering/">Figúrky a miniatúry</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/knihy/">Knihy o Magicu</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="active"><a href="/produkty/pokemon-karty/">Pokémon karty</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/pokemon-karty/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/pokemon-karty/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/pokemon-karty/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/pokemon-karty/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-edice/">Pokémon edície</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/boostery/">Booster</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/booster-boxy/">Booster Box</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pcd/">Hotové balíčky na hranie</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/specialni-sety/">Špeciálne sety</a> 
+<ul class="submenu">
+<li><a title="Pokémon V Box" href="/produkty/pokemon-v-box/">Pokémon V Box</a></li>
+<li><a title="Pokémon Elite Trainer Box" href="/produkty/pokemon-elite-trainer-box/">Elite Trainer Box</a></li>
+<li><a href="/produkty/pokemon-plechovky/">Pokémon plechovky</a></li>
+<li><a href="/produkty/pokemon-premium-kolekce/">Pokémon Premium kolekcie</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-alba/">Albumy na Pokémonov</a> 
+<ul class="submenu">
+<li><a href="/produkty/pokemon-alba-na-pokemony/">Pokémonské albumy</a></li>
+<li><a href="/produkty/jednobarevna-alba-na-pokemony/">Jednofarebné albumy</a></li>
+<li><a href="/produkty/stranky-do-alba/">Stránky do albumu</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-krabicky/">Krabičky na Pokémonov</a> 
+<ul class="submenu">
+<li><a href="/produkty/pokemon-krabicky-na-pokemony/">Pokémonské krabičky</a></li>
+<li><a href="/produkty/jednobarevne-krabicky-na-pokemony/">Jednofarebné krabičky</a></li>
+<li><a href="/produkty/barevne-krabicky-na-pokemony/">Farebné krabičky</a></li>
+<li><a href="/produkty/ulozne-krabicky/">Úložné krabičky</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-obaly/">Obaly na Pokémonov</a> 
+<ul class="submenu">
+<li><a href="/produkty/pokemoni-obaly/">Pokémonské obaly</a></li>
+<li><a href="/produkty/jednobarevne-obaly-na-pokemony/">Jednofarebné obaly</a></li>
+<li><a href="/produkty/pevne-obaly-na-karty/">Pevné obaly</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-podlozky/">Pokémon podložky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-kusove-karty-a-herni-prislusenstvi/">Kusové karty a doplnky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-figurky/">Pokémon figúrky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-hracky/">Pokémon hračky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-obleceni/">Pokémon oblečenie</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-plysove-hracky/">Pokémon plyšové hračky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pokemon-ostatni/">Pokémon ostatné</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/sberatelske-karty/">Zberateľské karty</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/sberatelske-karty/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/sberatelske-karty/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/sberatelske-karty/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/sberatelske-karty/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/fotbalove-karty/">Futbalové karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/sberatelske-hokejove-karty/">Hokejové karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/mma-karty/">MMA karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/nba-basketbalove-karty-a-samolepky/">NBA karty, samolepky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/sportovni-sberatelske-nfl-karty/">NFL karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/baseballove-karticky/">Baseballové karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karty-auto-zavody/">Automobilové závody</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karty-golf/">Golf</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/marvel-karty/">Marvel karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/sberatelske-karty-celebrity-historicke-osobnosti/">Známe osobnosti</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/naruto-karty/">Naruto karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/super-mario-karty/">Super Mario karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/one-piece-trading-cards/">One Piece TC</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/star-wars-karty/">Star Wars karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/warhammer-40000-dark-galaxy-trading-cards/">Warhammer karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/fortnite-karty/">Fortnite karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/Minecraft-karty/">Minecraft karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/lol-surprise-karty/">LOL Surprise karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/ledove-kralovstvi-frozen-karty/">Ľadové kráľovstvo</a> </li>
+</ul>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/sberatelske-karty/">Ostatné</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/karetni-hry/">Kartové hry</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/karetni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D1099%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/karetni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D1099%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/karetni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D1099%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/karetni-hry/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/android-netrunner/">Android: Netrunner</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/arkham-horror/">Arkham Horror</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/ascension/">Ascension</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karty-digimon/">Digimon</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/dragoborne/">Dragoborne</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/dragonball-super-card-game/">DragonBall karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/epic-card-game/">Epic Card Game</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/final-fantasy/">Final Fantasy</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/flesh-and-blood-karty/">Flesh and Blood</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hero-realms/">Hero Realms</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hra-o-truny-lcg/">Hra o Tróny</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/keyforge/">KeyForge</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/legend-of-the-five-rings/">Legend of the Five Rings</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/lorcana/">Lorcana Disney</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karty-my-hero-academia/">My Hero Academia</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/pan-prstenu-lcg/">Pán Prsteňov</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/one-piece-card-game/">One Piece TCG</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/scratch-wars/">Scratch Wars</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/star-realms/">Star Realms</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/star-wars-destiny/">Star Wars</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/vampire-eternal-struggle/">Vampire</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/warage/">Warage</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/warhammer-champions/">Warhammer Champions</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/wastelands/">Wastelands</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karty-yu-gi-oh/">Yu-Gi-Oh!</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/ostatni/">Ostatné</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/poker-sortiment/">Poker</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/deskove-a-stolni-hry/">Doskové a stolné hry</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/deskove-a-stolni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/deskove-a-stolni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/deskove-a-stolni-hry/?filter=from-price%3D49%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/deskove-a-stolni-hry/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/strategicke/">Strategické</a> 
+<ul class="submenu">
+<li><a href="/produkty/hra-o-truny/">Hra o Tróny</a></li>
+<li><a href="/produkty/panstvi-hruzy/">Panstvo hrôzy</a></li>
+<li><a href="/produkty/star-wars/">Star Wars</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/fantasy/">Fantasy</a> 
+<ul class="submenu">
+<li><a href="/produkty/carcassonne/">Carcassonne</a></li>
+<li><a href="/produkty/dominion/">Dominion</a></li>
+<li><a href="/produkty/osadnici-z-katanu/">Osadníci z Katanu</a></li>
+<li><a href="/produkty/scythe/">Scythe</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/rodinne/">Rodinné</a> 
+<ul class="submenu">
+<li><a href="/produkty/activity/">Activity</a></li>
+<li><a href="/produkty/dixit/">Dixit</a></li>
+<li><a href="/produkty/dobble/">Dobble</a></li>
+<li><a href="/produkty/ticket-to-ride/">Ticket to Ride</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/karetni/">Kartové</a> 
+<ul class="submenu">
+<li><a href="/produkty/bang/">Bang</a></li>
+<li><a href="/produkty/citadela/">Citadela</a></li>
+<li><a href="/produkty/munchkin/">Munchkin</a></li>
+<li><a href="/produkty/settlers-zrod-imperia/">Settlers Zrod impéria</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/party/">Párty</a> 
+<ul class="submenu">
+<li><a href="/produkty/exploding-kittens/">Exploding Kittens</a></li>
+<li><a href="/produkty/kryci-jmena/">Krycie ména</a></li>
+<li><a href="/produkty/timeline/">Timeline</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/vzdelavaci/">Vzdelávacie</a> 
+<ul class="submenu">
+<li><a href="/produkty/cesko/">Česko</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/detske/">Detské</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/klasicke-deskove-hry/">Klasické</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hry-pro-dva/">Hry pre dvoch</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hlavolamy/">Hlavolamy</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/gamebooky/">Gamebooky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/obaly-na-karty/">Obaly na karty</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/3d-puzzle/">3D Puzzle</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/merchandise/">Merch</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/merchandise/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/merchandise/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/merchandise/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/merchandise/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/zaklinac-predmety/">Zaklínač</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/harry-potter-merch/">Harry Potter</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/merch-vesely-drak/">Veselý drak</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/naruto-merch-a-naruto-figurky/">Naruto</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/tlapkova-patrola/">Tlapková Patrola</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/fortnite-predmety-figurky-karty/">Fortnite</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/hry-pro-jednoho/">Hry pre jedného</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/hry-pro-jednoho/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/hry-pro-jednoho/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/hry-pro-jednoho/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/hry-pro-jednoho/?filter=from-price%3D39%2BK%25C4%258D%26to-price%3D1299%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/3d-puzzle/">Puzzle</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/gamebooky/">Gamebooky</a> </li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hlavolamy/">Hlavolamy</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li><a href="/produkty/doplnky-ke-hram/">Doplnky ku hrám</a>
+<div class="submenu-block">
+<div class="container">
+<div class="flex-row top-cols cols-nopadding no-margin">
+<div class="col col-lg-20p col-quick-select">
+<ul class="submenu">
+<li><a href="/produkty/doplnky-ke-hram/?filter=from-price%3D%26to-price%3D%26doporucujeme%3D1">Najpredávanejšie</a></li>
+<li><a href="/produkty/doplnky-ke-hram/?filter=from-price%3D%26to-price%3D%26akce%3D1">Akcie</a></li>
+<li><a href="/produkty/doplnky-ke-hram/?filter=from-price%3D%26to-price%3D%26novinka%3D1">Novinky</a></li>
+<li><a href="/produkty/doplnky-ke-hram/?filter=from-price%3D5%2BK%25C4%258D%26to-price%3D3999%2BK%25C4%258D%26opet_skladem%3D1">Opat skladom</a></li>
+</ul>
+</div>
+<div class="col col-lg-80p flex-row cols-halfpadding top-cols col-submenu no-pt no-pb">
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/alba-na-hry/">Albumy na hry</a> 
+<ul class="submenu">
+<li><a href="/produkty/alba-jednobarevna/">Albumy jednofarebné</a></li>
+<li><a href="/produkty/alba-magic/">Albumy Magic</a></li>
+<li><a href="/produkty/alba-pokemon/">Albumy Pokémon</a></li>
+<li><a href="/produkty/stranky-do-alba/">Stránky do albumu</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/obaly-na-hry/">Obaly na hry</a> 
+<ul class="submenu">
+<li><a href="/produkty/mini-american/">Mini American</a></li>
+<li><a href="/produkty/mini-european/">Mini European</a></li>
+<li><a href="/produkty/standard-american/">Standard American</a></li>
+<li><a href="/produkty/standard-european/">Standard European</a></li>
+<li><a href="/produkty/standard-card-game/">Standard Card Game</a></li>
+<li><a href="/produkty/specialni-obaly/">Špeciálné obaly</a></li>
+<li><a href="/produkty/obaly-na-magic/">Obaly Magic</a></li>
+<li><a href="/produkty/obaly-na-pokemon/">Obaly Pokémon</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/krabicky-na-hry/">Krabičky na hry</a> 
+<ul class="submenu">
+<li><a href="/produkty/krabicky-jednobarevne/">Krabičky jednofarebné</a></li>
+<li><a href="/produkty/krabicky-magic/">Krabičky Magic</a></li>
+<li><a href="/produkty/krabicky-pokemon/">Krabičky Pokémon</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/herni-podlozky/">Herné podložky</a> 
+<ul class="submenu">
+<li><a href="/produkty/herni-podlozky-jednobarevne/">Herné podložky jednofarebné</a></li>
+<li><a href="/produkty/herni-podlozky-magic/">Herné podložky Magic</a></li>
+<li><a href="/produkty/herni-podlozky-pokemon/">Herné podložky Pokémon</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="col col-lg-25p">
+<ul class="submenu">
+<li> <a href="/produkty/hraci-kostky/">Hracie kostky</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<!--                                                                             NAV - END -->
+<div class="mobile-nav-search nav-flex">
+<div class="search-block">
+<form action="/hledat.php" method="get" id="quick-search">
+<div class="quick-search-composition">
+<input type="text" name="hledat" id="fulltext-mobil-sk" placeholder="Hľadať" class="ui-autocomplete-input" autocomplete="off" data-lb-init="true">
+<button class="quick-search-submit" id="quick-search-submit">
+<span class="fas fa-search">
+</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!--                                                                             CONTENT -->
+<div class="block" style="opacity: 1; transition: opacity 0.2s;"><button class="lbx-a11y-switcher">High-contrast mode</button><div id="lb-search-element" style=""><div class="lb-search"><!----> <div class="lb-search__body"><div id="results-scroll-to"></div> <div class="lb-container lb-search__container"><aside class="lb-search__aside lb-js-mobile-filter"><h2 class="lb-aside-heading">Filtre</h2> <div class="lb-aside-heading__hits-count lb-d-t-none">20 výsledkov</div> <div class="lb-aside-border"><div title="Zatvoriť" class="lb-search__close-filter lb-js-mobile-filter-close"></div> <div class="lb-d-none lb-d-t-block"><!----></div> <div class="lb-facets"><div class="lb-aside-section"><!----> <!----> <div class="lb-facet lb-facet--range"><div class="lb-facet__header"><div class="lb-facet__title"> Cena </div></div> <!----> <div class="lb-facet__range"> od 11.16 €  -  do 71.96 € </div> <div class="lb-pricefacet-wrap"><div class="lb-histogram"><div class="lb-histogram__from"> 11.16 € </div> <div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="2" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(66.6667% + 3px);"></div><div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="3" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(100% + 3px);"></div><div title="2" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(66.6667% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="2" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(66.6667% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="3" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(100% + 3px);"></div><div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="0" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(0% + 3px);"></div><div title="1" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(33.3333% + 3px);"></div><div title="2" class="lb-histogram__cell lb-search-bg-color-primary" style="height: calc(66.6667% + 3px);"></div> <div class="lb-histogram__to"> 71.96 € </div></div> <!----></div></div> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--brand"><div class="lb-facet__header"><div class="lb-facet__title"> Výrobca <span>(3)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Albi (18) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Blackfire (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Gamegenic (1) </span></label></div> <!----></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--category"><div class="lb-facet__header"><div class="lb-facet__title"> Kategória <span>(5)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Doskové hry (20) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Strategické hry (17) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Hry pre deti (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Kartové hry (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Párty hry (1) </span></label></div> <!----></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--Téma"><div class="lb-facet__header"><div class="lb-facet__title"> Téma <span>(17)</span></div></div> <div class="lb-facet__search"><input placeholder="Hľadať v položkách" aria-label="Hľadať v položkách" tabindex="0"> <!----></div> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Obchodování (16) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Strategická hra (15) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Vyjednávání (15) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Správa karet (14) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Budovatelská hra (13) </span></label></div> <div class="lb-facet__hidden-list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Diplomacie (12) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Civilizační (4) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Dětská hra (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Historická hra (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Rodinná (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Ekonomika (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Karetní hra (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Kontrola území (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Party (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Podle románu (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Postřehová hra (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Sci-fi (1) </span></label></div></div> <a href="#" class="lb-facet__more"> Ďalších (12) </a></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--Počet hráčov"><div class="lb-facet__header"><div class="lb-facet__title"> Počet hráčov <span>(7)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 3 - 4 (7) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 2 - 4 (3) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 5 - 6 (3) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 1 (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 2 (2) </span></label></div> <div class="lb-facet__hidden-list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 2 - 6 (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 3 - 6 (1) </span></label></div></div> <a href="#" class="lb-facet__more"> Ďalších (2) </a></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--Vek"><div class="lb-facet__header"><div class="lb-facet__title"> Vek <span>(5)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 10+ (10) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 12+ (5) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 8+ (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 3+ (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 6+ (1) </span></label></div> <!----></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--Jazyk"><div class="lb-facet__header"><div class="lb-facet__title"> Jazyk <span>(2)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Čeština (19) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Slovenština (1) </span></label></div> <!----></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--Čas hry"><div class="lb-facet__header"><div class="lb-facet__title"> Čas hry <span>(8)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 90 min. (10) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 120 min. (2) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 10 min. (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 15 min. (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 20 min. (1) </span></label></div> <div class="lb-facet__hidden-list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 30 min. (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 60 - 120 min. (1) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> 60 min. (1) </span></label></div></div> <a href="#" class="lb-facet__more"> Ďalších (3) </a></div> <!----></div> <!----> <!----> <!----></div><div class="lb-aside-section"><!----> <div class="lb-facet lb-facet--multichoice  lb-facet--labels"><div class="lb-facet__header"><div class="lb-facet__title"> Štítky <span>(2)</span></div></div> <!----> <div class="lb-facet__list"><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Nedostupné (15) </span></label></div><div class="lb-checkbox lb-checkbox--no-color"><label class="lb-facet__label"><input type="checkbox" class="lb-checkbox__input" tabindex="0"> <span class="lb-checkbox__check"></span> <span class="lb-checkbox__element"></span> <span class="lb-checkbox__text lb-checkbox__text--original"> Nedostupné, Odporúčame (1) </span></label></div> <!----></div> <!----></div> <!----> <!----> <!----></div></div> <div class="lb-d-t-none"><!----></div> <div class="lb-facets__mobile-actions"><span class="lb-btn lb-search-bg-color-primary-clickable lb-js-mobile-filter-close" tabindex="0" role="button"> Zobraziť výsledky (20) </span></div> <div class="lb-banner"><!----></div></div></aside> <main class="lb-search__main"><!----> <h1 class="lb-search__headline"><span class="lb-search__title">Výsledky pre <strong class="lb-search__query lb-search-text-color-primary">Catan</strong> <span class="lb-search__hits">(20)</span></span></h1> <!----> <!----> <!----> <!----> <div class="lb-search__button-and-sorting" tabindex="0" role="button"><div class="lb-d-t-none lb-search__button-and-sorting__button" tabindex="0" role="button"><div class="lb-search__mobile-filter lb-search-bg-color-primary-clickable lb-js-mobile-filter-toggle"> Filter </div></div> <div class="lb-search__button-and-sorting__sorting" tabindex="0" role="button"><div class="lb-sorts"><div class="lb-sorts__title">Zoradiť podľa: &nbsp;</div> <select aria-label="Zoradiť podľa: &amp;nbsp;" tabindex="0"><option value="">Predvolené</option><option value="price_amount:asc">Od najlacnejších</option><option value="price_amount:desc">Od najdrahších</option><option value="introduced_at:asc">Od najstarších</option><option value="introduced_at:desc">Od najnovších</option></select></div></div></div> <!----> <div id="lb-results" class="lb-results-wrapper"><div><h2 class="lb-results__heading">Produkty <span class="lb-search__hits">(20)</span></h2> <div class="lb-results"><div data-lb-id="16221" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/16221-catan-premiove-obaly-na-karty/"><picture><img src="https://www.vesely-drak.cz/obrazek/68779ae7ef852/119425-0-68779eb7141be.jpg" data-src="https://www.vesely-drak.cz/obrazek/68779ae7ef852/119425-0-68779eb7141be.jpg" alt="Catan - prémiové puzdrá na karty" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/16221-catan-premiove-obaly-na-karty/">Catan - prémiové puzdrá na karty</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">15.96 €</span> <span class="usual-price text-green text-bold">Skladom 6 ks</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[16221]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="9964" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/9964-catan-logicka-hra-pro-1-hrace/"><picture><img src="https://www.vesely-drak.cz/obrazek/637b711498a62/catan-logicka-hra-pro-jednoho-637b75f2248f4.jpg" data-src="https://www.vesely-drak.cz/obrazek/637b711498a62/catan-logicka-hra-pro-jednoho-637b75f2248f4.jpg" alt="Catan - Logická hra pre 1 hráča" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/9964-catan-logicka-hra-pro-1-hrace/">Catan - Logická hra pre 1 hráča</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">29.00 €</span> <span class="usual-price text-green text-bold">Skladom 1 ks</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[9964]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="7025" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/7025-catan-kniha-hadanek/"><picture><img src="https://www.vesely-drak.cz/obrazek/60a171942e56f/catan-kniha-hadanek-60a17671f3b55.png" data-src="https://www.vesely-drak.cz/obrazek/60a171942e56f/catan-kniha-hadanek-60a17671f3b55.png" alt="Catan - Kniha hádanek" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/7025-catan-kniha-hadanek/">Catan - Kniha hádanek</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">14.76 €</span> <span class="usual-price text-green text-bold">Skladom 1 ks</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[7025]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="8500" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/party/8500-hra-na-kocku-a-namir-a-game-of-cat-mouth/"><picture><img src="https://www.vesely-drak.cz/obrazek/6216d899c5321/67f1ae7a0e6df5be6778ef6588b66a7a--mm2000xkkkkkkkkkkkkk-6216e1a5f2179.jpg" data-src="https://www.vesely-drak.cz/obrazek/6216d899c5321/67f1ae7a0e6df5be6778ef6588b66a7a--mm2000xkkkkkkkkkkkkk-6216e1a5f2179.jpg" alt="Hra na kočku a namiř (A Game of Cat &amp; Mouth)" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/party/8500-hra-na-kocku-a-namir-a-game-of-cat-mouth/">Hra na kočku a namiř (A Game of Cat &amp; Mouth)</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">23.96 €</span> <span class="usual-price text-green text-bold">Skladom 1 ks</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[8500]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4348" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div><div><!----> <!----> <!----> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/4348-catan-hra-o-truny/"><picture><img src="https://www.vesely-drak.cz/obrazek/5b9ad9761d1d6/catan-hra-o-truny1-5b9ad99569546.jpg" data-src="https://www.vesely-drak.cz/obrazek/5b9ad9761d1d6/catan-hra-o-truny1-5b9ad99569546.jpg" alt="Catan - Hra o trůny" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/4348-catan-hra-o-truny/">Catan - Hra o trůny</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">63.96 €</span> <span class="usual-price text-gray text-bold">Čaká sa na dotlač</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="7436" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/7436-catan-kupci-a-barbari/"><picture><img src="https://www.vesely-drak.cz/obrazek/6135c12114216/catan-kupci-barbari-6135c6dc4618e.jpg" data-src="https://www.vesely-drak.cz/obrazek/6135c12114216/catan-kupci-barbari-6135c6dc4618e.jpg" alt="Catan - Kupci a barbaři" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/7436-catan-kupci-a-barbari/">Catan - Kupci a barbaři</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">35.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4335" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/karetni/4335-catan-duel/"><picture><img src="https://www.vesely-drak.cz/obrazek/5b9abd146ac8c/catan-duel1-5b9abd4ea2032.jpg" data-src="https://www.vesely-drak.cz/obrazek/5b9abd146ac8c/catan-duel1-5b9abd4ea2032.jpg" alt="Catan - Duel" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/karetni/4335-catan-duel/">Catan - Duel</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">19.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4959" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/4959-catan-hvezdoplavci/"><picture><img src="https://www.vesely-drak.cz/obrazek/5e58f774132d8/catan---hvezdoplavci-1-5e58fa0c23df4.jpg" data-src="https://www.vesely-drak.cz/obrazek/5e58f774132d8/catan---hvezdoplavci-1-5e58fa0c23df4.jpg" alt="Catan - Hvězdoplavci" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/4959-catan-hvezdoplavci/">Catan - Hvězdoplavci</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">71.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="5467" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/5467-catan-kompakt/"><picture><img src="https://www.vesely-drak.cz/obrazek/5eb7122d3a62e/catan-kompakt-1-5eb7135bad6f5.jpg" data-src="https://www.vesely-drak.cz/obrazek/5eb7122d3a62e/catan-kompakt-1-5eb7135bad6f5.jpg" alt="Catan - Kompakt" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/5467-catan-kompakt/">Catan - Kompakt</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">29.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="7440" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/7440-catan-rychla-karetni-hra/"><picture><img src="https://www.vesely-drak.cz/obrazek/6135fb164cf76/osadnici-z-katanu-61360040e8e3c.jpg" data-src="https://www.vesely-drak.cz/obrazek/6135fb164cf76/osadnici-z-katanu-61360040e8e3c.jpg" alt="Catan - Rychlá karetová hra" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/7440-catan-rychla-karetni-hra/">Catan - Rychlá karetová hra</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">11.16 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4960" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/4960-catan-rise-inku/"><picture><img src="https://www.vesely-drak.cz/obrazek/5e58fc8711317/catan---rise-inku-1-5e58fcd4a8317.jpg" data-src="https://www.vesely-drak.cz/obrazek/5e58fc8711317/catan---rise-inku-1-5e58fcd4a8317.jpg" alt="Catan - Říše Inků" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/4960-catan-rise-inku/">Catan - Říše Inků</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">39.96 €</span> <span class="usual-price text-gray text-bold">na otázku</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="2779" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/2779-catan-namornici-v-cestine/"><picture><img src="https://www.vesely-drak.cz/obrazek/5488c5ba057b8/catan-namornici1-5b9abc7c008f4.jpg" data-src="https://www.vesely-drak.cz/obrazek/5488c5ba057b8/catan-namornici1-5b9abc7c008f4.jpg" alt="Catan - Námořníci v češtině" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/2779-catan-namornici-v-cestine/">Catan - Námořníci v češtině</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">35.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="2782" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/2782-catan-zamorske-objevy-v-cestine/"><picture><img src="https://www.vesely-drak.cz/obrazek/5488c5b83878b/catan-zamorske-objevy1-5b9abbc01defb.jpg" data-src="https://www.vesely-drak.cz/obrazek/5488c5b83878b/catan-zamorske-objevy1-5b9abbc01defb.jpg" alt="Catan - Zámořské objevy v češtině" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/2782-catan-zamorske-objevy-v-cestine/">Catan - Zámořské objevy v češtině</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">33.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="9965" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/9965-catan-usvit-lidstva/"><picture><img src="https://www.vesely-drak.cz/obrazek/637b7e81c2b38/hra-catan-usvit-lidstva-637b8221ee359.jpg" data-src="https://www.vesely-drak.cz/obrazek/637b7e81c2b38/hra-catan-usvit-lidstva-637b8221ee359.jpg" alt="Catan - Úsvit lidstva" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/9965-catan-usvit-lidstva/">Catan - Úsvit lidstva</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">51.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4961" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/4961-catan-mesta-a-rytiri-rozsireni-pro-5-6-hracu/"><picture><img src="https://www.vesely-drak.cz/obrazek/5e58ff57902ce/osadnici-mesta-a-rytiri-5-6-hracu-1-5e59001fb24f7.jpg" data-src="https://www.vesely-drak.cz/obrazek/5e58ff57902ce/osadnici-mesta-a-rytiri-5-6-hracu-1-5e59001fb24f7.jpg" alt="Catan - Města a rytíři rozšíření pro 5-6 hráčů" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/4961-catan-mesta-a-rytiri-rozsireni-pro-5-6-hracu/">Catan - Města a rytíři rozšíření pro 5-6 hráčů</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">21.16 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="4962" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/4962-catan-namornici-rozsireni-pro-5-6-hracu/"><picture><img src="https://www.vesely-drak.cz/obrazek/5e59021bc7987/catan---namornici-rozsireni-pro-5-6-hracu1-5e590714e10f1.jpg" data-src="https://www.vesely-drak.cz/obrazek/5e59021bc7987/catan---namornici-rozsireni-pro-5-6-hracu1-5e590714e10f1.jpg" alt="Catan - Námořníci rozšíření pro 5-6 hráčů" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/4962-catan-namornici-rozsireni-pro-5-6-hracu/">Catan - Námořníci rozšíření pro 5-6 hráčů</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">21.16 €</span> <span class="usual-price text-gray text-bold">na otázku</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="5468" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/5468-catan-kupci-a-barbari-rozsireni-pro-5-6-hracu/"><picture><img src="https://www.vesely-drak.cz/obrazek/5eb7174770f91/catan-kupci-a-barbari-rozsireni-pro-5-hracu-5eb71bd70060d.jpg" data-src="https://www.vesely-drak.cz/obrazek/5eb7174770f91/catan-kupci-a-barbari-rozsireni-pro-5-hracu-5eb71bd70060d.jpg" alt="Catan - Kupci a barbaři rozšíření pro 5-6 hráčů" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/5468-catan-kupci-a-barbari-rozsireni-pro-5-6-hracu/">Catan - Kupci a barbaři rozšíření pro 5-6 hráčů</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">21.16 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="2783" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/2783-catan-mesta-a-rytiri-v-cestine/"><picture><img src="https://www.vesely-drak.cz/obrazek/5488c5b797b03/osadnici-mesta-5488d048d2471.jpg" data-src="https://www.vesely-drak.cz/obrazek/5488c5b797b03/osadnici-mesta-5488d048d2471.jpg" alt="Catan - Města a rytíři v češtině" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/2783-catan-mesta-a-rytiri-v-cestine/">Catan - Města a rytíři v češtině</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">35.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="2784" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/strategicke/2784-catan-rozsireni-pro-5-a-6-hracu-v-cestine/"><picture><img src="https://www.vesely-drak.cz/obrazek/5488c5b71649e/osadnici-5az6-5488d1d97abf2.jpg" data-src="https://www.vesely-drak.cz/obrazek/5488c5b71649e/osadnici-5az6-5488d1d97abf2.jpg" alt="Catan - rozšírenie pre 5 a 6 hráčov v češtině" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/strategicke/2784-catan-rozsireni-pro-5-a-6-hracu-v-cestine/">Catan - rozšírenie pre 5 a 6 hráčov v češtině</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">23.96 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div><div data-lb-id="9682" class="col catalogue-item col-lg-25p col-sm-33p col-xs-50p col-xxs-100p"><div class="item-inner"><!----> <div class="info-icons-holder product-features"></div> <div class="ribbons-h-block"><div><!----> <!----> <div class="ribbon-h ribbon-gray"><span>Nedostupné</span></div> <!----> <!----> <!----></div></div> <div class="image-holder"><a href="https://www.vesely-drak.sk/produkty/detske/9682-catan-junior-na-cesty/"><picture><img src="https://www.vesely-drak.cz/obrazek/6338baad76452/osadnici-junior-na-cesty-6338bd8dee725.jpg" data-src="https://www.vesely-drak.cz/obrazek/6338baad76452/osadnici-junior-na-cesty-6338bd8dee725.jpg" alt="Catan Junior - na cesty" class="lazyloading"></picture></a></div> <div class="text-holder"><h3 class="product-name"><a href="https://www.vesely-drak.sk/produkty/detske/9682-catan-junior-na-cesty/">Catan Junior - na cesty</a></h3></div> <div class="info-holder flex-row no-margin between-cols"><div class="col price-col col-nopadding"><span class="price">14.36 €</span> <span class="usual-price text-gray text-bold">Dočasne nedostupné</span></div> <div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[undefined]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div></div></div></div></div> <!----></div> <!----> <div class="lb-pagination"><!----> <!----> <div class="lb-pagination__info"> Výsledky 1 - 20 z 20 </div></div></main></div></div> <!----></div> <div>
+                <script id="lb-search-results" type="application/ld+json">
+                {
+                    "@context": "http://schema.org",
+                    "@type": "WebSite",
+                    "name": "www.vesely-drak.sk",
+                    "url": "https://www.vesely-drak.sk/produkty/vyhledavani/?string=Catan",
+                    "potentialAction":
+                    {
+                        "target":
+                        {
+                            "@type": "EntryPoint",
+                            "urlTemplate": "https://www.vesely-drak.sk/produkty/vyhledavani/?string={search_term_string}"
+                        },
+                        "query-input": "required name=search_term_string",
+                        
+            "@type": "SearchAction",
+            "query": "Catan",
+            "result":
+            {
+                "@type": "ItemList",
+                "name": "Search Results",
+                "itemListElement": [{"@type":"ListItem","position":1,"name":"Catan - prémiové puzdrá na karty","url":"16221","type":"item","image":"https://www.vesely-drak.cz/obrazek/68779ae7ef852/119425-0-68779eb7141be.jpg","description":"Chráňte svoje karty pred znečistením a poškodením pomocou oficiálnych prémiových obalov pre hru Catan. Vysokokvalitné obaly s matným povrchom sú špeciálne navrhnuté pre originálnu anglickú verziu hry.\n\n154 kompletných sád pre všetky karty anglickej verzie hry Osadníci z Katanu a rozšírenia pre 5-6 hráčov\nJedno balenie obsahuje 120 obalov na karty zdrojov plus 34 obalov na rozvojové karty\nObaly zabraňujú ohnutým rohom, poškriabaniu a poškodeniu pri miešaní\nNeobsahujú kyselinu a PVC\n\nPozrite si celý sortiment hier Catan.","offers":{"@type":"Offer","priceCurrency":"EUR","price":15.96,"availability":"https://schema.org/InStock"}},{"@type":"ListItem","position":2,"name":"Catan - Logická hra pre 1 hráča","url":"9964","type":"item","image":"https://www.vesely-drak.cz/obrazek/637b711498a62/catan-logicka-hra-pro-jednoho-637b75f2248f4.jpg","description":"Logická hra pre jedného hráča na motívy obľúbených Osadníkov z Catanu. Budujte obchodné cesty a stavajte dediny a mestá aj v jednom!\nVašou úlohou je prekonať neprístupný terén, ale aj nenechať sa okradnúť zlodeji. Vašu ochranu pred zlodejmi zabezpečujú rytieri, ktorých je ale obmedzený počet. Naplánujte obchodné cesty tak, aby ste nespadli do náručia zlodejom.\nPozrite sa na kompletnú ponuku doskových hier Osadníci z Katanu.","offers":{"@type":"Offer","priceCurrency":"EUR","price":29,"availability":"https://schema.org/InStock"}},{"@type":"ListItem","position":3,"name":"Catan - Kniha hádanek","url":"7025","type":"item","image":"https://www.vesely-drak.cz/obrazek/60a171942e56f/catan-kniha-hadanek-60a17671f3b55.png","description":"Catan (Puzzle Book) - Kniha plná otázok a dobrodružstiev zo sveta Osadníkov Catan. Osadníci z Katanu sú dnes už zabývaní stálicou medzi najobľúbenejšími doskovými hrami. \nRovnako ako v osadníci budete objavovať, budovať, osídľovať. To všetko vo viac než 100 hádankách rozložených do 10 tematických kapitol. Získajte dostatočný počet víťazných bodov!\nPozrite sa na kompletnú ponuku doskových hier Osadníci z Katanu.","offers":{"@type":"Offer","priceCurrency":"EUR","price":14.76,"availability":"https://schema.org/InStock"}},{"@type":"ListItem","position":4,"name":"Hra na kočku a namiř (A Game of Cat &amp; Mouth)","url":"8500","type":"item","image":"https://www.vesely-drak.cz/obrazek/6216d899c5321/67f1ae7a0e6df5be6778ef6588b66a7a--mm2000xkkkkkkkkkkkkk-6216e1a5f2179.jpg","description":"Hra na kočku a namiř (A Game of Cat &amp;amp; Mouth) je veľmi návyková magnetická hra od autorov Výbušných koťátek.Táto zábavná hra pre dvoch hráčov riadne preverí šikovnosť, postreh a gól oboch hráčov. Stačí rozložiť škatuľu od hry a vytvoriť tak napaditý herný plán. Hra prebieha tak, že obaja hráči zároveň strieľajú guličky cez papuľu mačky umiestnené uprostred herného plánu a snažia sa čo najrýchlejšie dostať všetky svoje guličky na súperovu stranu. Guličky sa vystreľujú pomocou magnetickej labky, ktorá slúži ako cvrnkátko. Navyše, ak sa vám podarí zostreliť čiernu guľôčku z ňufáka mačky, bicykel automaticky vyhrávate. Sčítate body a začnete ďalšie kolo. Nie je na čo čakať! Pustite sa do blážnivej mačacej hry!Obsah balenia: \n\n 1 skladací hrací plán/škatuľa \n2 magnetické labky na odpaľovanie guličiek \n17 plastových guličiek \n1 mačacie ňufáčik \nčeský návod\n\n\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":23.96,"availability":"https://schema.org/InStock"}},{"@type":"ListItem","position":5,"name":"Catan - Hra o trůny","url":"4348","type":"item","image":"https://www.vesely-drak.cz/obrazek/5b9ad9761d1d6/catan-hra-o-truny1-5b9ad99569546.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":63.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":6,"name":"Catan - Kupci a barbaři","url":"7436","type":"item","image":"https://www.vesely-drak.cz/obrazek/6135c12114216/catan-kupci-barbari-6135c6dc4618e.jpg","description":"Katan - Kupci a barbari je tretím rozšírením jednej z najpopulárnejších doskových hier vôbec. Rozšírenie vám okrem už známych princípov hry Catan prinesie aj 5 nových napínavých dobrodružstiev (Rybári z Katanu, Rieky Katanu, Veľká karavána, Kupci a barbari a Prepadnutie). \nKu hre je nevyhnutná základná variant hry Osadníci z Katanu.\nSúčasťou hry je aj možnosť hry pre dvoch hráčov.\nHra Catan - Kupci a barbari obsahuje: \n\n138 herných figúrok (24 rytierov, 12 mostov, 4 vozy, 36 barbarov, 40 mincí, 22 tiav) \n117 herných kariet (1 balíček &quot;Nájazd barbarov&quot;, 2 balíčky kariet &quot;Kupci a barbari&quot;, 1 balíček kariet &quot;Udalosti Katanu&quot;, 4 balíčky kariet &quot;Rybári Katanu&quot;) \n3 předlistované kartónové doštičky \n1 farebná kocka \npravidlá hry v češtine a slovenčine\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":35.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":7,"name":"Catan - Duel","url":"4335","type":"item","image":"https://www.vesely-drak.cz/obrazek/5b9abd146ac8c/catan-duel1-5b9abd4ea2032.jpg","description":"Catan Duel je najnovší inkarnáciou obľúbené kartové hry pre dvoch hráčov Kniežatá z Katanu. Vyberte si scenár, pripravte karty a vybudujte to najskvelejšie kráľovstvo, ktoré kedy ostrov Catan videl! \nObsah balenia:\n\n180 kariet \n1 žetón obratnosti \n1 žetón obchodu \n1 číselnú kocku \n1 kocku so symbolmi \n4 zakladače kariet \npravidlá v češtine aj slovenčine\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":19.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":8,"name":"Catan - Hvězdoplavci","url":"4959","type":"item","image":"https://www.vesely-drak.cz/obrazek/5e58f774132d8/catan---hvezdoplavci-1-5e58fa0c23df4.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":71.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":9,"name":"Catan - Kompakt","url":"5467","type":"item","image":"https://www.vesely-drak.cz/obrazek/5eb7122d3a62e/catan-kompakt-1-5eb7135bad6f5.jpg","description":"Predstavte si, že ste sa ocitli v dobe objavov: vaša loď po dlhej a nebezpečnej plavbe pristála na brehu neobývaného ostrova. Je to ostrov Katan!\nNie ste však jediným cestovateľom. Na brehoch ostrova Katan pristáli aj ďalší nebojácni námorníci. Preteky o ovládnutie ostrova sa práve začali! Či už sa chcete hrať vo vlaku, v horách alebo na pikniku, vďaka šikovnému kompaktnému baleniu môžete mať Katan vždy po ruke. Hra obsahuje anglické pravidlá.Obsah balenia:\n\nBalenie obsahuje 95 kariet so zdrojmi \n\n\n25 akčných kariet \n4 karty so stavebnými nákladmi \n2 špeciálne karty \n4 obchodné karty herné figúrky mestá, dediny a cesty krabica so zlodejskými kockami \n2 držiaky na karty\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":29.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":10,"name":"Catan - Rychlá karetová hra","url":"7440","type":"item","image":"https://www.vesely-drak.cz/obrazek/6135fb164cf76/osadnici-z-katanu-61360040e8e3c.jpg","description":"Osadníci z Katanu - Rýchla kartová hra - svižná kartová hra na motívy obľúbenej dnes už tradičné hry Catan. Objavte nové dobrodružstvá s jednoduchou, rýchlou a zábavnou kartovou hrou. \nDokážete využiť svoje suroviny tak, aby ste mali najviac bodov? Stavajte cesty, nasaďte rytiera do boja, zakladajte dediny a budujte mesta s novými vylepšenými pravidlami. A pozor, ak Rýchlu kartovú hru Catan pridáte k základnej hre Osadníci z Katanu, vznikne vám hra Osadníci z Katanu pre 6 hráčov.\nPozrite sa na kompletnú ponuku doskových hier Osadníci z Katanu.\nHra Katan - Rychlá karetní hra obsahuje:\n\n110 kariet \n67 kariet surovín \n42 stavebných kariet (vrátane rytiera, rozvoja mesta, řehledových kariet) \nkarta osudu \npravidlá hry\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":11.16,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":11,"name":"Catan - Říše Inků","url":"4960","type":"item","image":"https://www.vesely-drak.cz/obrazek/5e58fc8711317/catan---rise-inku-1-5e58fcd4a8317.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":39.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":12,"name":"Catan - Námořníci v češtině","url":"2779","type":"item","image":"https://www.vesely-drak.cz/obrazek/5488c5ba057b8/catan-namornici1-5b9abc7c008f4.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":35.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":13,"name":"Catan - Zámořské objevy v češtině","url":"2782","type":"item","image":"https://www.vesely-drak.cz/obrazek/5488c5b83878b/catan-zamorske-objevy1-5b9abbc01defb.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":33.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":14,"name":"Catan - Úsvit lidstva","url":"9965","type":"item","image":"https://www.vesely-drak.cz/obrazek/637b7e81c2b38/hra-catan-usvit-lidstva-637b8221ee359.jpg","description":"Nová samostatne hrateľná hra pre fanúšikov klasického Catanu aj pre úplných začiatočníkov spája historickú tému praveku s herným mechanizmom obľúbených hier Katan. Preskúmajte Zem a zhodnoťte jej poklady! \nVydajte sa na cestu, zbierajte neznáme plody a lovte zvieratá! Pri objavovaní ale dávajte pozor na vašich nepriateľov (šavlozubých tigrov a neandertálcov), ktorí prahnú po cenných surovinách rovnako ako vy. Podarí sa vám osídliť všetky kontinenty skôr ako ostatným?\nIde o prepracované vydanie hry &quot;Abenteuer Menschheit&quot;. Obsahuje špeciálny mechanizmus na pohyb a pútavé ilustrácie.\nHra Catan - Úsvit lidstva obsahuje:\n\nherný plán \n4 stupnice pokroku \n13 žetónov s číslami \n8 prehľadových kariet \n80 kariet surovín zásobník na karty \n48 hráčskych figúrok \n2 figúrky nepriateľov \n18 doštičiek objavov \n33 doštičiek táborísk \n14 žetónov víťazných bodov \n2 kocky \npravidlá hry \n\nPozrite sa na kompletnú ponuku hier Catan.","offers":{"@type":"Offer","priceCurrency":"EUR","price":51.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":15,"name":"Catan - Města a rytíři rozšíření pro 5-6 hráčů","url":"4961","type":"item","image":"https://www.vesely-drak.cz/obrazek/5e58ff57902ce/osadnici-mesta-a-rytiri-5-6-hracu-1-5e59001fb24f7.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":21.16,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":16,"name":"Catan - Námořníci rozšíření pro 5-6 hráčů","url":"4962","type":"item","image":"https://www.vesely-drak.cz/obrazek/5e59021bc7987/catan---namornici-rozsireni-pro-5-6-hracu1-5e590714e10f1.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":21.16,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":17,"name":"Catan - Kupci a barbaři rozšíření pro 5-6 hráčů","url":"5468","type":"item","image":"https://www.vesely-drak.cz/obrazek/5eb7174770f91/catan-kupci-a-barbari-rozsireni-pro-5-hracu-5eb71bd70060d.jpg","description":"Rozšírenie pre hru Osadníci z Katanu. V jednej hre môžete zažiť naraz 5 nových napínavých dobrodružstiev na Katanu. Navyše očakávajte 4 rôzne varianty, ktoré hru ešte viac spestrí. Jednou z nich je aj &quot;Katan pre dvoch&quot;. Kto chce radšej Katan osídľovať v dvoch, môže s touto variantou hrať nielen základné Osadníkov z Katanu, ale aj všetky scenáre a varianty z tohto rozšírenia. \nNa severe Katanu sa bude stavať. Po vyťažených cestách sa trmácajú súpravy vozov cez blato a hlboké diery. Na hrad, kde sídli &quot;katanská rada&quot; sa musí doviezť mramor a sklo. Ako vodcovia karavany Vám nie je moc do smiechu, keď potulní barbari križujú Vašu cestu. Pri príchode k pobrežiu vidíte, ako k oblohe stúpa tmavý dym. Lúpežní barbari zase prepadli pobrežné mestá! Kam zmizli statoční rytieri, ktorí by sa také bande postavili? A čo sa deje na juhu?","offers":{"@type":"Offer","priceCurrency":"EUR","price":21.16,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":18,"name":"Catan - Města a rytíři v češtině","url":"2783","type":"item","image":"https://www.vesely-drak.cz/obrazek/5488c5b797b03/osadnici-mesta-5488d048d2471.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":35.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":19,"name":"Catan - rozšírenie pre 5 a 6 hráčov v češtině","url":"2784","type":"item","image":"https://www.vesely-drak.cz/obrazek/5488c5b71649e/osadnici-5az6-5488d1d97abf2.jpg","offers":{"@type":"Offer","priceCurrency":"EUR","price":23.96,"availability":"https://schema.org/OutOfStock"}},{"@type":"ListItem","position":20,"name":"Catan Junior - na cesty","url":"9682","type":"item","image":"https://www.vesely-drak.cz/obrazek/6338baad76452/osadnici-junior-na-cesty-6338bd8dee725.jpg","description":"Vyrazte na výlet s cestovnou verziou obľúbenej hry Catan - Junior. Zmenšené vydanie hry Catan Junior vynecháva niektoré náročnejšie prvky z klasickej hry Osadníci z Katanu, ktoré by boli pre deti ťažko zapamätateľné a prichádzajú s jednoduchým herným systémom a prívetivejšou grafikou.\nV tejto hre sa stanete vodcom jednej z nich. Budete stavať pirátske brlohy, získavať zásoby, preháňať sa na rýchlych lodiach a tiež obchodovať s ostatnými pirátmi. Ale pozor, po ostrovoch sa tiež potuluje zákerný duch čierneho piráta, ktorý vám s chuťou naruší vaše plány. Preto sa vydajte v ústrety dobrodružstvu a staňte sa najväčším pirátom celého súostrovia.\nVäčšina z vás už určite počula o hre Osadníci z Katanu, ktorá bola prvýkrát vydaná v roku 1995 a odvtedy ju hrajú ľudia úplne na celom svete. Základná hra Osadníci z Katanu je vhodná pre hráčov asi od desiatich rokov. Táto juniorská verzia otvára úžasný svet Osadníkov deťom už od šiestich rokov.\nHra Osadníci Junior - na cesty obsahuje:\n\n48 žetónov zásob \n12 doštičiek pirátskych brlohov \n6 kartičiek s papagájom \n1 pirátsku loď \n1 pirátsku pevnosť \n1 figúrku čierneho piráta \n1 kocku \n1 obojstranný herný plán \npravidlá hry\n","offers":{"@type":"Offer","priceCurrency":"EUR","price":14.36,"availability":"https://schema.org/OutOfStock"}}]
+            },
+            "instrument": [{"@type":"ChooseAction","name":"_SearchVariant","actionOption":"Luigis"}]
+        
+                    }
+                }
+                </script>
+            </div></div></div>
+<!--                                                                             CONTENT - END -->
+<!--                                                                             FOOTER -->
+<div class="footer">
+<div class="container">
+<div class="flex-row between-cols top-cols">
+<div class="col footer-col col-lg-23p col-xs-50p col-xxs-100p col-xs-50p">
+<h2 class="footer-heading">Všetko o nákupe</h2>
+<ul class="footer-nav-list">
+<li>
+<a href="/doprava-a-platba/">Doprava a platba</a>
+</li>
+<li>
+<a href="/vernostny-program/">Vernostný program</a>
+</li>
+<li>
+<a href="/produkty/akce-a-slevy/">Akcie a zľavy</a>
+</li>
+<li>
+<a href="/kontakt/">Kontakt</a>
+</li>
+</ul>
+</div>
+<div class="col footer-col col-lg-23p col-xs-50p col-xxs-100p col-xs-50p">
+<h2 class="footer-heading">Dôležité odkazy</h2>
+<ul class="footer-nav-list">
+<li>
+<a href="/obchodne-podmienky/">Obchodné podmienky </a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/darkovy-poukaz/">Darčekový poukaz/voucher</a>
+</li>
+<li>
+<a href="/ochrana-osobnych-udajov/">Ochrana osobných údajov</a>
+</li>
+<li>
+<a href="/cookies/">Cookies</a>
+</li>
+<li>
+<a href="/blog/">Blog</a>
+</li>
+<li>
+<a href="/vsetko-o-nakupe/">Všetko o nákupe</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/o-nas/">Veselý drak - o nás</a>
+</li>
+</ul>
+</div>
+<div class="col footer-col col-lg-23p col-xs-50p col-xxs-100p col-xs-50p">
+<h2 class="footer-heading">Najdôležitejšie kategórie</h2>
+<ul class="footer-nav-list">
+<li>
+<a href="https://www.vesely-drak.sk/produkty/pokemon-karty/">Pokémon karty</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/pokemon-alba/">Pokémon albumy</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/nba-basketbalove-karty-a-samolepky/">Zberateľské karty basketbal NBA</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/magic-the-gathering/">Magic the Gathering</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/karty-yu-gi-oh/">Karty Yu-Gi-Oh</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/one-piece-card-game/">Karty One Piece</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/pokemon-plysove-hracky/">Pokémon plyšové hračky</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/mega-evolution/">Mega Evolutions</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/euro-2020/">Futbalové karty EURO</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/sberatelske-hokejove-karty/">Hokejové karty</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/pokemon-kusove-karty-a-herni-prislusenstvi/">Kusové karty Pokémon</a>
+</li>
+<li>
+<a href="https://www.vesely-drak.sk/produkty/fotbalove-karty/">Futbalové kartičky</a>
+</li>
+</ul>
+</div>
+<div class="col footer-col col-lg-31p col-xs-50p col-xxs-100p col-xs-50p">
+<h2 class="footer-heading">Kontakty</h2>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fa-phone"></span>
+</div>
+<a href="tel:+420605737588">+420 605 737 588</a> (Po-Pia: 9 - 17h)
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fa-envelope"></span>
+</div>
+<a href="mailto:eshop@vesely-drak.cz">eshop@vesely-drak.cz</a>
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fas--brand fa-facebook"></span>
+</div>
+<a href="https://www.facebook.com/veselydrak">facebook</a>
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fas--brand fa-youtube"></span>
+</div>
+<a href="https://www.youtube.com/user/Veselydrak">youtube</a>
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fas--brand fa-instagram"></span>
+</div>
+<a href="https://www.instagram.com/veselydrak/">instagram</a>
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fas--brand fa-tiktok"></span>
+</div>
+<a href="https://www.tiktok.com/@veselydrak">tiktok</a>
+</div>
+<br>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fa-map-marker-alt"></span>
+</div>
+Adresa pre osobný odber<br>
+Web4Games, s.r.o<br>
+Velkomoravská 4392/87D<br>
+Hodonín, 69501
+</div>
+<div class="footer-contact-item icon-contact-item">
+<div class="item-icon">
+<span class="fas fa-mouse-pointer"></span>
+</div>
+<a href="https://www.vesely-drak.cz">Česká verze Vesely-drak.cz</a>
+</div>
+</div>
+</div>  
+</div>
+</div>
+<!--                                                                             FOOTER - END -->
+<script type="text/javascript">
+//<![CDATA[
+var _hwq = _hwq || [];
+    _hwq.push(['setKey', 'CA85738DAAEE994D7C3A934CA290B79C']);_hwq.push(['setTopPos', '60']);_hwq.push(['showWidget', '22']);(function() {
+    var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+    ho.src = 'https://ssl.heureka.sk/direct/i/gjs.php?n=wdgt&sak=CA85738DAAEE994D7C3A934CA290B79C';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+})();
+//]]>
+</script>
+<link rel="stylesheet" type="text/css" href="/js/jquery/cookies-lista/ccstyles.min.css?ver202406">
+<script>
+      const  ccnstL='/cookies/',
+      ccnstLang='sk';
+      </script>
+      <script defer="" src="/js/jquery/cookies-lista/ccbundle.min.js?ver202406"></script>
+<!-- Vygenerovano za 0.034 vterin -->
+<div id="loader_div" class="loader_div"><img src="/images/loading.gif" alt="processing..."></div>
+
+
+<div class="lb-ac__overlay"></div><div class="luigi-ac luigi-ac-heromobile luigi-ac-heromobile--right luigi-ac-autocomplete" id="lbx-ac-element" style="top: 109.188px; max-height: 970.812px; max-width: 1020px; left: 0px; right: 0px; margin: 0px auto;"><div itemscope="" itemtype="http://schema.org/WebSite"><meta itemprop="url" content="https://www.vesely-drak.sk"><div itemscope="" itemtype="http://schema.org/SearchAction" itemprop="potentialAction"><meta itemprop="target" content="https://www.vesely-drak.sk/search?q={search_term_string}"><input style="display:none !important" itemprop="query-input" type="text" name="search_term_string" required="" tabindex="0" aria-label="ProduktyZnačkyKategó">
+                        <meta itemprop="query" content="Cat"><div style="display:none !important" itemprop="instrument" itemscope="" itemtype="http://schema.org/ChooseAction">
+                        <meta itemprop="name" content="_Variant">
+                        <meta itemprop="actionOption" content="Luigis">
+                    </div>
+                        <div class="luigi-ac-results-content" itemprop="result" itemscope="" itemtype="http://schema.org/ItemList">
+                        <meta itemprop="name" content="Autocomplete">
+                        <div class="luigi-ac-caret luigi-ac-hero-color" style="left: 261px;"></div><button class="lbx-a11y-switcher">High-contrast mode</button><div class="luigi-ac-ribbon luigi-ac-hero-color"></div><div class="luigi-ac-result" data-type="item"><div class="luigi-ac-inner">
+                    <div class="luigi-ac-heromobile-input-bg"></div>
+                    <!-- -->
+                    <div class="luigi-ac-heromobile-switches"><div class="luigi-ac-heromobile-switches-inner">
+                        <div class="luigi-ac-heromobile-switch luigi-ac-heromobile-switch--first luigi-ac-heromobile-switch--active" data-type="item" data-type-count="7">Produkty</div><div class="luigi-ac-heromobile-switch  " data-type="brand" data-type-count="5">Značky</div><div class="luigi-ac-heromobile-switch  " data-type="category" data-type-count="7">Kategórie</div>
+                    </div></div>
+                    <!-- -->
+                    <div class="luigi-ac-info"></div><div class="luigi-ac-others">
+    <div class="luigi-ac-queries"><div class="luigi-ac-header luigi-ac-header--query " data-type="query">Frázy</div><div class="luigi-ac-query"><div data-result-id="8" data-autocomplete-id="1" class="luigi-ac-item luigi-ac-other luigi-ac-hero-color-clickable luigi-ac-hero-color " data-autocomplete-value="catan" data-autocomplete-is-query="1" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem http://schema.org/SearchAction">
+      <meta itemprop="position" content="1">
+      <meta itemprop="target" content="catan">
+      <meta itemprop="url" content="catan">
+      <meta itemprop="type" content="query">
+      
+      <div class="luigi-ac-other-content" title="catan" itemprop="name">catan</div>
+    </div>
+  </div></div>
+    <div class="luigi-ac-header luigi-ac-header--brand " data-type="brand">Značky</div><a data-type="brand" data-result-id="9" data-autocomplete-id="9" href="/?lb.f[]=brand%3ABlackfire&amp;string=" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Blackfire" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Brand http://schema.org/ListItem">
+  <meta itemprop="position" content="9">
+  <meta itemprop="url" content="/?lb.f[]=brand%3ABlackfire&amp;string=">
+  <meta itemprop="type" content="brand">
+  
+  <div class="luigi-ac-other-content" title="Blackfire" itemprop="name">Blackfire</div>
+  
+</a><a data-type="brand" data-result-id="10" data-autocomplete-id="10" href="/?lb.f[]=brand%3AGamegenic&amp;string=" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Gamegenic" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Brand http://schema.org/ListItem">
+  <meta itemprop="position" content="10">
+  <meta itemprop="url" content="/?lb.f[]=brand%3AGamegenic&amp;string=">
+  <meta itemprop="type" content="brand">
+  
+  <div class="luigi-ac-other-content" title="Gamegenic" itemprop="name">Gamegenic</div>
+  
+</a><a data-type="brand" data-result-id="11" data-autocomplete-id="11" href="/?lb.f[]=brand%3AAlbi&amp;string=" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Albi" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Brand http://schema.org/ListItem">
+  <meta itemprop="position" content="11">
+  <meta itemprop="url" content="/?lb.f[]=brand%3AAlbi&amp;string=">
+  <meta itemprop="type" content="brand">
+  
+  <div class="luigi-ac-other-content" title="Albi" itemprop="name">Albi</div>
+  
+</a><a data-type="brand" data-result-id="12" data-autocomplete-id="12" href="/?lb.f[]=brand%3AVadobag&amp;string=" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Vadobag" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Brand http://schema.org/ListItem">
+  <meta itemprop="position" content="12">
+  <meta itemprop="url" content="/?lb.f[]=brand%3AVadobag&amp;string=">
+  <meta itemprop="type" content="brand">
+  
+  <div class="luigi-ac-other-content" title="Vadobag" itemprop="name">Vadobag</div>
+  
+</a><a data-type="brand" data-result-id="13" data-autocomplete-id="13" href="/?lb.f[]=brand%3AChessex&amp;string=" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Chessex" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Brand http://schema.org/ListItem">
+  <meta itemprop="position" content="13">
+  <meta itemprop="url" content="/?lb.f[]=brand%3AChessex&amp;string=">
+  <meta itemprop="type" content="brand">
+  
+  <div class="luigi-ac-other-content" title="Chessex" itemprop="name">Chessex</div>
+  
+</a><div class="luigi-ac-header luigi-ac-header--category " data-type="category">Kategórie</div><a data-type="category" data-result-id="14" data-autocomplete-id="14" href="https://www.vesely-drak.sk/produkty/deskove-a-stolni-hry/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Doskové hry" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="14">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/deskove-a-stolni-hry/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Doskové hry" itemprop="name">Doskové hry</div>
+  
+</a><a data-type="category" data-result-id="15" data-autocomplete-id="15" href="https://www.vesely-drak.sk/produkty/party/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Párty hry" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="15">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/party/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Párty hry" itemprop="name">Párty hry</div>
+  
+</a><a data-type="category" data-result-id="16" data-autocomplete-id="16" href="https://www.vesely-drak.sk/produkty/strategicke/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Strategické hry" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="16">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/strategicke/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Strategické hry" itemprop="name">Strategické hry</div>
+  
+</a><a data-type="category" data-result-id="17" data-autocomplete-id="17" href="https://www.vesely-drak.sk/produkty/pokemon-karty/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Pokémon karty" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="17">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/pokemon-karty/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Pokémon karty" itemprop="name">Pokémon karty</div>
+  
+</a><a data-type="category" data-result-id="18" data-autocomplete-id="18" href="https://www.vesely-drak.sk/produkty/pokemon-obleceni/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Pokémon oblečenie" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="18">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/pokemon-obleceni/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Pokémon oblečenie" itemprop="name">Pokémon oblečenie</div>
+  
+</a><a data-type="category" data-result-id="19" data-autocomplete-id="19" href="https://www.vesely-drak.sk/produkty/zavazadla-batohy-tasky-pokemon/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Batohy,tašky Pokémon" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="19">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/zavazadla-batohy-tasky-pokemon/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Batohy,tašky Pokémon" itemprop="name">Batohy,tašky Pokémon</div>
+  
+</a><a data-type="category" data-result-id="20" data-autocomplete-id="20" href="https://www.vesely-drak.sk/produkty/magic-the-gathering/" class="luigi-ac-item luigi-ac-other" data-autocomplete-value="Magic the Gathering" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/CollectionPage http://schema.org/ListItem">
+  <meta itemprop="position" content="20">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/magic-the-gathering/">
+  <meta itemprop="type" content="category">
+  
+  <div class="luigi-ac-other-content" title="Magic the Gathering" itemprop="name">Magic the Gathering</div>
+  
+</a></div><div class="luigi-ac-products luigi-ac-main"><div class="luigi-ac-first-main"><div class="luigi-ac-header luigi-ac-header--item luigi-ac-heromobile-hidden-header" data-type="item">Top produkt</div><div class="luigi-ac-header luigi-ac-header--item luigi-ac-heromobile-fixed-header" data-type="item">Produkty</div><a data-type="item" data-result-id="1" data-autocomplete-id="2" href="https://www.vesely-drak.sk/produkty/party/8500-hra-na-kocku-a-namir-a-game-of-cat-mouth/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Hra na kočku a namiř (A Game of Cat &amp; Mouth)" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="2">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/party/8500-hra-na-kocku-a-namir-a-game-of-cat-mouth/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/6216d899c5321/67f1ae7a0e6df5be6778ef6588b66a7a--mm2000xkkkkkkkkkkkkk-6216e1a5f2179.jpg" alt="Hra na kočku a namiř (A Game of Cat &amp; Mouth)" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-3" title="Hra na kočku a namiř (A Game of Cat &amp; Mouth) " itemprop="name">Hra na kočku a namiř (A Game of <span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em></span> &amp; Mouth) </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="23.96">
+    
+    <div class="luigi-ac-price-new">23.96 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[8500]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a></div><div class="luigi-ac-rest-main luigi-ac-main--border "><div class="luigi-ac-header luigi-ac-header--item " data-type="item">Produkty</div><a data-type="item" data-result-id="2" data-autocomplete-id="3" href="https://www.vesely-drak.sk/produkty/strategicke/16221-catan-premiove-obaly-na-karty/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Catan - prémiové puzdrá na karty" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="3">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/strategicke/16221-catan-premiove-obaly-na-karty/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/68779ae7ef852/119425-0-68779eb7141be.jpg" alt="Catan - prémiové puzdrá na karty" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Catan - prémiové puzdrá na karty " itemprop="name"><span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>an</span> - prémiové puzdrá na karty </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="15.96">
+    
+    <div class="luigi-ac-price-new">15.96 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[16221]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><a data-type="item" data-result-id="3" data-autocomplete-id="4" href="https://www.vesely-drak.sk/produkty/strategicke/9964-catan-logicka-hra-pro-1-hrace/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Catan - Logická hra pre 1 hráča" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="4">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/strategicke/9964-catan-logicka-hra-pro-1-hrace/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/637b711498a62/catan-logicka-hra-pro-jednoho-637b75f2248f4.jpg" alt="Catan - Logická hra pre 1 hráča" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Catan - Logická hra pre 1 hráča " itemprop="name"><span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>an</span> - Logická hra pre 1 hráča </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="29">
+    
+    <div class="luigi-ac-price-new">29.00 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[9964]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><a data-type="item" data-result-id="4" data-autocomplete-id="5" href="https://www.vesely-drak.sk/produkty/zavazadla-batohy-tasky-pokemon/16240-pokemon-batoh-pikachu-gotta-catch-em-all/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Pokémon batoh Pikachu - Gotta Catch 'Em All!" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="5">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/zavazadla-batohy-tasky-pokemon/16240-pokemon-batoh-pikachu-gotta-catch-em-all/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/631b9576aa037/x-vado640-00485-687a19829010c.jpg" alt="Pokémon batoh Pikachu - Gotta Catch 'Em All!" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Pokémon batoh Pikachu - Gotta Catch 'Em All! " itemprop="name">Pokémon batoh Pikachu - Gotta <span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>ch</span> 'Em All! </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="17.8">
+    
+    <div class="luigi-ac-price-new">17.80 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[16240]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><a data-type="item" data-result-id="5" data-autocomplete-id="6" href="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/7293-chessex-gaming-glass-stones-in-tube-catseye-red-zetony-40-ks/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Chessex Gaming Glass Stones in Tube Catseye Red (žetóny) – 40 ks" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="6">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/7293-chessex-gaming-glass-stones-in-tube-catseye-red-zetony-40-ks/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/6109bdd43dad8/chessex-herni-zetony-40-ks-6266a07ea92b2.jpg" alt="Chessex Gaming Glass Stones in Tube Catseye Red (žetóny) – 40 ks" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Chessex Gaming Glass Stones in Tube Catseye Red (žetóny) – 40 ks " itemprop="name">Chessex Gaming Glass Stones in Tube <span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>seye</span> Red (žetóny) – 40 ks </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="3.96">
+    
+    <div class="luigi-ac-price-new">3.96 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[7293]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><a data-type="item" data-result-id="6" data-autocomplete-id="7" href="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/8892-chessex-gaming-glass-stones-in-tube-yellow-catseye-zetony-40-ks/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Chessex Gaming Glass Stones in Tube Yellow Catseye (žetóny) - 40 ks" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="7">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/8892-chessex-gaming-glass-stones-in-tube-yellow-catseye-zetony-40-ks/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/62669bf8c694e/chessex-herni-zetony-40-ks-62669ccc96543.jpg" alt="Chessex Gaming Glass Stones in Tube Yellow Catseye (žetóny) - 40 ks" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Chessex Gaming Glass Stones in Tube Yellow Catseye (žetóny) - 40 ks " itemprop="name">Chessex Gaming Glass Stones in Tube Yellow <span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>seye</span> (žetóny) - 40 ks </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="3.96">
+    
+    <div class="luigi-ac-price-new">3.96 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[8892]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><a data-type="item" data-result-id="7" data-autocomplete-id="8" href="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/8893-chessex-gaming-glass-stones-in-tube-green-catseye-zetony-40-ks/" class="luigi-ac-item luigi-ac-product  luigi-ac-availability--1" data-autocomplete-value="Chessex Gaming Glass Stones in Tube Green Catseye (žetóny) - 40 ks" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product http://schema.org/ListItem">
+  <meta itemprop="position" content="8">
+  <meta itemprop="url" content="https://www.vesely-drak.sk/produkty/kostky-zetony-a-dalsi-doplnky/8893-chessex-gaming-glass-stones-in-tube-green-catseye-zetony-40-ks/">
+  <meta itemprop="type" content="item">
+  
+  <div class="luigi-ac-image"><img src="https://www.vesely-drak.cz/obrazek/62669d3294789/chessex-herni-zetony-40-ks-62669dc20e659.jpg" alt="Chessex Gaming Glass Stones in Tube Green Catseye (žetóny) - 40 ks" itemprop="image"><div class="lbx-ribbonDiv"></div></div>
+  <div class="luigi-ac-description"><div class="luigi-ac-text"><div class="luigi-ac-name line-clamp line-clamp-2" title="Chessex Gaming Glass Stones in Tube Green Catseye (žetóny) - 40 ks " itemprop="name">Chessex Gaming Glass Stones in Tube Green <span class="luigi-ac__highlighted"><em class="luigi-ac-highlight">Cat</em>seye</span> (žetóny) - 40 ks </div> </div><div class="luigi-ac-price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="EUR">              
+    <meta itemprop="price" content="3.96">
+    
+    <div class="luigi-ac-price-new">3.96 €</div>
+  
+  </div><div class="col button-col col-nopadding" tabindex="0" role="button"><a href="/form/form-katalog-kosik.php?pocet[8893]=1&amp;vlozit_do_kosiku" class="button buy-button" tabindex="0" role="button"><span class="fas fa-cart-arrow-down"></span></a></div></div>
+</a><div class="luigi-ac-button-block luigi-ac-button-block--show-all" tabindex="0" role="button"><div class="luigi-ac-button luigi-ac-hero-color-clickable luigi-ac-button-heromobile luigi-ac-hero-color" tabindex="0" role="button">Zobraziť všetky produkty</div></div></div></div>
+                    </div><div class="luigi-ac-footer"></div></div>
+                        </div><div class="luigi-ac-close"></div></div></div></div><div class="luigi-ac-heromobile-input-wrap"><input class="luigi-ac-heromobile-input" type="search" placeholder="Vyhľadať..."><span class="luigi-ac-heromobile-input-voice-search"></span><span class="luigi-ac-heromobile-input-clear"></span></div><div class="luigi-ac-heromobile-css-active"></div><div class="luigi-ac luigi-ac-heromobile luigi-ac-heromobile--right luigi-ac-autocomplete" id="lbx-ac-element"></div><div class="luigi-ac-heromobile-input-wrap"><input class="luigi-ac-heromobile-input" type="search" placeholder="Vyhľadať..."><span class="luigi-ac-heromobile-input-voice-search"></span><span class="luigi-ac-heromobile-input-clear"></span></div><iframe height="0" width="0" style="display: none; visibility: hidden;"></iframe><div class="luigi-ac-heromobile-css-active"></div><div id="cc--main" style="position: fixed; z-index: 1000000;" class="c--anim"><!--[if lt IE 9 ]><div id="cc_div" class="cc_div ie"></div><![endif]--><!--[if (gt IE 8)|!(IE)]><!--><div id="cc_div" class="cc_div"><div id="cm" role="dialog" aria-modal="true" aria-hidden="false" aria-labelledby="c-ttl" aria-describedby="c-txt" class="box middle center slide" style="visibility: hidden;"><div id="c-inr"><div id="c-inr-i"><div id="c-ttl" role="heading" aria-level="2">Aby sa vám web dobre používal (súhlas s cookies)</div><div id="c-txt">Pre čo najpohodlnejšie používanie webu potrebujeme váš <a href="/cookies/">súhlas</a> so spracovaním súborov cookies. Súhlas udelíte kliknutím na tlačidlo "Povoliť všetko".</div></div><div id="c-bns"><button type="button" id="c-p-bn" class="c-bn">Povoliť všetko</button><button type="button" id="c-s-bn" class="c-bn c_link">Nastavenie</button></div><div id="c-txt" class="cc-deny" style="margin-top: 0.7em;">Súhlas môžete <a href="javascript:void(0);" id="c-deny">odmietnuť tu</a>.</div></div></div><div id="cm-ov" style="visibility: hidden; opacity: 0;"></div><div id="s-cnt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="s-ttl" class="zoom" style="visibility: hidden;"><div id="c-vln"><div id="cs"><div id="c-s-in"><div id="s-inr"><div id="s-hdr"><div id="s-ttl" role="heading">Nastavenie cookies</div><div id="s-c-bnc"><button type="button" id="s-c-bn" class="c-bn" aria-label="Zavrieť"></button></div></div><div id="s-bl"><div class="c-bl"><div class="desc"><div class="p">Upravte si cookies podľa vlastných preferencií.</div></div></div><div class="c-bl b-ex"><div class="title b-bn"><button type="button" class="b-tl exp" aria-expanded="false" aria-controls="c-ac-1">Technické cookies - <span style="font-size:12px;font-style:italic;">nevyhnutné pre správne fungovanie webu</span></button><label class="b-tg"><input class="c-tgl" type="checkbox" value="necessary" disabled=""><span class="c-tg c-ro" aria-hidden="true"><span class="on-i"></span><span class="off-i"></span></span><span class="t-lb">Technické cookies - &lt;span style="font-size:12px;font-style:italic;"&gt;nevyhnutné pre správne fungovanie webu&lt;/span&gt;</span></label></div><div class="desc b-acc" id="c-ac-1" aria-hidden="true"><div class="p">Tieto cookies sú potrebné kvôli správnemu fungovaniu webu, bezpečnosti, správnemu zobrazovaniu na počítači alebo na mobile, fungujúcemu vyplňovaniu aj odosielaniu formulárov a podobne. Technické cookies nemožno vypnúť, pretože by web ďalej nefungoval správne.</div></div></div><div class="c-bl b-ex"><div class="title b-bn"><button type="button" class="b-tl exp" aria-expanded="false" aria-controls="c-ac-2">Analytické a výkonnostné cookies - <span style="font-size:12px;font-style:italic;">na zlepšovanie kvality webu</span></button><label class="b-tg"><input class="c-tgl" type="checkbox" value="analytics"><span class="c-tg" aria-hidden="true"><span class="on-i"></span><span class="off-i"></span></span><span class="t-lb">Analytické a výkonnostné cookies - &lt;span style="font-size:12px;font-style:italic;"&gt;na zlepšovanie kvality webu&lt;/span&gt;</span></label></div><div class="desc b-acc" id="c-ac-2" aria-hidden="true"><div class="p">Analytické a výkonnostné cookies nám umožňujú meranie výkonu nášho webu a našich reklamných kampaní. Ich pomocou určujeme počet návštev a zdroje návštev našich internetových stránok. Dáta získané pomocou týchto cookies spracovávame súhrnne, bez použitia identifikátorov, ktoré ukazujú na konkrétnych užívateľov nášho webu. Čím viac ľudí má analytické cookies zapnuté, tým lepšie môžeme naše stránky optimalizovať, aby viac zodpovedali tomu, čo ľudia na webe robia.</div></div></div><div class="c-bl b-ex"><div class="title b-bn"><button type="button" class="b-tl exp" aria-expanded="false" aria-controls="c-ac-3">Personalizované a reklamné cookies - <span style="font-size:12px;font-style:italic;">pre skúsenosť šitú na mieru</span></button><label class="b-tg"><input class="c-tgl" type="checkbox" value="advertising"><span class="c-tg" aria-hidden="true"><span class="on-i"></span><span class="off-i"></span></span><span class="t-lb">Personalizované a reklamné cookies - &lt;span style="font-size:12px;font-style:italic;"&gt;pre skúsenosť šitú na mieru&lt;/span&gt;</span></label></div><div class="desc b-acc" id="c-ac-3" aria-hidden="true"><div class="p">Vďaka použitiu personalizovaných cookies sa vás dookola nebudeme musieť pýtať na tie isté informácie alebo vám budeme môcť ponúkať produkty podľa vašich záujmov, alebo upravovať obsah webu priamo vám na mieru.<br><br> Reklamné cookies používame my alebo naši partneri, aby sme vám mohli pripomenúť ponuky, ktoré ste si prezerali na našich stránkach aj inde na internete: na Facebooku, na Googli alebo napríklad na Zozname. Vďaka tomuto súhlasu neuvidíte viac reklám, ale uvidíte hlavne reklamy, ktoré zodpovedajú vášmu hľadaniu. Súhlas s týmito cookies je možné kedykoľvek odvolať.</div></div></div><div class="c-bl"><div class="title"><div class="b-tl" role="heading" aria-level="3">Viac informácií</div></div><div class="desc"><div class="p">Potrebujeme váš <a class="cc-link" href="/cookies/">súhlas</a> so spracovaním cookies, aby sme vám mohli zobrazovať informácie v súlade s vašim súhlasom.</div></div></div></div><div id="s-bns"><button type="button" id="s-all-bn" class="c-bn">Súhlasím so všetkými cookies</button><button type="button" id="s-sv-bn" class="c-bn">Súhlasím s vybranými cookies</button></div></div></div></div></div></div><div id="cs-ov" style="visibility: hidden; opacity: 0;"></div></div><!--<![endif]--></div></body></html>
