@@ -10,7 +10,17 @@ export class ImagoCZScraper implements Scraper {
 
         try {
             const url = `https://www.imago.cz/hledani/${encodeURIComponent(query)}`;
-            await page.goto(url, { waitUntil: 'networkidle2' });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(url, { waitUntil: 'domcontentloaded' });
 
             // Wait for products to load
             try {

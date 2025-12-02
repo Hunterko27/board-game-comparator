@@ -9,6 +9,16 @@ export class NekonecnoScraper implements Scraper {
 
         try {
             const searchUrl = `https://www.nekonecno.sk/vyhladavanie/?string=${encodeURIComponent(query)}`;
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.goto(searchUrl, { waitUntil: 'networkidle2' });
 
             const results = await page.evaluate((query: string) => {

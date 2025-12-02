@@ -13,6 +13,15 @@ export class MegaknihyScraper implements Scraper {
             const url = `https://www.megaknihy.sk/vyhladavanie?q=${encodeURIComponent(query)}`;
             console.log(`MegaknihyScraper: Navigating to ${url}`);
             // Use domcontentloaded as networkidle2 often times out due to tracking scripts
+            await page.setRequestInterception(true);
+            page.on('request', (req) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
             // Wait for the product list to appear
@@ -45,7 +54,7 @@ export class MegaknihyScraper implements Scraper {
                             const isNameRelevant = queryWords.every(word => nameLower.includes(word));
 
                             // Category filtering: check if link contains game-related keywords
-                            const gameKeywords = ['spolocenske', 'stolove', 'rodinne', 'kartove', 'hry', 'puzzle', 'hlavolamy', 'hracky'];
+                            const gameKeywords = ['spolocenske', 'stolove', 'rodinne', 'kartove', 'hry', 'puzzle', 'hlavolamy', 'hracky', 'nezaradene'];
                             const isGame = gameKeywords.some(keyword => link.toLowerCase().includes(keyword));
 
                             if (isNameRelevant && isGame) {

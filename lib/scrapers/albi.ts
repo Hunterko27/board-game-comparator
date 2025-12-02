@@ -13,6 +13,15 @@ export class AlbiScraper implements Scraper {
             // Try direct search URL first
             const url = `https://eshop.albi.sk/vyhladavanie/?q=${encodeURIComponent(query)}`;
             console.log(`AlbiScraper: Navigating to ${url}`);
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
 
             // Wait for products to load - try common selectors

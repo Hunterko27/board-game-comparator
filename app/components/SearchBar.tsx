@@ -9,7 +9,7 @@ interface SearchBarProps {
 
 export default function SearchBar({ onSearch, isLoading }: SearchBarProps) {
     const [query, setQuery] = useState('');
-    const [exact, setExact] = useState(false);
+    const [exact, setExact] = useState(true);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

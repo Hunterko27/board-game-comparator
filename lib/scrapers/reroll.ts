@@ -11,6 +11,16 @@ export class RerollScraper implements Scraper {
 
         try {
             console.log('RerollScraper: Navigating to homepage...');
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.goto('https://www.reroll.cz/', { waitUntil: 'networkidle2' });
 
             // Set value explicitly and submit form

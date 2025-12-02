@@ -10,8 +10,18 @@ export class SvetHerScraper implements Scraper {
         const results: SearchResult[] = [];
 
         try {
+            // Set User-Agent to avoid detection
+            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+
             const url = `https://www.svet-her.cz/Vyhledavani?fraze=${encodeURIComponent(query)}`;
             console.log(`SvetHerScraper: Navigating to ${url}`);
+
+            // Add random delay
+            await new Promise(r => setTimeout(r, Math.random() * 2000 + 1000));
+
+            // Add random delay
+            await new Promise(r => setTimeout(r, Math.random() * 2000 + 1000));
+
             await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
 
             // Check for empty results

@@ -16,6 +16,15 @@ export class VeselyDrakScraper implements Scraper {
             console.log(`VeselyDrakScraper: Navigating to ${url}`);
 
             // Use domcontentloaded for faster initial load, then wait for selector
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
             console.log('VeselyDrakScraper: Waiting for results');

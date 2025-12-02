@@ -13,7 +13,17 @@ export class AlzaScraper implements Scraper {
 
         try {
             const searchUrl = `https://www.alza.sk/search.htm?exps=${encodeURIComponent(query)}`;
-            await page.goto(searchUrl, { waitUntil: 'networkidle2' });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
 
             // Handle cookie consent if present (Alza often has a popup)
             try {

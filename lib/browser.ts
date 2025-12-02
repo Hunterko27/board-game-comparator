@@ -5,7 +5,7 @@ import puppeteerCore from 'puppeteer-core';
 let browserInstance: any = null;
 
 export async function getBrowser() {
-    if (browserInstance) {
+    if (browserInstance && browserInstance.isConnected()) {
         return browserInstance;
     }
 

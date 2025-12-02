@@ -12,7 +12,17 @@ export class PlanetaHerScraper implements Scraper {
         try {
             const url = `https://www.planetaher.cz/vyhledavani?s=${encodeURIComponent(query)}`;
             console.log(`PlanetaHerScraper: Navigating to ${url}`);
-            await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
             // Check for empty results first
             const emptyResults = await page.$('.products--empty');

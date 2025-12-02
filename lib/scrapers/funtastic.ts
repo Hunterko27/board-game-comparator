@@ -18,7 +18,17 @@ export class FuntasticScraper implements Scraper {
         try {
             const url = `https://www.funtastic.sk/search-engine.htm?slovo=${encodeURIComponent(query)}&search_submit=&hledatjak=2`;
             console.log(`FuntasticScraper: Navigating to ${url}`);
-            await page.goto(url, { waitUntil: 'networkidle2', timeout: 25000 });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
             // Give the page a moment to render dynamic content.
             await new Promise(r => setTimeout(r, 3000));
 

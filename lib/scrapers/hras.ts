@@ -19,7 +19,11 @@ export class HrasScraper implements Scraper {
                 const link = $element.find('.name').attr('href');
                 const priceText = $element.find('.price-final').text().trim();
                 const availability = $element.find('.availability').text().trim();
-                const image = $element.find('.image img').attr('src');
+                let image = $element.find('.image img').attr('data-src');
+                if (!image) {
+                    image = $element.find('.image img').attr('src');
+                }
+                image = image?.trim();
 
                 if (name && link && priceText) {
                     const price = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));

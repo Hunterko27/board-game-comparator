@@ -13,7 +13,17 @@ export class HrackyshopScraper implements Scraper {
             // Use search_keywords parameter
             const url = `https://www.hrackyshop.sk/hladaj?search_keywords=${encodeURIComponent(query)}`;
             console.log(`HrackyshopScraper: Navigating to ${url}`);
-            await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
             const productData = await page.evaluate((query: string) => {
                 // Use .product_box_cont as container

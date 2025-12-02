@@ -34,6 +34,13 @@ export class CechHracuScraper implements Scraper {
                 if (!imageUrl) {
                     imageUrl = $element.find('img.swap-image').attr('src');
                 }
+                if (!imageUrl) {
+                    imageUrl = $element.find('img').attr('data-src');
+                }
+                if (!imageUrl) {
+                    imageUrl = $element.find('img').attr('src');
+                }
+                imageUrl = imageUrl?.trim();
 
                 const link = $element.find('a.p-name').attr('href');
 

@@ -10,7 +10,17 @@ export class GorilaScraper implements Scraper {
 
         try {
             const searchUrl = `https://www.gorila.sk/vyhladavanie?q=${encodeURIComponent(query)}&types%5B0%5D=hra`;
-            await page.goto(searchUrl, { waitUntil: 'networkidle2' });
+
+            await page.setRequestInterception(true);
+            page.on('request', (req: any) => {
+                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
+            await page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
 
             const results = await page.evaluate((query: string) => {
                 const items = document.querySelectorAll('.item');
