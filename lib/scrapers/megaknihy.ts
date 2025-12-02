@@ -14,7 +14,7 @@ export class MegaknihyScraper implements Scraper {
             console.log(`MegaknihyScraper: Navigating to ${url}`);
             // Use domcontentloaded as networkidle2 often times out due to tracking scripts
             await page.setRequestInterception(true);
-            page.on('request', (req) => {
+            page.on('request', (req: any) => {
                 if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
                     req.abort();
                 } else {
