@@ -105,7 +105,17 @@ export async function GET(request: Request) {
                 const startTime = Date.now();
                 try {
                     console.log(`[${scraper.name}] Starting search...`);
-                    let results = await scraper.search(query);
+
+                    // Add a timeout to prevent hanging the request
+                    const timeoutPromise = new Promise<any[]>((_, reject) => {
+                        setTimeout(() => reject(new Error('Scraper timed out after 9s')), 9000);
+                    });
+
+                    let results = await Promise.race([
+                        scraper.search(query),
+                        timeoutPromise
+                    ]);
+
                     const duration = Date.now() - startTime;
                     console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
 
