@@ -12,6 +12,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
+  const [progress, setProgress] = useState({ completed: 0, total: 0 });
 
   const handleSearch = async (query: string, exact: boolean) => {
     setIsLoading(true);
@@ -19,17 +20,20 @@ export default function Home() {
     setResults([]);
     setHasSearched(false);
 
+    // Split scrapers into 32 batches for maximum isolation (1 scraper per batch)
+    const TOTAL_BATCHES = 32;
+    const CONCURRENCY_LIMIT = 4; // Conservative limit to prevent browser timeouts
+
+    setProgress({ completed: 0, total: TOTAL_BATCHES });
+
     try {
       setHasSearched(true);
+      let completedBatches = 0;
 
-      // Split scrapers into 8 batches for better speed
-      const TOTAL_BATCHES = 8;
-      const CONCURRENCY_LIMIT = 6; // Browser limit is usually 6 per domain
-
-      const processBatch = async (batchId: number) => {
+      const processBatch = async (batchId: number, retryCount = 0) => {
         try {
           const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
-          if (!response.ok) throw new Error(`Batch ${batchId} failed`);
+          if (!response.ok) throw new Error(`Batch ${batchId} failed with status ${response.status}`);
           if (!response.body) return;
 
           const reader = response.body.getReader();
@@ -62,7 +66,15 @@ export default function Home() {
             }
           }
         } catch (err) {
-          console.error(`Error in batch ${batchId}:`, err);
+          console.error(`Error in batch ${batchId} (Attempt ${retryCount + 1}):`, err);
+          if (retryCount < 3) {
+            console.log(`Retrying batch ${batchId}...`);
+            await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1))); // Exponential backoff
+            await processBatch(batchId, retryCount + 1);
+          }
+        } finally {
+          completedBatches++;
+          setProgress(prev => ({ ...prev, completed: completedBatches }));
         }
       };
 
@@ -106,6 +118,15 @@ export default function Home() {
         </div>
 
         <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+
+        {/* Progress Indicator */}
+        {isLoading && progress.total > 0 && (
+          <div className="text-center mt-4 mb-4">
+            <div className="inline-block bg-white px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-600">
+              Searching... {progress.completed}/{progress.total} batches completed
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="text-center text-red-600 mb-8">
