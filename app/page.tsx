@@ -22,8 +22,8 @@ export default function Home() {
     try {
       setHasSearched(true);
 
-      // Split scrapers into 8 batches to prevent server timeouts
-      const TOTAL_BATCHES = 8;
+      // Split scrapers into 16 batches to prevent server timeouts
+      const TOTAL_BATCHES = 16;
       const batchPromises = [];
 
       for (let i = 0; i < TOTAL_BATCHES; i++) {
