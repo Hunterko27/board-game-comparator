@@ -95,12 +95,14 @@ export class AlzaScraper implements Scraper {
                                 (imgEl as HTMLImageElement).src || '';
 
                             // If still placeholder, try to find other attributes
-                            if (imageUrl.includes('placeholder')) {
-                                const possibleAttrs = ['data-src', 'data-original', 'data-srcset'];
+                            // Case-insensitive check for placeholder
+                            if (imageUrl.toLowerCase().includes('placeholder')) {
+                                const possibleAttrs = ['data-src', 'data-original', 'data-srcset', 'srcset'];
                                 for (const attr of possibleAttrs) {
                                     const val = imgEl.getAttribute(attr);
                                     if (val) {
-                                        imageUrl = val.split(' ')[0]; // Take first URL if srcset
+                                        // srcset format: "url size, url size" -> take first url
+                                        imageUrl = val.split(',')[0].trim().split(' ')[0];
                                         break;
                                     }
                                 }
