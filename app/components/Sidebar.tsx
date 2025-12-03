@@ -20,7 +20,7 @@ export default function Sidebar({ results }: SidebarProps) {
 
     return (
         <div className="w-full md:w-64 flex-shrink-0">
-            <div className="bg-white p-4 rounded-lg shadow-md sticky top-4">
+            <div className="bg-white p-4 rounded-lg shadow-md sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
                 <h2 className="text-lg font-bold text-gray-900 mb-4">Results Summary</h2>
                 <div className="mb-4">
                     <div className="flex justify-between items-center font-semibold">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import Sidebar from './components/Sidebar';
+import BackToTop from './components/BackToTop';
 import { SearchResult } from '@/lib/scrapers/types';
 
 export default function Home() {
@@ -105,10 +106,12 @@ export default function Home() {
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-8">
           {results.length > 0 && <Sidebar results={results} />}
           <SearchResults results={results} />
         </div>
+
+        <BackToTop />
       </div>
     </main>
   );

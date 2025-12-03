@@ -87,11 +87,18 @@ export async function GET(request: Request) {
 
     const stream = new ReadableStream({
         async start(controller) {
+            const encoder = new TextEncoder();
+
             // Helper to process a batch of scrapers
-            const processBatch = async (batch: typeof scrapers) => {
+            const processBatch = async (batch: typeof scrapers, batchIndex: number) => {
+                console.log(`Starting Batch ${batchIndex + 1} with: ${batch.map(s => s.name).join(', ')}`);
                 const searchPromises = batch.map(async (scraper) => {
+                    const startTime = Date.now();
                     try {
+                        console.log(`[${scraper.name}] Starting search...`);
                         let results = await scraper.search(query);
+                        const duration = Date.now() - startTime;
+                        console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
 
                         if (exact) {
                             const normalizedQuery = normalize(query);
@@ -100,21 +107,24 @@ export async function GET(request: Request) {
 
                         if (results.length > 0) {
                             const json = JSON.stringify(results);
-                            controller.enqueue(new TextEncoder().encode(json + '\n'));
+                            controller.enqueue(encoder.encode(json + '\n'));
                         }
                     } catch (error) {
-                        console.error(`Error in ${scraper.name}:`, error);
+                        const duration = Date.now() - startTime;
+                        console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
                     }
                 });
                 await Promise.all(searchPromises);
+                console.log(`Batch ${batchIndex + 1} completed.`);
             };
 
             // Process scrapers in batches to avoid overwhelming the server (Netlify)
             // Puppeteer scrapers are resource intensive, so we limit concurrency.
-            const BATCH_SIZE = 5;
+            // Reduced to 2 to prevent timeouts and inconsistent results.
+            const BATCH_SIZE = 2;
             for (let i = 0; i < scrapers.length; i += BATCH_SIZE) {
                 const batch = scrapers.slice(i, i + BATCH_SIZE);
-                await processBatch(batch);
+                await processBatch(batch, Math.floor(i / BATCH_SIZE));
             }
 
             controller.close();
