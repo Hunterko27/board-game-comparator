@@ -24,51 +24,56 @@ export default function Home() {
 
       // Split scrapers into 32 batches to prevent server timeouts
       const TOTAL_BATCHES = 32;
-      const batchPromises = [];
+      const CONCURRENCY_LIMIT = 6; // Browser limit is usually 6 per domain
 
-      for (let i = 0; i < TOTAL_BATCHES; i++) {
-        batchPromises.push((async () => {
-          try {
-            const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${i}&totalBatches=${TOTAL_BATCHES}`);
-            if (!response.ok) throw new Error(`Batch ${i} failed`);
-            if (!response.body) return;
+      const processBatch = async (batchId: number) => {
+        try {
+          const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
+          if (!response.ok) throw new Error(`Batch ${batchId} failed`);
+          if (!response.body) return;
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            let buffer = '';
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
 
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-              buffer += decoder.decode(value, { stream: true });
-              const lines = buffer.split('\n');
-              buffer = lines.pop() || '';
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
 
-              for (const line of lines) {
-                if (!line.trim()) continue;
-                try {
-                  const newResults: SearchResult[] = JSON.parse(line);
-                  setResults(prev => {
-                    const combined = [...prev, ...newResults];
-                    return combined.sort((a, b) => {
-                      const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
-                      const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
-                      return priceA - priceB;
-                    });
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              try {
+                const newResults: SearchResult[] = JSON.parse(line);
+                setResults(prev => {
+                  const combined = [...prev, ...newResults];
+                  return combined.sort((a, b) => {
+                    const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
+                    const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
+                    return priceA - priceB;
                   });
-                } catch (e) {
-                  console.error('Error parsing JSON line:', e);
-                }
+                });
+              } catch (e) {
+                console.error('Error parsing JSON line:', e);
               }
             }
-          } catch (err) {
-            console.error(`Error in batch ${i}:`, err);
           }
-        })());
-      }
+        } catch (err) {
+          console.error(`Error in batch ${batchId}:`, err);
+        }
+      };
 
-      await Promise.all(batchPromises);
+      // Process batches in chunks to respect browser connection limits
+      for (let i = 0; i < TOTAL_BATCHES; i += CONCURRENCY_LIMIT) {
+        const chunk = [];
+        for (let j = 0; j < CONCURRENCY_LIMIT && i + j < TOTAL_BATCHES; j++) {
+          chunk.push(processBatch(i + j));
+        }
+        await Promise.all(chunk);
+      }
 
     } catch (err) {
       setError('Some results might be missing. Please try again.');
