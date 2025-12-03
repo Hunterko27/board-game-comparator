@@ -20,49 +20,58 @@ export default function Home() {
     setHasSearched(false);
 
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}`);
-      if (!response.ok) {
-        throw new Error('Search failed');
-      }
+      setHasSearched(true);
 
-      if (!response.body) return;
+      // Split scrapers into 4 batches to prevent server timeouts
+      const TOTAL_BATCHES = 4;
+      const batchPromises = [];
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      setHasSearched(true); // Show results container immediately
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-
-        // Keep the last part if it's incomplete (doesn't end with newline)
-        buffer = lines.pop() || '';
-
-        for (const line of lines) {
-          if (!line.trim()) continue;
+      for (let i = 0; i < TOTAL_BATCHES; i++) {
+        batchPromises.push((async () => {
           try {
-            const newResults: SearchResult[] = JSON.parse(line);
-            setResults(prev => {
-              const combined = [...prev, ...newResults];
-              // Sort by price (approximate conversion for sorting: 1 CZK = 0.04 EUR)
-              return combined.sort((a, b) => {
-                const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
-                const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
-                return priceA - priceB;
-              });
-            });
-          } catch (e) {
-            console.error('Error parsing JSON line:', e);
+            const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${i}&totalBatches=${TOTAL_BATCHES}`);
+            if (!response.ok) throw new Error(`Batch ${i} failed`);
+            if (!response.body) return;
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+
+              for (const line of lines) {
+                if (!line.trim()) continue;
+                try {
+                  const newResults: SearchResult[] = JSON.parse(line);
+                  setResults(prev => {
+                    const combined = [...prev, ...newResults];
+                    return combined.sort((a, b) => {
+                      const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
+                      const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
+                      return priceA - priceB;
+                    });
+                  });
+                } catch (e) {
+                  console.error('Error parsing JSON line:', e);
+                }
+              }
+            }
+          } catch (err) {
+            console.error(`Error in batch ${i}:`, err);
           }
-        }
+        })());
       }
+
+      await Promise.all(batchPromises);
+
     } catch (err) {
-      setError('Failed to fetch results. Please try again.');
+      setError('Some results might be missing. Please try again.');
       console.error(err);
     } finally {
       setIsLoading(false);

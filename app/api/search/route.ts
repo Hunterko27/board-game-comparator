@@ -41,12 +41,14 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
     const exact = searchParams.get('exact') === 'true';
+    const batchId = parseInt(searchParams.get('batchId') || '0');
+    const totalBatches = parseInt(searchParams.get('totalBatches') || '1');
 
     if (!query) {
         return NextResponse.json({ error: 'Missing query parameter' }, { status: 400 });
     }
 
-    const scrapers = [
+    const allScrapers = [
         new IhryskoScraper(),
         new LudopolisScraper(),
         new FuntasticScraper(),
@@ -81,6 +83,14 @@ export async function GET(request: Request) {
         new RerollScraper(),
     ];
 
+    // Calculate which scrapers to run for this batch
+    const batchSize = Math.ceil(allScrapers.length / totalBatches);
+    const startIdx = batchId * batchSize;
+    const endIdx = Math.min(startIdx + batchSize, allScrapers.length);
+    const scrapers = allScrapers.slice(startIdx, endIdx);
+
+    console.log(`[API] Processing Batch ${batchId + 1}/${totalBatches} (Scrapers ${startIdx + 1}-${endIdx})`);
+
     const normalize = (str: string) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     };
@@ -89,44 +99,32 @@ export async function GET(request: Request) {
         async start(controller) {
             const encoder = new TextEncoder();
 
-            // Helper to process a batch of scrapers
-            const processBatch = async (batch: typeof scrapers, batchIndex: number) => {
-                console.log(`Starting Batch ${batchIndex + 1} with: ${batch.map(s => s.name).join(', ')}`);
-                const searchPromises = batch.map(async (scraper) => {
-                    const startTime = Date.now();
-                    try {
-                        console.log(`[${scraper.name}] Starting search...`);
-                        let results = await scraper.search(query);
-                        const duration = Date.now() - startTime;
-                        console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
+            // Run all scrapers in this batch in parallel (since the batch itself is small)
+            // We rely on the client to control the overall concurrency by how many batches it requests
+            const searchPromises = scrapers.map(async (scraper) => {
+                const startTime = Date.now();
+                try {
+                    console.log(`[${scraper.name}] Starting search...`);
+                    let results = await scraper.search(query);
+                    const duration = Date.now() - startTime;
+                    console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
 
-                        if (exact) {
-                            const normalizedQuery = normalize(query);
-                            results = results.filter(r => normalize(r.name).includes(normalizedQuery));
-                        }
-
-                        if (results.length > 0) {
-                            const json = JSON.stringify(results);
-                            controller.enqueue(encoder.encode(json + '\n'));
-                        }
-                    } catch (error) {
-                        const duration = Date.now() - startTime;
-                        console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
+                    if (exact) {
+                        const normalizedQuery = normalize(query);
+                        results = results.filter(r => normalize(r.name).includes(normalizedQuery));
                     }
-                });
-                await Promise.all(searchPromises);
-                console.log(`Batch ${batchIndex + 1} completed.`);
-            };
 
-            // Process scrapers in batches to avoid overwhelming the server (Netlify)
-            // Puppeteer scrapers are resource intensive, so we limit concurrency.
-            // Reduced to 2 to prevent timeouts and inconsistent results.
-            const BATCH_SIZE = 2;
-            for (let i = 0; i < scrapers.length; i += BATCH_SIZE) {
-                const batch = scrapers.slice(i, i + BATCH_SIZE);
-                await processBatch(batch, Math.floor(i / BATCH_SIZE));
-            }
+                    if (results.length > 0) {
+                        const json = JSON.stringify(results);
+                        controller.enqueue(encoder.encode(json + '\n'));
+                    }
+                } catch (error) {
+                    const duration = Date.now() - startTime;
+                    console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
+                }
+            });
 
+            await Promise.all(searchPromises);
             controller.close();
         }
     });
