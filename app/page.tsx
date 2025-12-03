@@ -22,8 +22,8 @@ export default function Home() {
     try {
       setHasSearched(true);
 
-      // Split scrapers into 32 batches to prevent server timeouts
-      const TOTAL_BATCHES = 32;
+      // Split scrapers into 8 batches for better speed
+      const TOTAL_BATCHES = 8;
       const CONCURRENCY_LIMIT = 6; // Browser limit is usually 6 per domain
 
       const processBatch = async (batchId: number) => {

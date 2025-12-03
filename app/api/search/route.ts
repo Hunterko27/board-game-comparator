@@ -107,8 +107,9 @@ export async function GET(request: Request) {
                     console.log(`[${scraper.name}] Starting search...`);
 
                     // Add a timeout to prevent hanging the request
+                    // 8s timeout ensures we finish before Netlify's 10s limit
                     const timeoutPromise = new Promise<any[]>((_, reject) => {
-                        setTimeout(() => reject(new Error('Scraper timed out after 9s')), 9000);
+                        setTimeout(() => reject(new Error('Scraper timed out after 8s')), 8000);
                     });
 
                     let results = await Promise.race([
