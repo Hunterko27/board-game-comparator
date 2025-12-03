@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
 const query = 'catan';
-const totalBatches = 4;
+const totalBatches = 8;
 
 async function testBatch(batchId: number) {
     const url = `http://localhost:3000/api/search?q=${query}&batchId=${batchId}&totalBatches=${totalBatches}`;
