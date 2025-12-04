@@ -43,26 +43,26 @@ export class AlzaScraper implements Scraper {
                 console.log('Timeout waiting for product selector');
             }
 
-            // Scroll down to trigger lazy loading
+            // Scroll down to trigger lazy loading (faster)
             await page.evaluate(async () => {
                 await new Promise<void>((resolve) => {
                     let totalHeight = 0;
-                    const distance = 100;
+                    const distance = 800; // Larger steps
                     const timer = setInterval(() => {
                         const scrollHeight = document.body.scrollHeight;
                         window.scrollBy(0, distance);
                         totalHeight += distance;
 
-                        if (totalHeight >= scrollHeight || totalHeight > 2000) {
+                        if (totalHeight >= scrollHeight || totalHeight > 3000) {
                             clearInterval(timer);
                             resolve();
                         }
-                    }, 100);
+                    }, 50); // Faster interval
                 });
             });
 
-            // Wait a bit for images to load
-            await new Promise(r => setTimeout(r, 1000));
+            // Wait a bit for images to load (reduced)
+            await new Promise(r => setTimeout(r, 500));
 
             const results = await page.evaluate((query: string) => {
                 const items = document.querySelectorAll('.box, .browsing-item');

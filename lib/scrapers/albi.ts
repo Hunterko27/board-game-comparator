@@ -22,12 +22,12 @@ export class AlbiScraper implements Scraper {
                 }
             });
 
-            await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
             // Wait for products to load - try common selectors
             // Based on typical e-commerce structures, let's try waiting for product cards
             try {
-                await page.waitForSelector('.up-product-box', { timeout: 5000 });
+                await page.waitForSelector('.up-product-box', { timeout: 3000 });
             } catch (e) {
                 console.log('AlbiScraper: No products found');
                 return [];
