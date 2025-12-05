@@ -6,6 +6,8 @@ import { SvetHerScraper } from './lib/scrapers/svether';
 import { FuntasticScraper } from './lib/scrapers/funtastic';
 import { NekonecnoScraper } from './lib/scrapers/nekonecno';
 import { RerollScraper } from './lib/scrapers/reroll';
+import { ImagoCZScraper } from './lib/scrapers/imago_cz';
+import { VeselyDrakScraper } from './lib/scrapers/vesely_drak';
 
 const scrapers = [
     new AlzaScraper(),
@@ -15,7 +17,9 @@ const scrapers = [
     new SvetHerScraper(),
     new FuntasticScraper(),
     new NekonecnoScraper(),
-    new RerollScraper()
+    new RerollScraper(),
+    new ImagoCZScraper(),
+    new VeselyDrakScraper()
 ];
 
 async function testScrapers() {

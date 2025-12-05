@@ -19,7 +19,14 @@ export class NekonecnoScraper implements Scraper {
                 }
             });
 
-            await page.goto(searchUrl, { waitUntil: 'networkidle2' });
+            await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 25000 });
+
+            // Wait for products to load
+            try {
+                await page.waitForSelector('.product.lb-product', { timeout: 5000 });
+            } catch (e) {
+                // Ignore timeout, might be 0 results
+            }
 
             const results = await page.evaluate((query: string) => {
                 const items = document.querySelectorAll('.product.lb-product');
