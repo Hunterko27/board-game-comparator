@@ -44,13 +44,13 @@ export class FuntasticScraper implements Scraper {
                         availability = 'Out of Stock';
                     }
 
-                    if (name && !isNaN(price)) {
+                    if (name && !isNaN(price) && link) {
                         results.push({
                             name,
                             price,
                             currency: 'EUR',
                             availability,
-                            link: link ? (link.startsWith('http') ? link : `https://www.funtastic.sk${link}`) : undefined,
+                            link: link.startsWith('http') ? link : `https://www.funtastic.sk${link}`,
                             imageUrl: imageUrl || '',
                             shopName: 'Funtastic'
                         });

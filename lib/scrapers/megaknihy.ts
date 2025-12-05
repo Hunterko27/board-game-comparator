@@ -48,13 +48,13 @@ export class MegaknihyScraper implements Scraper {
                         const gameKeywords = ['spolocenske', 'stolove', 'rodinne', 'kartove', 'hry', 'puzzle', 'hlavolamy', 'hracky', 'nezaradene'];
                         const isGame = link ? gameKeywords.some(keyword => link.toLowerCase().includes(keyword)) : false;
 
-                        if (isNameRelevant && isGame) {
+                        if (isNameRelevant && isGame && link) {
                             results.push({
                                 name,
                                 price,
                                 currency: 'EUR',
                                 availability,
-                                link: link ? (link.startsWith('http') ? link : `https://www.megaknihy.sk${link}`) : undefined,
+                                link: link.startsWith('http') ? link : `https://www.megaknihy.sk${link}`,
                                 imageUrl: imageUrl || '',
                                 shopName: 'Megaknihy'
                             });
