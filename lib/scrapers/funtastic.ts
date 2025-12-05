@@ -1,95 +1,68 @@
 import { Scraper, SearchResult } from './types';
-import { getBrowser } from '../browser';
+import * as cheerio from 'cheerio';
 
-/**
- * Scraper for Funtastic.sk.
- * Implements a two‑stage approach:
- *   1. Search page – collect product name and link.
- *   2. Individual product pages – extract price (with fallback to meta tags) and image URL.
- */
 export class FuntasticScraper implements Scraper {
     name = 'Funtastic';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
         const results: SearchResult[] = [];
-
         try {
-            const url = `https://www.funtastic.sk/search-engine.htm?slovo=${encodeURIComponent(query)}&search_submit=&hledatjak=2`;
-            console.log(`FuntasticScraper: Navigating to ${url}`);
+            const searchUrl = `https://www.funtastic.sk/search-engine.htm?slovo=${encodeURIComponent(query)}&search_submit=&hledatjak=2`;
 
-            await page.setRequestInterception(true);
-            page.on('request', (req: any) => {
-                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
-                    req.abort();
-                } else {
-                    req.continue();
+            const response = await fetch(searchUrl, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
                 }
             });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
+            const html = await response.text();
+            const $ = cheerio.load(html);
 
-            // Extract data directly from search page
-            const items = await page.evaluate((query: string) => {
-                const data: any[] = [];
-                const productContainers = document.querySelectorAll('.productBody');
+            $('.productBody').each((_, element) => {
+                try {
+                    const $el = $(element);
+                    const nameEl = $el.find('.productTitle a');
+                    const name = nameEl.text().trim();
+                    const link = nameEl.attr('href');
 
-                productContainers.forEach((container) => {
-                    try {
-                        const nameEl = container.querySelector('.productTitle a');
-                        const imgEl = container.querySelector('.img_box img');
-                        const priceEl = container.querySelector('.product_price_text');
+                    // Price is in a text node or span within .product_price_text
+                    const priceText = $el.find('.product_price_text').text().trim();
+                    const price = priceText ? parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.')) : NaN;
 
-                        if (nameEl && priceEl) {
-                            const name = nameEl.textContent?.trim() || '';
-                            const link = (nameEl as HTMLAnchorElement).href;
-
-                            // Image might be lazy loaded or in a different attribute
-                            let imageUrl = '';
-                            if (imgEl) {
-                                imageUrl = (imgEl as HTMLImageElement).src ||
-                                    imgEl.getAttribute('data-src') ||
-                                    '';
-                            }
-
-                            const priceText = priceEl.textContent?.trim() || '';
-                            // Parse price "26,95 €"
-                            const priceMatch = priceText.match(/([\d\s,]+)/);
-                            let price = 0;
-                            if (priceMatch) {
-                                price = parseFloat(priceMatch[1].replace(/\s/g, '').replace(',', '.'));
-                            }
-
-                            if (name && !isNaN(price)) {
-                                if (name.toLowerCase().includes(query.toLowerCase())) {
-                                    data.push({
-                                        name,
-                                        price,
-                                        currency: 'EUR',
-                                        availability: 'Neznáma',
-                                        link,
-                                        imageUrl,
-                                        shopName: 'Funtastic'
-                                    });
-                                }
-                            }
-                        }
-                    } catch (err) {
-                        // Ignore individual errors
+                    const imgEl = $el.find('.img_box img');
+                    let imageUrl = imgEl.attr('src');
+                    if (imageUrl && !imageUrl.startsWith('http')) {
+                        imageUrl = `https://www.funtastic.sk${imageUrl}`;
                     }
-                });
-                return data;
-            }, query);
 
-            results.push(...items);
+                    let availability = 'Unknown';
+                    const stockText = $el.find('.stock_yes').text().trim();
+                    if (stockText) {
+                        availability = 'In Stock';
+                    } else if ($el.find('.stock_no').length > 0) {
+                        availability = 'Out of Stock';
+                    }
 
-        } catch (err) {
-            console.error('FuntasticScraper: error during search', err);
-        } finally {
-            await browser.close();
+                    if (name && !isNaN(price)) {
+                        results.push({
+                            name,
+                            price,
+                            currency: 'EUR',
+                            availability,
+                            link: link ? (link.startsWith('http') ? link : `https://www.funtastic.sk${link}`) : undefined,
+                            imageUrl: imageUrl || '',
+                            shopName: 'Funtastic'
+                        });
+                    }
+                } catch (err) {
+                    console.error('Error parsing product:', err);
+                }
+            });
+
+        } catch (error) {
+            console.error('Funtastic scraper error:', error);
         }
-
         return results;
     }
 }
