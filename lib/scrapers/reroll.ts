@@ -21,19 +21,40 @@ export class RerollScraper implements Scraper {
                 }
             });
 
+            // Clear cookies to avoid issues with shared browser state
+            const client = await page.target().createCDPSession();
+            await client.send('Network.clearBrowserCookies');
+            await client.send('Network.clearBrowserCache');
+
             await page.goto('https://www.reroll.cz/', { waitUntil: 'networkidle2' });
 
-            // Set value explicitly and submit form
+            // Set value explicitly and submit form by clicking the button
             console.log(`RerollScraper: Searching for "${query}"...`);
+            await page.type('.search_input', query);
+
             await Promise.all([
-                page.waitForNavigation({ waitUntil: 'networkidle2' }),
-                page.evaluate((q: string) => {
-                    const input = document.querySelector('input[name="q"]') as HTMLInputElement;
-                    if (input) input.value = q;
-                    const form = document.querySelector('form[name="search"]') as HTMLFormElement;
-                    if (form) form.submit();
-                }, query)
+                page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 15000 }),
+                page.evaluate(() => {
+                    const buttons = Array.from(document.querySelectorAll('a, button, input[type="submit"]'));
+                    const searchBtn = buttons.find(b => b.textContent?.trim() === 'Hledat');
+                    if (searchBtn) {
+                        (searchBtn as HTMLElement).click();
+                    } else {
+                        // Fallback: try to submit form if found, or press enter
+                        const form = document.querySelector('form');
+                        if (form) form.submit();
+                    }
+                })
             ]);
+
+            // Wait for products to load
+            try {
+                console.log('RerollScraper: Waiting for products...');
+                await page.waitForSelector('.p_cart_block', { timeout: 10000 });
+                console.log('RerollScraper: Products found at', page.url());
+            } catch (e) {
+                console.log('RerollScraper: Timeout waiting for products at', page.url());
+            }
 
             const productElements = await page.$$('.p_cart_block');
             console.log(`RerollScraper: Found ${productElements.length} elements.`);
