@@ -23,9 +23,9 @@ export class AlzaScraper implements Scraper {
                 }
             });
 
-            await page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
+            await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
-            // Handle cookie consent if present (Alza often has a popup)
+            // Handle cookie consent if present
             try {
                 const cookieBtn = await page.$('.js-cookies-info-accept');
                 if (cookieBtn) {

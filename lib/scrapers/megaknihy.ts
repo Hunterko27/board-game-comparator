@@ -22,10 +22,28 @@ export class MegaknihyScraper implements Scraper {
                 }
             });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            // Set User-Agent and extra headers
+            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+            await page.setExtraHTTPHeaders({
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                'Accept-Language': 'cs-CZ,cs;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-User': '?1'
+            });
+
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
 
             // Wait for the product list to appear
-            await page.waitForSelector('li.ajax_block_product', { timeout: 10000 });
+            try {
+                await page.waitForSelector('li.ajax_block_product', { timeout: 5000 });
+            } catch (e) {
+                return [];
+            }
 
             const productData = await page.evaluate((query: string) => {
                 const items = document.querySelectorAll('li.ajax_block_product');
