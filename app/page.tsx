@@ -31,78 +31,87 @@ export default function Home() {
       let completedBatches = 0;
 
       const processBatch = async (batchId: number) => {
-        let attempts = 0;
-        const maxAttempts = 3;
+        try {
+          let attempts = 0;
+          const maxAttempts = 3;
 
-        while (attempts <= maxAttempts) {
-          try {
-            const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
+          while (attempts <= maxAttempts) {
+            try {
+              const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
 
-            if (!response.ok) {
-              const text = await response.text().catch(() => '');
-              throw new Error(`Status ${response.status}: ${text.slice(0, 100)}`);
-            }
+              if (!response.ok) {
+                const text = await response.text().catch(() => '');
+                throw new Error(`Status ${response.status}: ${text.slice(0, 100)}`);
+              }
 
-            if (!response.body) return;
+              if (!response.body) return;
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            let buffer = '';
+              const reader = response.body.getReader();
+              const decoder = new TextDecoder();
+              let buffer = '';
 
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
 
-              buffer += decoder.decode(value, { stream: true });
-              // Process complete lines
-              const lines = buffer.split('\n');
-              // Keep the last partial line in the buffer
-              buffer = lines.pop() || '';
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
 
-              for (const line of lines) {
-                if (!line.trim()) continue;
-                try {
-                  const newResults: SearchResult[] = JSON.parse(line);
-                  setResults(prev => {
-                    const combined = [...prev, ...newResults];
-                    // Remove duplicates based on link
-                    const unique = Array.from(new Map(combined.map(item => [item.link, item])).values());
-                    return unique.sort((a, b) => {
-                      const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
-                      const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
-                      return priceA - priceB;
+                for (const line of lines) {
+                  if (!line.trim()) continue;
+                  try {
+                    const data = JSON.parse(line);
+
+                    if (data.type === 'error') {
+                      console.warn(`Scraper Error [${data.scraper}]: ${data.message}`);
+                      setError(prev => {
+                        const errorLine = `[${data.scraper}]: ${data.message}`;
+                        // Prevent duplicate error messages
+                        if (prev.includes(errorLine)) return prev;
+                        return prev ? `${prev} | ${errorLine}` : errorLine;
+                      });
+                      continue;
+                    }
+
+                    const newResults: SearchResult[] = data;
+                    setResults(prev => {
+                      const combined = [...prev, ...newResults];
+                      const unique = Array.from(new Map(combined.map(item => [item.link, item])).values());
+                      return unique.sort((a, b) => {
+                        const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
+                        const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
+                        return priceA - priceB;
+                      });
                     });
-                  });
-                } catch (e) {
-                  console.error('Error parsing JSON line:', e);
+                  } catch (e) {
+                    console.error('Error parsing JSON line:', e);
+                  }
                 }
               }
-            }
 
-            // If we successfully read the stream, break the retry loop
-            return;
+              return; // Success, exit retry loop
 
-          } catch (err: any) {
-            console.error(`Error in batch ${batchId} (Attempt ${attempts + 1}):`, err);
+            } catch (err: any) {
+              console.error(`Error in batch ${batchId} (Attempt ${attempts + 1}):`, err);
 
-            // Only update error state if it's the final attempt
-            if (attempts === maxAttempts) {
-              setError(prev => prev ? `${prev} | Batch ${batchId}: ${err.message}` : `Error: ${err.message}`);
-            }
+              if (attempts === maxAttempts) {
+                setError(prev => prev ? `${prev} | Batch ${batchId}: ${err.message}` : `Error: ${err.message}`);
+              }
 
-            if (attempts < maxAttempts) {
-              console.log(`Retrying batch ${batchId}...`);
-              await new Promise(resolve => setTimeout(resolve, 1000 * (attempts + 1))); // Exponential backoff
-              attempts++;
-            } else {
-              break; // Output loop
+              if (attempts < maxAttempts) {
+                console.log(`Retrying batch ${batchId}...`);
+                await new Promise(resolve => setTimeout(resolve, 1000 * (attempts + 1)));
+                attempts++;
+              } else {
+                break;
+              }
             }
           }
+        } finally {
+          // Always increment progress, even if we return early on success
+          setProgress(prev => ({ ...prev, completed: prev.completed + 1 }));
         }
-
-        // Always increment progress once per batch, regardless of success/fail
-        completedBatches++;
-        setProgress(prev => ({ ...prev, completed: completedBatches }));
       };
 
       // Process batches in chunks to respect browser connection limits
