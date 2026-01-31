@@ -43,10 +43,18 @@ export class AlbiCZScraper implements Scraper {
                 for (const item of data.data.items) {
                     // Strict filtering
                     const name = item.name;
+
+                    let priceVal = 0;
+                    if (item.price_vat) {
+                        priceVal = typeof item.price_vat === 'string' ? parseFloat(item.price_vat) : item.price_vat;
+                    } else if (item.price) {
+                        priceVal = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
+                    }
+
                     if (name.toLowerCase().includes(query.toLowerCase()) && !name.toLowerCase().includes('rozšíření')) {
                         results.push({
                             name: name,
-                            price: item.price,
+                            price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'CZK',
                             availability: item.availability?.in_stock ? 'Skladem' : 'Nedostupné',
                             link: item.url,

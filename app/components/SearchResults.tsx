@@ -37,7 +37,7 @@ export default function SearchResults({ results }: SearchResultsProps) {
                         </div>
                         <div className="text-right">
                             <div className="text-xl font-bold text-gray-900">
-                                {result.price.toFixed(2)} {result.currency}
+                                {typeof result.price === 'number' && !isNaN(result.price) ? result.price.toFixed(2) : 'N/A'} {result.currency}
                                 {result.currency === 'CZK' && (
                                     <span className="text-sm text-gray-500 ml-2 font-normal">
                                         (~ {(result.price * 0.04).toFixed(2)} EUR)

@@ -45,7 +45,16 @@ export class AlbiScraper implements Scraper {
                     if (item.name.toLowerCase().includes(query.toLowerCase())) {
                         results.push({
                             name: item.name,
-                            price: item.price, // API usually returns number
+                            let priceVal = 0;
+                            if(item.price_vat) {
+                            priceVal = typeof item.price_vat === 'string' ? parseFloat(item.price_vat) : item.price_vat;
+                        } else if (item.price) {
+                            priceVal = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
+                        }
+
+                        results.push({
+                            name: item.name,
+                            price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'EUR',
                             availability: item.availability?.in_stock ? 'Skladom' : 'Nedostupné',
                             link: item.url,
