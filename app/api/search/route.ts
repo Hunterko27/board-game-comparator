@@ -129,9 +129,17 @@ export async function GET(request: Request) {
                         const json = JSON.stringify(results);
                         controller.enqueue(encoder.encode(json + '\n'));
                     }
-                } catch (error) {
+                } catch (error: any) {
                     const duration = Date.now() - startTime;
                     console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
+                    // Send error to client for debugging
+                    const errorMsg = JSON.stringify({
+                        type: 'error',
+                        scraper: scraper.name,
+                        message: error.message,
+                        duration
+                    });
+                    controller.enqueue(encoder.encode(errorMsg + '\n'));
                 }
             });
 

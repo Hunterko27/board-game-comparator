@@ -22,7 +22,7 @@ export default function Home() {
 
     // Split scrapers into 32 batches for maximum isolation (1 scraper per batch)
     const TOTAL_BATCHES = 32;
-    const CONCURRENCY_LIMIT = 4; // Conservative limit to prevent browser timeouts
+    const CONCURRENCY_LIMIT = 2; // Reduced to prevent resource exhaustion
 
     setProgress({ completed: 0, total: TOTAL_BATCHES });
 
