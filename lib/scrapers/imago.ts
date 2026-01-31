@@ -1,86 +1,71 @@
 import { Scraper, SearchResult } from './types';
-import { getBrowser } from '../browser';
+import { load } from 'cheerio';
 
 export class ImagoScraper implements Scraper {
     name = 'Imago';
-    async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
 
+    async search(query: string): Promise<SearchResult[]> {
+        const results: SearchResult[] = [];
         try {
             const searchUrl = `https://www.imago.sk/index.php?route=product/search&keyword=${encodeURIComponent(query)}`;
-
-            await page.setRequestInterception(true);
-            page.on('request', (req: any) => {
-                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
-                    req.abort();
-                } else {
-                    req.continue();
+            const response = await fetch(searchUrl, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
                 }
             });
 
-            await page.goto(searchUrl, { waitUntil: 'domcontentloaded' });
+            if (!response.ok) {
+                console.error(`ImagoScraper: Failed to fetch ${searchUrl}, status: ${response.status}`);
+                return [];
+            }
 
-            const results = await page.evaluate((query: string) => {
-                // Use specific container to avoid autocomplete dropdowns
-                const items = document.querySelectorAll('#productsArea .product-list-item');
-                const data: any[] = [];
+            const html = await response.text();
+            const $ = load(html);
 
-                items.forEach((item) => {
-                    try {
-                        const nameEl = item.querySelector('.vypis_h3 a');
-                        const linkEl = item.querySelector('.vypis_h3 a');
-                        const priceEl = item.querySelector('.vypis_cena');
-                        const imgEl = item.querySelector('.img-productsarea');
-                        const availEl = item.querySelector('.skladem');
-                        const onWayEl = item.querySelector('.na_ceste');
+            $('#productsArea .product-list-item').each((_, element) => {
+                try {
+                    const el = $(element);
+                    const name = el.find('.vypis_h3 a').text().trim();
+                    const link = el.find('.vypis_h3 a').attr('href') || '';
 
-                        const name = nameEl?.textContent?.trim() || '';
-                        const link = (linkEl as HTMLAnchorElement)?.href || '';
+                    let priceText = el.find('.vypis_cena').text().trim();
+                    // Remove '€' and replace ',' with '.' and remove spaces
+                    priceText = priceText.replace(/€/g, '').replace(',', '.').replace(/\s/g, '');
+                    const price = parseFloat(priceText);
 
-                        let priceText = priceEl?.textContent?.trim() || '';
-                        // Remove '€' and replace ',' with '.' and remove spaces
-                        priceText = priceText.replace(/€/g, '').replace(',', '.').replace(/\s/g, '');
-                        const price = parseFloat(priceText);
+                    const imgEl = el.find('.img-productsarea');
+                    const imageUrl = imgEl.attr('data-src') || imgEl.attr('src') || '';
 
-                        // Prefer data-src for lazy loaded images
-                        const imageUrl = (imgEl as HTMLImageElement)?.dataset.src || (imgEl as HTMLImageElement)?.src || '';
-
-                        let availability = 'Nedostupné';
-                        if (availEl) {
-                            availability = availEl.textContent?.trim() || 'Skladom';
-                        } else if (onWayEl) {
-                            availability = onWayEl.textContent?.trim() || 'Na ceste';
-                        }
-
-                        if (name && !isNaN(price)) {
-                            // Strict filtering: check if name contains query (case-insensitive)
-                            if (name.toLowerCase().includes(query.toLowerCase())) {
-                                data.push({
-                                    name,
-                                    price,
-                                    currency: 'EUR',
-                                    availability,
-                                    link,
-                                    imageUrl,
-                                    shopName: 'Imago'
-                                });
-                            }
-                        }
-                    } catch (err) {
-                        console.error('Error parsing product:', err);
+                    let availability = 'Nedostupné';
+                    if (el.find('.skladem').length > 0) {
+                        availability = el.find('.skladem').text().trim() || 'Skladom';
+                    } else if (el.find('.na_ceste').length > 0) {
+                        availability = el.find('.na_ceste').text().trim() || 'Na ceste';
                     }
-                });
 
-                return data;
-            }, query);
+                    if (name && !isNaN(price)) {
+                        // Strict filtering
+                        if (name.toLowerCase().includes(query.toLowerCase())) {
+                            results.push({
+                                name,
+                                price,
+                                currency: 'EUR',
+                                availability,
+                                link,
+                                imageUrl,
+                                shopName: 'Imago'
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.error('ImagoScraper: Error parsing item', err);
+                }
+            });
 
-            return results;
         } catch (error) {
-            console.error('Imago scraper error:', error);
-            return [];
-        } finally {
-            await browser.close();
+            console.error('ImagoScraper: Error', error);
         }
+
+        return results;
     }
 }
