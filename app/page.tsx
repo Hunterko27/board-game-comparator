@@ -30,52 +30,79 @@ export default function Home() {
       setHasSearched(true);
       let completedBatches = 0;
 
-      const processBatch = async (batchId: number, retryCount = 0) => {
-        try {
-          const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
-          if (!response.ok) throw new Error(`Batch ${batchId} failed with status ${response.status}`);
-          if (!response.body) return;
+      const processBatch = async (batchId: number) => {
+        let attempts = 0;
+        const maxAttempts = 3;
 
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-          let buffer = '';
+        while (attempts <= maxAttempts) {
+          try {
+            const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&exact=${exact}&batchId=${batchId}&totalBatches=${TOTAL_BATCHES}`);
 
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            if (!response.ok) {
+              const text = await response.text().catch(() => '');
+              throw new Error(`Status ${response.status}: ${text.slice(0, 100)}`);
+            }
 
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
+            if (!response.body) return;
 
-            for (const line of lines) {
-              if (!line.trim()) continue;
-              try {
-                const newResults: SearchResult[] = JSON.parse(line);
-                setResults(prev => {
-                  const combined = [...prev, ...newResults];
-                  return combined.sort((a, b) => {
-                    const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
-                    const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
-                    return priceA - priceB;
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              buffer += decoder.decode(value, { stream: true });
+              // Process complete lines
+              const lines = buffer.split('\n');
+              // Keep the last partial line in the buffer
+              buffer = lines.pop() || '';
+
+              for (const line of lines) {
+                if (!line.trim()) continue;
+                try {
+                  const newResults: SearchResult[] = JSON.parse(line);
+                  setResults(prev => {
+                    const combined = [...prev, ...newResults];
+                    // Remove duplicates based on link
+                    const unique = Array.from(new Map(combined.map(item => [item.link, item])).values());
+                    return unique.sort((a, b) => {
+                      const priceA = a.currency === 'CZK' ? a.price * 0.04 : a.price;
+                      const priceB = b.currency === 'CZK' ? b.price * 0.04 : b.price;
+                      return priceA - priceB;
+                    });
                   });
-                });
-              } catch (e) {
-                console.error('Error parsing JSON line:', e);
+                } catch (e) {
+                  console.error('Error parsing JSON line:', e);
+                }
               }
             }
+
+            // If we successfully read the stream, break the retry loop
+            return;
+
+          } catch (err: any) {
+            console.error(`Error in batch ${batchId} (Attempt ${attempts + 1}):`, err);
+
+            // Only update error state if it's the final attempt
+            if (attempts === maxAttempts) {
+              setError(prev => prev ? `${prev} | Batch ${batchId}: ${err.message}` : `Error: ${err.message}`);
+            }
+
+            if (attempts < maxAttempts) {
+              console.log(`Retrying batch ${batchId}...`);
+              await new Promise(resolve => setTimeout(resolve, 1000 * (attempts + 1))); // Exponential backoff
+              attempts++;
+            } else {
+              break; // Output loop
+            }
           }
-        } catch (err) {
-          console.error(`Error in batch ${batchId} (Attempt ${retryCount + 1}):`, err);
-          if (retryCount < 3) {
-            console.log(`Retrying batch ${batchId}...`);
-            await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1))); // Exponential backoff
-            await processBatch(batchId, retryCount + 1);
-          }
-        } finally {
-          completedBatches++;
-          setProgress(prev => ({ ...prev, completed: completedBatches }));
         }
+
+        // Always increment progress once per batch, regardless of success/fail
+        completedBatches++;
+        setProgress(prev => ({ ...prev, completed: completedBatches }));
       };
 
       // Process batches in chunks to respect browser connection limits
