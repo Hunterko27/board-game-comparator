@@ -10,79 +10,57 @@ export class AlbiCZScraper implements Scraper {
         const results: SearchResult[] = [];
 
         try {
-            // Try direct search URL first
             const url = `https://eshop.albi.cz/vyhledavani/?q=${encodeURIComponent(query)}`;
             console.log(`AlbiCZScraper: Navigating to ${url}`);
-            await page.setRequestInterception(true);
-            page.on('request', (req: any) => {
-                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
-                    req.abort();
-                } else {
-                    req.continue();
-                }
-            });
+
+            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+
+            // Setup response interceptor
+            const apiResponsePromise = page.waitForResponse(response =>
+                response.url().includes('api.upsearch.cz/search') &&
+                response.status() === 200 &&
+                response.request().method() !== 'OPTIONS',
+                { timeout: 20000 }
+            );
 
             await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
-            // Wait for products to load - try common selectors
-            try {
-                await page.waitForSelector('.up-product-box', { timeout: 5000 });
-            } catch (e) {
-                console.log('AlbiCZScraper: No products found');
-                return [];
-            }
+            // Wait for the API response
+            const response = await apiResponsePromise;
+            const json = await response.json();
 
-            // Extract product data using page.evaluate
-            const productData = await page.evaluate((query: string) => {
-                const items: any[] = [];
-                const productElements = document.querySelectorAll('.up-product-box');
+            if (json.data && json.data.items) {
+                for (const item of json.data.items) {
+                    const name = item.name || item.name_highlight.replace(/<[^>]*>/g, '');
 
-                productElements.forEach((element) => {
-                    try {
-                        // Extract name
-                        const nameEl = element.querySelector('.up-product-box__title a');
-                        const name = nameEl?.textContent?.trim() || '';
-
-                        // Extract link
-                        const linkEl = element.querySelector('.up-product-box__title a');
-                        const link = linkEl ? (linkEl as HTMLAnchorElement).href : '';
-
-                        // Extract price
-                        const priceEl = element.querySelector('.up-price__actual') || element.querySelector('.up-price');
-                        const priceText = priceEl?.textContent?.trim() || '';
-                        const price = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
-
-                        // Extract image
-                        const imgEl = element.querySelector('.up-image__img') || element.querySelector('img');
-                        const imageUrl = imgEl ? (imgEl as HTMLImageElement).src : '';
-
-                        // Extract availability
-                        const availEl = element.querySelector('.up-stock');
-                        const availability = availEl?.textContent?.trim() || 'Unknown';
-
-                        if (name && !isNaN(price)) {
-                            // Strict filtering: check if name contains query (case-insensitive)
-                            if (name.toLowerCase().includes(query.toLowerCase())) {
-                                items.push({
-                                    name,
-                                    price,
-                                    currency: 'CZK',
-                                    availability,
-                                    link,
-                                    imageUrl,
-                                    shopName: 'Albi CZ'
-                                });
-                            }
-                        }
-                    } catch (err) {
-                        console.error('Error parsing product:', err);
+                    let priceVal = 0;
+                    if (item.price_vat) {
+                        priceVal = parseFloat(item.price_vat);
+                    } else if (item.price) {
+                        priceVal = parseFloat(item.price);
                     }
-                });
 
-                return items;
-            }, query);
+                    let link = item.url;
+                    if (link && !link.startsWith('http')) {
+                        link = `https://eshop.albi.cz${link}`;
+                    }
 
-            results.push(...productData);
+                    const imageUrl = item.image_2x_link || item.image_link;
+                    const availability = item.availability ? item.availability : 'Unknown';
+
+                    if (name) {
+                        results.push({
+                            name,
+                            price: priceVal,
+                            currency: 'CZK',
+                            availability,
+                            link,
+                            imageUrl,
+                            shopName: 'Albi CZ'
+                        });
+                    }
+                }
+            }
 
         } catch (error) {
             console.error('AlbiCZScraper: Error during search', error);
