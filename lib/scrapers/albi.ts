@@ -1,63 +1,55 @@
 import { Scraper, SearchResult } from './types';
-import { getBrowser } from '../browser';
-import { HTTPResponse } from 'puppeteer';
 
 export class AlbiScraper implements Scraper {
     name = 'Albi';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
         const results: SearchResult[] = [];
-
         try {
-            const url = `https://eshop.albi.sk/vyhladavanie/?q=${encodeURIComponent(query)}`;
-            console.log(`AlbiScraper: Navigating to ${url}`);
+            // 1. Get the API Token from homepage
+            const homeResponse = await fetch('https://eshop.albi.sk/', {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                }
+            });
+            const homeHtml = await homeResponse.text();
 
-            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+            const tokenMatch = homeHtml.match(/apiToken:\s*'([a-f0-9]+)'/);
+            if (!tokenMatch) {
+                console.error('AlbiScraper: Could not find API token');
+                return [];
+            }
+            const token = tokenMatch[1];
 
-            // Setup response interceptor
-            const apiResponsePromise = page.waitForResponse((response: HTTPResponse) =>
-                response.url().includes('api.upsearch.cz/search') &&
-                response.status() === 200 &&
-                response.request().method() !== 'OPTIONS',
-                { timeout: 20000 }
-            );
+            // 2. Call the Search API
+            const apiUrl = `https://api.upsearch.cz/search?q=${encodeURIComponent(query)}&p=1`;
+            const apiResponse = await fetch(apiUrl, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Origin': 'https://eshop.albi.sk',
+                    'Referer': `https://eshop.albi.sk/vyhladavanie/?q=${encodeURIComponent(query)}`,
+                    'token': token
+                }
+            });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            if (!apiResponse.ok) {
+                console.error(`AlbiScraper: API failed with status ${apiResponse.status}`);
+                return [];
+            }
 
-            // Wait for the API response
-            const response = await apiResponsePromise;
-            const json = await response.json();
+            const data = await apiResponse.json();
 
-            if (json.data && json.data.items) {
-                for (const item of json.data.items) {
-                    // Map API fields to SearchResult interface
-                    const name = item.name || item.name_highlight.replace(/<[^>]*>/g, '');
-
-                    let priceVal = 0;
-                    if (item.price_vat) {
-                        priceVal = parseFloat(item.price_vat);
-                    } else if (item.price) {
-                        priceVal = parseFloat(item.price);
-                    }
-
-                    let link = item.url;
-                    if (link && !link.startsWith('http')) {
-                        link = `https://eshop.albi.sk${link}`;
-                    }
-
-                    const imageUrl = item.image_2x_link || item.image_link;
-                    const availability = item.availability ? item.availability : 'Unknown';
-
-                    if (name) {
+            if (data.data && data.data.items) {
+                for (const item of data.data.items) {
+                    // Strict filtering
+                    if (item.name.toLowerCase().includes(query.toLowerCase())) {
                         results.push({
-                            name,
-                            price: priceVal,
+                            name: item.name,
+                            price: item.price, // API usually returns number
                             currency: 'EUR',
-                            availability,
-                            link,
-                            imageUrl,
+                            availability: item.availability?.in_stock ? 'Skladom' : 'Nedostupné',
+                            link: item.url,
+                            imageUrl: item.image,
                             shopName: 'Albi'
                         });
                     }
@@ -65,9 +57,7 @@ export class AlbiScraper implements Scraper {
             }
 
         } catch (error) {
-            console.error('AlbiScraper: Error during search', error);
-        } finally {
-            await page.close();
+            console.error('AlbiScraper: Error', error);
         }
 
         return results;

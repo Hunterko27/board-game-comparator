@@ -1,62 +1,56 @@
 import { Scraper, SearchResult } from './types';
-import { getBrowser } from '../browser';
-import { HTTPResponse } from 'puppeteer';
 
 export class AlbiCZScraper implements Scraper {
     name = 'Albi CZ';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
         const results: SearchResult[] = [];
-
         try {
-            const url = `https://eshop.albi.cz/vyhledavani/?q=${encodeURIComponent(query)}`;
-            console.log(`AlbiCZScraper: Navigating to ${url}`);
+            // 1. Get the API Token from homepage
+            const homeResponse = await fetch('https://eshop.albi.cz/', {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                }
+            });
+            const homeHtml = await homeResponse.text();
 
-            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+            const tokenMatch = homeHtml.match(/apiToken:\s*'([a-f0-9]+)'/);
+            if (!tokenMatch) {
+                console.error('AlbiCZScraper: Could not find API token');
+                return [];
+            }
+            const token = tokenMatch[1];
 
-            // Setup response interceptor
-            const apiResponsePromise = page.waitForResponse((response: HTTPResponse) =>
-                response.url().includes('api.upsearch.cz/search') &&
-                response.status() === 200 &&
-                response.request().method() !== 'OPTIONS',
-                { timeout: 20000 }
-            );
+            // 2. Call the Search API
+            const apiUrl = `https://api.upsearch.cz/search?q=${encodeURIComponent(query)}&p=1`;
+            const apiResponse = await fetch(apiUrl, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Origin': 'https://eshop.albi.cz',
+                    'Referer': `https://eshop.albi.cz/vyhledavani/?q=${encodeURIComponent(query)}`,
+                    'token': token
+                }
+            });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            if (!apiResponse.ok) {
+                console.error(`AlbiCZScraper: API failed with status ${apiResponse.status}`);
+                return [];
+            }
 
-            // Wait for the API response
-            const response = await apiResponsePromise;
-            const json = await response.json();
+            const data = await apiResponse.json();
 
-            if (json.data && json.data.items) {
-                for (const item of json.data.items) {
-                    const name = item.name || item.name_highlight.replace(/<[^>]*>/g, '');
-
-                    let priceVal = 0;
-                    if (item.price_vat) {
-                        priceVal = parseFloat(item.price_vat);
-                    } else if (item.price) {
-                        priceVal = parseFloat(item.price);
-                    }
-
-                    let link = item.url;
-                    if (link && !link.startsWith('http')) {
-                        link = `https://eshop.albi.cz${link}`;
-                    }
-
-                    const imageUrl = item.image_2x_link || item.image_link;
-                    const availability = item.availability ? item.availability : 'Unknown';
-
-                    if (name) {
+            if (data.data && data.data.items) {
+                for (const item of data.data.items) {
+                    // Strict filtering
+                    const name = item.name;
+                    if (name.toLowerCase().includes(query.toLowerCase()) && !name.toLowerCase().includes('rozšíření')) {
                         results.push({
-                            name,
-                            price: priceVal,
+                            name: name,
+                            price: item.price,
                             currency: 'CZK',
-                            availability,
-                            link,
-                            imageUrl,
+                            availability: item.availability?.in_stock ? 'Skladem' : 'Nedostupné',
+                            link: item.url,
+                            imageUrl: item.image,
                             shopName: 'Albi CZ'
                         });
                     }
@@ -64,9 +58,7 @@ export class AlbiCZScraper implements Scraper {
             }
 
         } catch (error) {
-            console.error('AlbiCZScraper: Error during search', error);
-        } finally {
-            await page.close();
+            console.error('AlbiCZScraper: Error', error);
         }
 
         return results;
