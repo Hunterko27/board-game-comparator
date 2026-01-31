@@ -43,10 +43,8 @@ export class AlbiScraper implements Scraper {
                 for (const item of data.data.items) {
                     // Strict filtering
                     if (item.name.toLowerCase().includes(query.toLowerCase())) {
-                        results.push({
-                            name: item.name,
-                            let priceVal = 0;
-                            if(item.price_vat) {
+                        let priceVal = 0;
+                        if (item.price_vat) {
                             priceVal = typeof item.price_vat === 'string' ? parseFloat(item.price_vat) : item.price_vat;
                         } else if (item.price) {
                             priceVal = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
