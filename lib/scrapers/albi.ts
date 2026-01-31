@@ -1,5 +1,6 @@
 import { Scraper, SearchResult } from './types';
 import { getBrowser } from '../browser';
+import { HTTPResponse } from 'puppeteer';
 
 export class AlbiScraper implements Scraper {
     name = 'Albi';
@@ -16,7 +17,7 @@ export class AlbiScraper implements Scraper {
             await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
 
             // Setup response interceptor
-            const apiResponsePromise = page.waitForResponse(response =>
+            const apiResponsePromise = page.waitForResponse((response: HTTPResponse) =>
                 response.url().includes('api.upsearch.cz/search') &&
                 response.status() === 200 &&
                 response.request().method() !== 'OPTIONS',
