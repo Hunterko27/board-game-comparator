@@ -65,11 +65,12 @@ export class AlbiCZScraper implements Scraper {
                         });
                     }
                 }
-
-            } catch (error) {
-                console.error('AlbiCZScraper: Error', error);
             }
 
-            return results;
+        } catch (error) {
+            console.error('AlbiCZScraper: Error', error);
         }
+
+        return results;
+    }
 }
