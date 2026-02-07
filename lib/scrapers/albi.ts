@@ -53,24 +53,23 @@ export class AlbiScraper implements Scraper {
                             priceVal = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
                         }
 
+                        const link = item.link || item.url;
+                        const finalLink = link.startsWith('http') ? link : `https://eshop.albi.sk${link}`;
+
+                        // API uses image_link or image_2x_link
+                        const rawImage = item.image_link || item.image_2x_link || item.image;
+                        const imageUrl = rawImage ? (rawImage.startsWith('http') ? rawImage : `https://eshop.albi.sk${rawImage}`) : '';
+
                         results.push({
                             name: item.name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'EUR',
-                            const link = item.url.startsWith('http') ? item.url : `https://eshop.albi.sk${item.url}`;
-                            const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `https://eshop.albi.sk${item.image}`) : '';
-
-                            results.push({
-                                name: item.name,
-                                price: isNaN(priceVal) ? 0 : priceVal,
-                                currency: 'EUR',
-                                availability: item.stock_info?.status === 'in_stock' || item.in_stock ? 'Skladom' : 'Nedostupné',
-                                link: link,
-                                imageUrl: imageUrl,
-                                shopName: 'Albi'
-                            });
-                        }
-                }
+                            availability: item.stock_info?.status === 'in_stock' || item.in_stock ? 'Skladom' : 'Nedostupné',
+                            link: finalLink,
+                            imageUrl: imageUrl,
+                            shopName: 'Albi'
+                        });
+                    }
                 }
 
             } catch (error) {

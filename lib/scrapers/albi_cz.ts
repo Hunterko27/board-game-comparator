@@ -52,25 +52,34 @@ export class AlbiCZScraper implements Scraper {
                     }
 
                     if (name.toLowerCase().includes(query.toLowerCase()) && !name.toLowerCase().includes('rozšíření')) {
-                        const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `https://eshop.albi.cz${item.image}`) : '';
 
                         results.push({
                             name: name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'CZK',
-                            availability: item.in_stock ? 'Skladem' : 'Nedostupné',
-                            link: item.url.startsWith('http') ? item.url : `https://eshop.albi.cz${item.url}`,
-                            imageUrl: imageUrl,
-                            shopName: 'Albi CZ'
-                        });
-                    }
+                            const link = item.link || item.url;
+                            const finalLink = link.startsWith('http') ? link : `https://eshop.albi.cz${link}`;
+
+                            const rawImage = item.image_link || item.image_2x_link || item.image;
+                            const imageUrl = rawImage ? (rawImage.startsWith('http') ? rawImage : `https://eshop.albi.cz${rawImage}`) : '';
+
+                            results.push({
+                                name: name,
+                                price: isNaN(priceVal) ? 0 : priceVal,
+                                currency: 'CZK',
+                                availability: item.in_stock ? 'Skladem' : 'Nedostupné',
+                                link: finalLink,
+                                imageUrl: imageUrl,
+                                shopName: 'Albi CZ'
+                            });
+                        }
                 }
+                }
+
+            } catch (error) {
+                console.error('AlbiCZScraper: Error', error);
             }
 
-        } catch (error) {
-            console.error('AlbiCZScraper: Error', error);
+            return results;
         }
-
-        return results;
-    }
 }
