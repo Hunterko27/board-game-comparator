@@ -52,23 +52,24 @@ export class AlbiCZScraper implements Scraper {
                     }
 
                     if (name.toLowerCase().includes(query.toLowerCase()) && !name.toLowerCase().includes('rozšíření')) {
+                        const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `https://eshop.albi.cz${item.image}`) : '';
+
                         results.push({
                             name: name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'CZK',
                             availability: item.availability?.in_stock ? 'Skladem' : 'Nedostupné',
                             link: item.url,
-                            imageUrl: item.image,
+                            imageUrl: imageUrl,
                             shopName: 'Albi CZ'
                         });
                     }
                 }
+
+            } catch (error) {
+                console.error('AlbiCZScraper: Error', error);
             }
 
-        } catch (error) {
-            console.error('AlbiCZScraper: Error', error);
+            return results;
         }
-
-        return results;
-    }
 }

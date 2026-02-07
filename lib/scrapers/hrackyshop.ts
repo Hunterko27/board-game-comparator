@@ -5,77 +5,61 @@ export class HrackyshopScraper implements Scraper {
     name = 'Hrackyshop';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
         const results: SearchResult[] = [];
-
         try {
             // Use search_keywords parameter
             const url = `https://www.hrackyshop.sk/hladaj?search_keywords=${encodeURIComponent(query)}`;
-            console.log(`HrackyshopScraper: Navigating to ${url}`);
 
-            await page.setRequestInterception(true);
-            page.on('request', (req: any) => {
-                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
-                    req.abort();
-                } else {
-                    req.continue();
+            const response = await fetch(url, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
                 }
             });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            if (!response.ok) {
+                console.error(`HrackyshopScraper: Failed to fetch ${url}, status: ${response.status}`);
+                return [];
+            }
 
-            const productData = await page.evaluate((query: string) => {
-                // Use .product_box_cont as container
-                const items = document.querySelectorAll('.product_box_cont');
-                const data: any[] = [];
+            const html = await response.text();
+            const { load } = require('cheerio'); // Dynamic import if possible, or just require since checked package.json
+            const $ = load(html);
 
-                items.forEach((item) => {
-                    try {
-                        const nameEl = item.querySelector('h2.product_name');
-                        const linkEl = item.querySelector('a.product_box');
-                        const priceEl = item.querySelector('.product_discounted_price') || item.querySelector('.product_base_price');
-                        const imgEl = item.querySelector('.product_image img');
-                        const availEl = item.querySelector('.stock_state_icon');
+            $('.product_box_cont').each((_, element) => {
+                try {
+                    const el = $(element);
+                    const name = el.find('h2.product_name').text().trim();
+                    const linkRel = el.find('a.product_box').attr('href') || '';
+                    const link = linkRel.startsWith('http') ? linkRel : `https://www.hrackyshop.sk${linkRel}`;
 
-                        const name = nameEl?.textContent?.trim() || '';
-                        const link = (linkEl as HTMLAnchorElement)?.href || '';
+                    const priceBase = el.find('.product_discounted_price').text().trim() || el.find('.product_base_price').text().trim();
+                    const price = parseFloat(priceBase.replace(/[^\d,.]/g, '').replace(',', '.'));
 
-                        const priceText = priceEl?.textContent?.trim() || '';
-                        // Extract price: remove non-numeric except comma/dot, replace comma with dot
-                        const price = parseFloat(priceText.replace(/[^\d,.]/g, '').replace(',', '.'));
+                    const imgRel = el.find('.product_image img').attr('src') || '';
+                    const imageUrl = imgRel.startsWith('http') ? imgRel : `https://www.hrackyshop.sk${imgRel}`;
 
-                        const imageUrl = (imgEl as HTMLImageElement)?.src || '';
-                        const availability = availEl?.textContent?.trim() || 'Neznáma';
+                    const availability = el.find('.stock_state_icon').text().trim() || 'Neznáma';
 
-                        if (name && !isNaN(price)) {
-                            // Strict filtering: check if name contains query (case-insensitive)
-                            if (name.toLowerCase().includes(query.toLowerCase())) {
-                                data.push({
-                                    name,
-                                    price,
-                                    currency: 'EUR',
-                                    availability,
-                                    link: link.startsWith('http') ? link : `https://www.hrackyshop.sk${link}`,
-                                    imageUrl: imageUrl.startsWith('http') ? imageUrl : `https://www.hrackyshop.sk${imageUrl}`,
-                                    shopName: 'Hrackyshop'
-                                });
-                            }
+                    if (name && !isNaN(price)) {
+                        if (name.toLowerCase().includes(query.toLowerCase())) {
+                            results.push({
+                                name,
+                                price,
+                                currency: 'EUR',
+                                availability,
+                                link,
+                                imageUrl,
+                                shopName: 'Hrackyshop'
+                            });
                         }
-                    } catch (err) {
-                        console.error('Error parsing product:', err);
                     }
-                });
-
-                return data;
-            }, query);
-
-            results.push(...productData);
+                } catch (err) {
+                    console.error('HrackyshopScraper: Error parsing item', err);
+                }
+            });
 
         } catch (error) {
-            console.error('HrackyshopScraper: Error during search', error);
-        } finally {
-            await browser.close();
+            console.error('HrackyshopScraper: Error', error);
         }
 
         return results;

@@ -15,23 +15,27 @@ export class VeselyDrakScraper implements Scraper {
             const url = `https://www.vesely-drak.cz/produkty/vyhledavani/?string=${encodeURIComponent(query)}`;
             console.log(`VeselyDrakScraper: Navigating to ${url}`);
 
-            // Use domcontentloaded for faster initial load, then wait for selector
             await page.setRequestInterception(true);
             page.on('request', (req: any) => {
-                if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
+                if (['image', 'stylesheet', 'font', 'media', 'script'].includes(req.resourceType())) {
+                    // Block scripts too if we can confirm they aren't needed for products, but for CSR they likely are.
+                    // Actually for Vesely Drak CSR, we probably NEED scripts.
+                    // Let's just block heavy assets.
                     req.abort();
                 } else {
                     req.continue();
                 }
             });
 
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+            // 60s timeout is too long, reduce to fail fast if stuck, but keep reasonable
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
 
             console.log('VeselyDrakScraper: Waiting for results');
             try {
-                await page.waitForSelector('.catalogue-item', { timeout: 15000 });
+                // Wait for the container that holds items
+                await page.waitForSelector('.catalogue-item', { timeout: 10000 });
             } catch (e) {
-                console.log('VeselyDrakScraper: No results found (selector timeout)');
+                console.log('VeselyDrakScraper: No results found (or selector timeout)');
                 return [];
             }
 

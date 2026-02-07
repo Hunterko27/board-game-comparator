@@ -34,10 +34,13 @@ export class AlbiScraper implements Scraper {
 
             if (!apiResponse.ok) {
                 console.error(`AlbiScraper: API failed with status ${apiResponse.status}`);
+                const text = await apiResponse.text();
+                console.error(`AlbiScraper: API response text: ${text.substring(0, 200)}`);
                 return [];
             }
 
             const data = await apiResponse.json();
+            console.log(`AlbiScraper: Found ${data.data?.items?.length || 0} items for query "${query}"`);
 
             if (data.data && data.data.items) {
                 for (const item of data.data.items) {
