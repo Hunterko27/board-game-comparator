@@ -57,19 +57,26 @@ export class AlbiScraper implements Scraper {
                             name: item.name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'EUR',
-                            availability: item.availability?.in_stock ? 'Skladom' : 'Nedostupné',
-                            link: item.url,
-                            imageUrl: item.image,
-                            shopName: 'Albi'
-                        });
-                    }
+                            const link = item.url.startsWith('http') ? item.url : `https://eshop.albi.sk${item.url}`;
+                            const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `https://eshop.albi.sk${item.image}`) : '';
+
+                            results.push({
+                                name: item.name,
+                                price: isNaN(priceVal) ? 0 : priceVal,
+                                currency: 'EUR',
+                                availability: item.stock_info?.status === 'in_stock' || item.in_stock ? 'Skladom' : 'Nedostupné',
+                                link: link,
+                                imageUrl: imageUrl,
+                                shopName: 'Albi'
+                            });
+                        }
                 }
+                }
+
+            } catch (error) {
+                console.error('AlbiScraper: Error', error);
             }
 
-        } catch (error) {
-            console.error('AlbiScraper: Error', error);
+            return results;
         }
-
-        return results;
-    }
 }
