@@ -53,33 +53,29 @@ export class AlbiCZScraper implements Scraper {
 
                     if (name.toLowerCase().includes(query.toLowerCase()) && !name.toLowerCase().includes('rozšíření')) {
 
+                        const link = item.link || item.url;
+                        const finalLink = link.startsWith('http') ? link : `https://eshop.albi.cz${link}`;
+
+                        const rawImage = item.image_link || item.image_2x_link || item.image;
+                        const imageUrl = rawImage ? (rawImage.startsWith('http') ? rawImage : `https://eshop.albi.cz${rawImage}`) : '';
+
                         results.push({
                             name: name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'CZK',
-                            const link = item.link || item.url;
-                            const finalLink = link.startsWith('http') ? link : `https://eshop.albi.cz${link}`;
-
-                            const rawImage = item.image_link || item.image_2x_link || item.image;
-                            const imageUrl = rawImage ? (rawImage.startsWith('http') ? rawImage : `https://eshop.albi.cz${rawImage}`) : '';
-
-                            results.push({
-                                name: name,
-                                price: isNaN(priceVal) ? 0 : priceVal,
-                                currency: 'CZK',
-                                availability: item.in_stock ? 'Skladem' : 'Nedostupné',
-                                link: finalLink,
-                                imageUrl: imageUrl,
-                                shopName: 'Albi CZ'
-                            });
-                        }
+                            availability: item.in_stock ? 'Skladem' : 'Nedostupné',
+                            link: finalLink,
+                            imageUrl: imageUrl,
+                            shopName: 'Albi CZ'
+                        });
+                    }
                 }
-                }
-
-            } catch (error) {
-                console.error('AlbiCZScraper: Error', error);
             }
 
-            return results;
+        } catch (error) {
+            console.error('AlbiCZScraper: Error', error);
         }
+
+        return results;
+    }
 }
