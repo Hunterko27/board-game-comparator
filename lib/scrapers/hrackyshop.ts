@@ -25,7 +25,7 @@ export class HrackyshopScraper implements Scraper {
             const { load } = require('cheerio'); // Dynamic import if possible, or just require since checked package.json
             const $ = load(html);
 
-            $('.product_box_cont').each((_, element) => {
+            $('.product_box_cont').each((_: any, element: any) => {
                 try {
                     const el = $(element);
                     const name = el.find('h2.product_name').text().trim();
