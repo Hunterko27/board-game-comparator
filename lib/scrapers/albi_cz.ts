@@ -58,7 +58,7 @@ export class AlbiCZScraper implements Scraper {
                             name: name,
                             price: isNaN(priceVal) ? 0 : priceVal,
                             currency: 'CZK',
-                            availability: item.availability?.in_stock ? 'Skladem' : 'Nedostupné',
+                            availability: item.in_stock ? 'Skladem' : 'Nedostupné',
                             link: item.url,
                             imageUrl: imageUrl,
                             shopName: 'Albi CZ'
