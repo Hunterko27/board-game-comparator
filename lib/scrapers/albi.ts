@@ -71,11 +71,12 @@ export class AlbiScraper implements Scraper {
                         });
                     }
                 }
-
-            } catch (error) {
-                console.error('AlbiScraper: Error', error);
             }
 
-            return results;
+        } catch (error) {
+            console.error('AlbiScraper: Error', error);
         }
+
+        return results;
+    }
 }
