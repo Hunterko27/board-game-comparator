@@ -1,12 +1,15 @@
 import { Scraper, SearchResult } from './types';
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 export class DracikScraper implements Scraper {
     name = 'Dracik';
+
     async search(query: string): Promise<SearchResult[]> {
         const results: SearchResult[] = [];
         try {
             const searchUrl = `https://www.dracik.sk/search/?search=${encodeURIComponent(query)}`;
+
+            // Add error handling for fetch in case network fails
             const response = await fetch(searchUrl, {
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -14,11 +17,14 @@ export class DracikScraper implements Scraper {
             });
 
             if (!response.ok) {
+                console.error(`Dracik scraper failed to fetch: ${response.status} ${response.statusText}`);
                 return [];
             }
 
             const html = await response.text();
-            const $ = cheerio.load(html);
+
+            // Use load() directly from named import
+            const $ = load(html);
 
             $('.ProductCard').each((_, element) => {
                 try {
@@ -57,6 +63,7 @@ export class DracikScraper implements Scraper {
 
         } catch (error) {
             console.error('Dracik scraper error:', error);
+            // We do NOT re-throw, to avoid crashing the API route.
         }
         return results;
     }
