@@ -1,5 +1,5 @@
 import { Scraper, SearchResult } from './types';
-import { load } from 'cheerio';
+import * as cheerio from 'cheerio';
 
 export class DracikScraper implements Scraper {
     name = 'Dracik';
@@ -24,7 +24,7 @@ export class DracikScraper implements Scraper {
             const html = await response.text();
 
             // Use load() directly from named import
-            const $ = load(html);
+            const $ = cheerio.load(html);
 
             $('.ProductCard').each((_, element) => {
                 try {
