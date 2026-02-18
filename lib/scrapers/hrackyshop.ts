@@ -1,5 +1,5 @@
 import { Scraper, SearchResult } from './types';
-import { getBrowser } from '../browser';
+
 
 export class HrackyshopScraper implements Scraper {
     name = 'Hrackyshop';
