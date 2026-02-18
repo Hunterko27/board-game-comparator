@@ -38,120 +38,125 @@ import { TabletopScraper } from '@/lib/scrapers/tabletop';
 import { RerollScraper } from '@/lib/scrapers/reroll';
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const query = searchParams.get('q');
-    const exact = searchParams.get('exact') === 'true';
-    const batchId = parseInt(searchParams.get('batchId') || '0');
-    const totalBatches = parseInt(searchParams.get('totalBatches') || '1');
+    try {
+        const { searchParams } = new URL(request.url);
+        const query = searchParams.get('q');
+        const exact = searchParams.get('exact') === 'true';
+        const batchId = parseInt(searchParams.get('batchId') || '0');
+        const totalBatches = parseInt(searchParams.get('totalBatches') || '1');
 
-    if (!query) {
-        return NextResponse.json({ error: 'Missing query parameter' }, { status: 400 });
-    }
-
-    const allScrapers = [
-        new IhryskoScraper(),
-        new LudopolisScraper(),
-        new FuntasticScraper(),
-        new MegaknihyScraper(),
-        new AlbiScraper(),
-        new AlbiCZScraper(),
-        new BohemianGamesScraper(),
-        new OldDawgScraper(),
-        new HrasScraper(),
-        new NadesceScraper(),
-        new HryDoRukyScraper(),
-        new ImagoCZScraper(),
-        new HrackyshopScraper(),
-        new VeselyDrakScraper(),
-        new DracikScraper(),
-        new ImagoScraper(),
-        new NekonecnoScraper(),
-        new GorilaScraper(),
-        new XzoneScraper(),
-        new AlzaScraper(),
-        new FyftScraper(),
-        new SvetHierScraper(),
-        new TlamaGamesScraper(),
-        new PlanetaHerScraper(),
-        new SvetHerScraper(),
-        new SvetDeskovychHerScraper(),
-        new OdhryScraper(),
-        new CechHracuScraper(),
-        new MysiDoupeScraper(),
-        new DeskolandScraper(),
-        new TabletopScraper(),
-        new RerollScraper(),
-    ];
-
-    // Calculate which scrapers to run for this batch
-    const batchSize = Math.ceil(allScrapers.length / totalBatches);
-    const startIdx = batchId * batchSize;
-    const endIdx = Math.min(startIdx + batchSize, allScrapers.length);
-    const scrapers = allScrapers.slice(startIdx, endIdx);
-
-    console.log(`[API] Processing Batch ${batchId + 1}/${totalBatches} (Scrapers ${startIdx + 1}-${endIdx})`);
-
-    const normalize = (str: string) => {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    };
-
-    const stream = new ReadableStream({
-        async start(controller) {
-            const encoder = new TextEncoder();
-
-            // Run all scrapers in this batch in parallel (since the batch itself is small)
-            // We rely on the client to control the overall concurrency by how many batches it requests
-            const searchPromises = scrapers.map(async (scraper) => {
-                const startTime = Date.now();
-                try {
-                    console.log(`[${scraper.name}] Starting search...`);
-
-                    // Add a timeout to prevent hanging the request
-                    // 9s timeout ensures we finish before Netlify's 10s limit
-                    const timeoutPromise = new Promise<any[]>((_, reject) => {
-                        setTimeout(() => reject(new Error('Scraper timed out after 9s')), 9000);
-                    });
-
-                    let results = await Promise.race([
-                        scraper.search(query),
-                        timeoutPromise
-                    ]);
-
-                    const duration = Date.now() - startTime;
-                    console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
-
-                    if (exact) {
-                        const normalizedQuery = normalize(query);
-                        results = results.filter(r => normalize(r.name).includes(normalizedQuery));
-                    }
-
-                    if (results.length > 0) {
-                        const json = JSON.stringify(results);
-                        controller.enqueue(encoder.encode(json + '\n'));
-                    }
-                } catch (error: any) {
-                    const duration = Date.now() - startTime;
-                    console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
-                    // Send error to client for debugging
-                    const errorMsg = JSON.stringify({
-                        type: 'error',
-                        scraper: scraper.name,
-                        message: error.message,
-                        duration
-                    });
-                    controller.enqueue(encoder.encode(errorMsg + '\n'));
-                }
-            });
-
-            await Promise.all(searchPromises);
-            controller.close();
+        if (!query) {
+            return NextResponse.json({ error: 'Missing query parameter' }, { status: 400 });
         }
-    });
 
-    return new Response(stream, {
-        headers: {
-            'Content-Type': 'application/x-ndjson',
-            'Transfer-Encoding': 'chunked',
-        },
-    });
+        const allScrapers = [
+            new IhryskoScraper(),
+            new LudopolisScraper(),
+            new FuntasticScraper(),
+            new MegaknihyScraper(),
+            new AlbiScraper(),
+            new AlbiCZScraper(),
+            new BohemianGamesScraper(),
+            new OldDawgScraper(),
+            new HrasScraper(),
+            new NadesceScraper(),
+            new HryDoRukyScraper(),
+            new ImagoCZScraper(),
+            new HrackyshopScraper(),
+            new VeselyDrakScraper(),
+            new DracikScraper(),
+            new ImagoScraper(),
+            new NekonecnoScraper(),
+            new GorilaScraper(),
+            new XzoneScraper(),
+            new AlzaScraper(),
+            new FyftScraper(),
+            new SvetHierScraper(),
+            new TlamaGamesScraper(),
+            new PlanetaHerScraper(),
+            new SvetHerScraper(),
+            new SvetDeskovychHerScraper(),
+            new OdhryScraper(),
+            new CechHracuScraper(),
+            new MysiDoupeScraper(),
+            new DeskolandScraper(),
+            new TabletopScraper(),
+            new RerollScraper(),
+        ];
+
+        // Calculate which scrapers to run for this batch
+        const batchSize = Math.ceil(allScrapers.length / totalBatches);
+        const startIdx = batchId * batchSize;
+        const endIdx = Math.min(startIdx + batchSize, allScrapers.length);
+        const scrapers = allScrapers.slice(startIdx, endIdx);
+
+        console.log(`[API] Processing Batch ${batchId + 1}/${totalBatches} (Scrapers ${startIdx + 1}-${endIdx})`);
+
+        const normalize = (str: string) => {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        };
+
+        const stream = new ReadableStream({
+            async start(controller) {
+                const encoder = new TextEncoder();
+
+                // Run all scrapers in this batch in parallel (since the batch itself is small)
+                // We rely on the client to control the overall concurrency by how many batches it requests
+                const searchPromises = scrapers.map(async (scraper) => {
+                    const startTime = Date.now();
+                    try {
+                        console.log(`[${scraper.name}] Starting search...`);
+
+                        // Add a timeout to prevent hanging the request
+                        // 9s timeout ensures we finish before Netlify's 10s limit
+                        const timeoutPromise = new Promise<any[]>((_, reject) => {
+                            setTimeout(() => reject(new Error('Scraper timed out after 9s')), 9000);
+                        });
+
+                        let results = await Promise.race([
+                            scraper.search(query),
+                            timeoutPromise
+                        ]);
+
+                        const duration = Date.now() - startTime;
+                        console.log(`[${scraper.name}] Finished in ${duration}ms. Found ${results.length} results.`);
+
+                        if (exact) {
+                            const normalizedQuery = normalize(query);
+                            results = results.filter(r => normalize(r.name).includes(normalizedQuery));
+                        }
+
+                        if (results.length > 0) {
+                            const json = JSON.stringify(results);
+                            controller.enqueue(encoder.encode(json + '\n'));
+                        }
+                    } catch (error: any) {
+                        const duration = Date.now() - startTime;
+                        console.error(`[${scraper.name}] Failed after ${duration}ms:`, error);
+                        // Send error to client for debugging
+                        const errorMsg = JSON.stringify({
+                            type: 'error',
+                            scraper: scraper.name,
+                            message: error.message,
+                            duration
+                        });
+                        controller.enqueue(encoder.encode(errorMsg + '\n'));
+                    }
+                });
+
+                await Promise.all(searchPromises);
+                controller.close();
+            }
+        });
+
+        return new Response(stream, {
+            headers: {
+                'Content-Type': 'application/x-ndjson',
+                'Transfer-Encoding': 'chunked',
+            },
+        });
+    } catch (error: any) {
+        console.error('API Route Critical Error:', error);
+        return NextResponse.json({ error: `Critical API Error: ${error.message}`, stack: error.stack }, { status: 500 });
+    }
 }
