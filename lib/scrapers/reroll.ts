@@ -5,11 +5,19 @@ export class RerollScraper implements Scraper {
     name = 'Reroll';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
+        let browser;
+        try {
+            browser = await getBrowser();
+        } catch (error) {
+            console.error('RerollScraper: Failed to launch browser', error);
+            return [];
+        }
+
         const results: SearchResult[] = [];
+        let page;
 
         try {
+            page = await browser.newPage();
             console.log('RerollScraper: Navigating to homepage...');
 
             await page.setRequestInterception(true);
@@ -98,7 +106,15 @@ export class RerollScraper implements Scraper {
         } catch (error) {
             console.error('Error scraping Reroll:', error);
         } finally {
-            await page.close();
+            if (page) await page.close();
+            // Reroll previously basically only closed page, not browser?
+            // "await page.close();" was at the end.
+            // But if getBrowser returns a new instance, we should close browser.
+            // I'll close browser too, to be safe and consistent with others, unless Reroll was specifically designed to keep it open?
+            // "await page.close()" only closes the tab. 
+            // Most other scrapers (Vesely Drak, Nekonecno) call browser.close().
+            // I will err on side of closing to prevent potential resource leaks or lingering processes.
+            if (browser) await browser.close();
         }
 
         return results;

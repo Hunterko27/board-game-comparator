@@ -4,10 +4,17 @@ import { getBrowser } from '../browser';
 export class NekonecnoScraper implements Scraper {
     name = 'Nekonecno';
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
-
+        let browser;
         try {
+            browser = await getBrowser();
+        } catch (error) {
+            console.error('NekonecnoScraper: Failed to launch browser', error);
+            return [];
+        }
+
+        let page;
+        try {
+            page = await browser.newPage();
             const searchUrl = `https://www.nekonecno.sk/vyhladavanie/?string=${encodeURIComponent(query)}`;
 
             await page.setRequestInterception(true);
@@ -93,7 +100,8 @@ export class NekonecnoScraper implements Scraper {
             console.error('Nekonecno scraper error:', error);
             return [];
         } finally {
-            await browser.close();
+            if (page) await page.close();
+            if (browser) await browser.close();
         }
     }
 }

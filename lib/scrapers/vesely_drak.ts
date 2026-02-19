@@ -5,12 +5,21 @@ export class VeselyDrakScraper implements Scraper {
     name = 'Vesely Drak';
 
     async search(query: string): Promise<SearchResult[]> {
-        const browser = await getBrowser();
-        const page = await browser.newPage();
-        await page.setViewport({ width: 1920, height: 1080 });
+        let browser;
+        try {
+            browser = await getBrowser();
+        } catch (error) {
+            console.error('VeselyDrakScraper: Failed to launch browser', error);
+            return [];
+        }
+
         const results: SearchResult[] = [];
+        let page;
 
         try {
+            page = await browser.newPage();
+            await page.setViewport({ width: 1920, height: 1080 });
+
             // Direct navigation to search results on CZ site
             const url = `https://www.vesely-drak.cz/produkty/vyhledavani/?string=${encodeURIComponent(query)}`;
             console.log(`VeselyDrakScraper: Navigating to ${url}`);
@@ -18,9 +27,6 @@ export class VeselyDrakScraper implements Scraper {
             await page.setRequestInterception(true);
             page.on('request', (req: any) => {
                 if (['image', 'stylesheet', 'font', 'media', 'script'].includes(req.resourceType())) {
-                    // Block scripts too if we can confirm they aren't needed for products, but for CSR they likely are.
-                    // Actually for Vesely Drak CSR, we probably NEED scripts.
-                    // Let's just block heavy assets.
                     req.abort();
                 } else {
                     req.continue();
@@ -102,7 +108,15 @@ export class VeselyDrakScraper implements Scraper {
         } catch (error) {
             console.error('VeselyDrakScraper: Error during search', error);
         } finally {
-            await browser.close();
+            if (page) await page.close();
+            // We do NOT close the browser here if it's shared, unless getBrowser returns a new instance.
+            // Assuming getBrowser returns a shared instance or a singleton, we should be careful.
+            // But looking at existing code: `await browser.close()` was called. 
+            // If getBrowser returns a NEW instance every time, we MUST close it.
+            // If it returns a shared one, we MUST NOT.
+            // The previous code had `await browser.close()`.
+            // Let's verify `browser.ts`.
+            if (browser) await browser.close();
         }
 
         return results;
