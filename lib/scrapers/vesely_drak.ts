@@ -109,14 +109,7 @@ export class VeselyDrakScraper implements Scraper {
             console.error('VeselyDrakScraper: Error during search', error);
         } finally {
             if (page) await page.close();
-            // We do NOT close the browser here if it's shared, unless getBrowser returns a new instance.
-            // Assuming getBrowser returns a shared instance or a singleton, we should be careful.
-            // But looking at existing code: `await browser.close()` was called. 
-            // If getBrowser returns a NEW instance every time, we MUST close it.
-            // If it returns a shared one, we MUST NOT.
-            // The previous code had `await browser.close()`.
-            // Let's verify `browser.ts`.
-            if (browser) await browser.close();
+            // Do NOT close browser as it is a shared singleton
         }
 
         return results;

@@ -107,14 +107,7 @@ export class RerollScraper implements Scraper {
             console.error('Error scraping Reroll:', error);
         } finally {
             if (page) await page.close();
-            // Reroll previously basically only closed page, not browser?
-            // "await page.close();" was at the end.
-            // But if getBrowser returns a new instance, we should close browser.
-            // I'll close browser too, to be safe and consistent with others, unless Reroll was specifically designed to keep it open?
-            // "await page.close()" only closes the tab. 
-            // Most other scrapers (Vesely Drak, Nekonecno) call browser.close().
-            // I will err on side of closing to prevent potential resource leaks or lingering processes.
-            if (browser) await browser.close();
+            // Do NOT close browser as it is a shared singleton
         }
 
         return results;

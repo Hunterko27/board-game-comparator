@@ -101,7 +101,7 @@ export class NekonecnoScraper implements Scraper {
             return [];
         } finally {
             if (page) await page.close();
-            if (browser) await browser.close();
+            // Do NOT close browser as it is a shared singleton
         }
     }
 }
